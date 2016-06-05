@@ -1,0 +1,100 @@
+<html>
+<head><title>The RQDX MFM disk controllers</title></head>
+<body bgcolor="#ffffff">
+<center><img src="../../vax780.jpg" width="120" height="107" alt="VAX 11/780"><img src="../../vaxarch.gif" alt="VAXARCHIVE" width="351" height="81"></center>
+<h1>The RQDX MFM disk controllers</h1>
+<p><center><a href="m7555.jpg"><img src="m7555k.jpg" alt="m7555k.jpg" width="300" height="178"></a>
+<a href="m8639.jpg"><img src="m8639k.jpg" alt="m8639k.jpg" width="232" height="178"></a></center></p>
+<p><center><font size=-1>The RQDX3 (M7555) and RQDX1/2 (M8639)</font></center></p>
+<p><center><font size=-1>(Click on the image to see a larger one)</font></center></p>
+<p>RQDX controllers are a design dating back to 1983. They could run the
+then appearing MFM hard disk drives which were cheaper than the other
+hard disk systems of those days. They are Q-bus cards that communicate with the 
+MicroPDP or MicroVAX using the MSCP protocol.</p>
+
+<p>They were introduced as part of the MicroPDP-11 systems and for 
+1983 were lightyears ahead of the really pokey Xybec controllers on PCs
+that could barely manage 90k bytes/sec.  The RQDX3 was introduced around
+'86-87 and was starting to show its limits but was a cost/size reduction
+while remaining backward compatability. It was still the best choice
+for cheap and reliable storage.</p>
+
+<p>Think of where 1986 was... IDE was still an infant.  SCSI/integrated 
+controller drives weren't quite there and would be expensive as all new
+technologies are in their early years.
+ESDI was not yet, SMD and other high end technologies
+were either BIG, new or EXPENSIVE.</p>
+
+<p>The RQDX controllers are:</p>
+<pre>
+M8639 or M8639-YA  RQDX1       Q   Winchester disk controller, DMA
+                                   RX50, RD50, RD51, RD52.
+
+M8639-YB           RQDX2       Q   Winchester disk controller, DMA
+                                   RX50, RD50, RD51, RD52, RD53.
+
+M7555              RQDX3-AA    Q   Controller and cables for
+                                   RX50/RX33/RD50-54/RD31/RD32
+
+                   RQDXE-AA    Q   Disk drive bus extender for use 
+                                   with RQDX2/3
+</pre>
+<p>The RQDX3 logic supports a "maximum" MFM drive configuration of 16 data
+heads and 2048 cylinders, with 17 sectors per track, which works out to 280+ 
+MB in a single unit.</p>
+
+<p>At the time it was introduced, DEC's technical literature made a point of 
+saying that the RQDX3 could support new drives without firmware revisions 
+because the drive geometry was written to the disk at format time, rather than 
+being stored in controller firmware -- which _was_ the case for the RQDX1 and 
+RQDX2. (RQDX1 and 2 are the same board with different firmware.  The later RQDX2
+has knowledge of RD50-53 where the RQDX1 only knows the RD50-52.) 
+This also means the disks are formatted differently for the RQDX3 than the
+RQDX1-2. You cannot move a drive from a RQDX1-2 to a RQDX3 without a reformat.</p>
+<hr>
+<p>Follow this link for <a href="rqdxgif.html">scans of the RQDX manual</a></p>
+<hr>
+
+<h2>RD drive equivalents</h2>
+<pre>
+  RQDX1	ST506(RD50), st412(RD51), st225(RD31), D540(rd52)
+
+  RQDX2	ST506(RD50), st412(RD51), st225(RD31), D540(rd52), M1325(RD53)
+
+  RQDX3	ST506(RD50), st412(RD51), st225(RD31), D540(rd52), 
+	M1325(RD53-71MB), Maxtor2190(RD54-159MB)
+</pre>
+
+<h2>Additional information on the RQDX3</h2>
+
+<p><b>W12..W17</b></p>
+
+<p>These set the starting "logical unit number" for the board, as a binary number
+(W12=LSB, W17+MSB).  If you have multiple RQDXn boards, you'd typically set
+the second card to start with LUN 4, the third with LUN 8, etc.  Jumper out
+= 0, jumper in = 1.</p>
+
+<p><b>W23</b></p>
+
+<p>Controls the HEADSEL 3 and REDUCWRTI signals.  W23 has 4 posts
+numbered 1..4.  Factory setting is 1-2 jumpered on early firmware, 1-2 and
+3-4 for version 2 firmware (ROMs 23-243E5/23-244E5) or later.
+ Alternatively, you can jumper 2-3, which has the effect of connecting
+HEADSEL 3 to pin 9 of J1, and REDUCWRTI to pin 22.  That allows you to use
+hard drives with more than 8 heads.</p>
+
+<p><b>W1-W11</b></p>
+
+<p>The RQDX3 has Address Jumpers W1 through W11 corresponding to the CSR
+Address bits A2 through A12. The factory default is 17772150 jumpered 
+as W11, W9, W5, W4, and W2 Installed. All other CSR address jumpers 
+should be out. Pins 1 & 2 of W23 should be jumped if you are using an 
+RD54, Otherwise loss of format may occur.</p>
+
+<p>For the RD5x drive select jumpers, they should be set to 
+select drive 3.</p>
+
+<hr>
+<a href="../index.html">Back to hardware index</a>
+</body>
+</html>

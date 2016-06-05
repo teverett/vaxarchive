@@ -1,0 +1,35 @@
+<html><head><title>Identifying DEC boards</title></head>
+<body bgcolor="#FFFFFF">
+<h1>Identifying DEC boards</h1>
+<pre>
+It's worth remembering the following guide if you're identifying PDP11 or 
+VAX boards : 
+
+Hex height, metal handles -> Unibus (or special PDP11 CPU board)
+Quad height, metal handles -> Q-bus
+Quad height, plastic handles -> Unibus
+Dual height, plastic handles -> Qbus (or maybe a very early Unibus option 
+to use with an M105 and M782).
+
+Bus priority jumper (a little PCB about 1"*3/4" on a 16 pin header) -> 
+Unibus.
+
+Yes, there are a lot of exceptions, but it works a lot of the time (and 
+it's easy to remember)
+
+Omnibus (PDP8/e, etc) boards are often also quad height with plastic 
+handles. A couple of tricks to spot those : 
+
+'Top' edge connectors -> Omnibus
+Plastic spacers between handles and PCB -> Omnibus
+Connectors on the 'wrong' edge -> Omnibus -- If you hold the board, 
+component side up, edge connectors on the left (and handles on the 
+right), then a header plug on the 'top' edge -> Unibus, one on the bottom 
+edge -> Omnibus.
+
+ard_@_p850ug1.demon.co.uk (Tony Duell)
+
+</pre>
+<hr>
+<p><a href="index.html">Back to index</a></p>
+</body></html>

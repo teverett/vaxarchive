@@ -1,0 +1,72 @@
+<HEAD>
+<TITLE>VS3100 startup example</TITLE>
+</HEAD>
+<BODY>
+<h1>VS3100 startup example</h1>
+<pre>
+>I have connected up my Vax 3100 M38 that has no disk drives to a 486 running
+>windows 3.1 via a MMJ six conductor cable to the serial ports. When I power
+>up the 3100 I recieve the following on the 486 terminal emulator:
+>
+>KA42-B  V1.3
+>
+>F...E...D...C...B...A...9...8...7...6...5...4...3_..2_..1?..
+
+3_ and 2_ may be ignored, the _ indicates that the device isn't
+installed, which is normal for 3 and 2.
+
+1? means there is a problem with the Ethernet connection, see below...
+
+> ?  C  0080  0000.4001
+
+This means the serial line controller test failed.  I believe this is
+because you have no mouse and keyboard attached.
+
+> ?  7  80A0  0000.4001
+
+You have no disk attached to the SCSI-A bus.
+
+> ?  6  80A1  0000.4001
+
+You have no disk attached to the SCSI-A bus.
+
+>??  1  00C0  0011.700E
+
+You have the AUI Ethernet port selected, and nothing attached to it.
+
+
+</pre>
+<hr>
+<pre>
+Here is a short table of this power-up stuff:
+
+Power-Up Symbols:
+---------------------
+....	Device tested successfully or it may have a soft error
+?..	Device has a hard error
+_..	Option device not installed or device is not tested
+*..	Option device installed, but its ROM code has not been executed
+
+Codes
+-------
+F	MONO	Base video
+E	CLK		Time of year clock
+D	NVR		Nonvolatile RAM
+C	DZ		Serial line controller
+B	MEM		Memory
+A	MM		Memory Management Unit
+9	FP		Floating Point Unit
+8	IT		Interval Timer
+7	SCSI-A	SCSI-A controller on MSC module
+6	SCSI-B	SCSI-B controller on MSC module
+5	SYS		Interrupt controller and Ethernet ID ROM
+4	8PLN		Option Module ( 8 plane graphics)
+3			Option Module
+2			Option Module
+1	NI		Ethernet circuits
+
+</pre>
+<hr>
+<p>Back to <a href="index.html">VS3100 page</a>
+</BODY>
+</HTML>

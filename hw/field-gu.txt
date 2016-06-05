@@ -1,0 +1,1964 @@
+From COPLEY1@MARSHALL.EDU  Mon Feb 20 09:57:38 1995
+Received: from frodo.marshall.edu by altair.krl.caltech.edu; (5.65/1.1.8.2/30Dec94-1225PM)
+	id AA14297; Mon, 20 Feb 1995 09:57:38 -0800
+Received: from MARSHALL.EDU by MARSHALL.EDU (PMDF V4.3-10 #6427)
+ id <01HN9UALUE7490O8S1@MARSHALL.EDU>; Mon, 20 Feb 1995 12:51:51 -0400 (EDT)
+Date: Mon, 20 Feb 1995 12:51:49 -0400 (EDT)
+From: Ronald Copley <COPLEY1@MARSHALL.EDU>
+Subject: FIELD GUIDE TO Q- AND UNIBUS MODULES (NEW)
+To: Field Guide <bqt@minsk.docs.uu.se>, dworkin@village.org,
+        j.belgraver@organon.akzonobel.nl, shoppa@altair.krl.caltech.edu,
+        tgpt_ltd@db1.cc.rochester.edu
+Message-Id: <Pine.3.89.9502201210.A545326705-0100000@MARSHALL.EDU>
+Mime-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Content-Transfer-Encoding: 7BIT
+Status: RO
+
+-*-Text-*-
+	       FIELD GUIDE TO Q-BUS AND UNIBUS MODULES
+			     04 FEB 1995
+---------------------------------------------------------------------
+   Compiled and Maintained by Ronald Copley <copley1@marshall.edu>
+---------------------------------------------------------------------
+
+Introduction
+
+This list is an attempt to coalesce all net knowledge on PDP-11 UNIBUS
+and Q-bus modules. It is designed to supercede all the various
+homespun lists floating around -- giving one solid source of
+information. An expansion is in progress: the Field Guide will now
+cover *any* Q-bus (or Q-22 bus) and UNIBUS modules, be they VAX, uVAX
+or PDP.
+
+This list may always be found on sunsite.unc.edu, in the following
+directory:
+/pub/academic/computer-science/history/pdp-11/hardware/field-guide.txt
+(Tonnes of stuff here... thanks, Tim!)
+
+This list may also be found on the following sites:
+
+1) ftp.village.org in /pub/pdp-11/field-guide.txt
+   Dworkin keeps a compressed version here, too.
+ 
+2) ftp.update.uu.se in /pub/pdp11/doc/field-guide.txt
+   Johnny's site has quite a plethora of PDP-11 stuff, along with
+   files/software pertaining to Pros and DECmates.
+
+3) lenin.cc.rochester.edu in /pub/orphans/dec/pdp-11/field-guide.txt
+   Tom is maintaining a site for orphaned computers, so there's a lot
+   more than the Field Guide here. Good job, Tom!
+
+I will post this list as updates dictate to the PDP-11 newsgroup
+(vmsnet.pdp-11). At any rate, it will probably be posted in a
+terrifyingly irregular manner. The list will no longer be posted to
+comp.sys.dec and comp.sys.dec.micro, and I don't have access to
+alt.sys.pdp-11, so vmsnet.pdp-11 will be the only newsgroup in which
+to find the Field Guide (unless some kind soul snags it from
+vmsnet.pdp-11 and posts it to alt.sys.pdp-11).
+
+To insure the growth and survival of this list, please do any of the
+following that you find appropriate:
+
+1) Send me your Q-bus or UNIBUS module list.  
+2) Make corrections to this list and send them to me.
+
+Just make sure you send anything you have to me. If you have relevant
+hardcopy and you don't feel like typing it in, get in contact with me
+and we'll work something out.
+
+We owe a great amount of thanks to Tim Shoppa, Johnny Billquist,
+Dworkin Muller and all others who maintain PDP-11 ftp sites. Also, a
+great deal of respect is to be accorded to *anyone* attempting to hook
+a PDP-11 to the net, or running one currently connected, for that
+matter. The same for anyone, anywhere who *doesn't* put a PDP-11 into
+the dumpster. Or the smelter. Etc. If you don't know what to do with
+it, call/email me -- I'll take it, or find a good home for it.
+
+Credits List (alphabetical order):
+
+
+
+
+
+
+
+
+
+Joe Allen (author of the amazing JOE!)
+Randy Betke (Q-bus clarifications)
+Johnny Billquist (11/70 goodies, maintains ftp.update.uu.se ftp site)
+Eric Dittman (Emulex modules, uVAXen modules)
+Jonathan Elson (Dilog modules list)
+Tom Guptill (maintains lenin.cc.rochester.edu "orphan" computer site)
+LEE HAVEMANN (thanks, Lee!!)
+Bob Hoffman (cleared up Dilog issue)
+Doug Jones (help in general)
+Ken Kirkby (video modules, staggering amount of other info)
+Nick Laflamme (loaned a couple of DEC catalogues)
+Dworkin Muller (maintains ftp.village.org ftp site)
+Garry Page (LPS11 modules, others)
+Tim Shoppa (general help, maintains sunsite.unc.edu ftp site)
+Alan Sieving (big list, advice, et alia)
+PETE TURNBULL (Q-bus modules, mucho PDP wisdom)
+Mike Umbricht (11/44 goodies)
+Ken Wellsch (11/20 specifications)
+Mike Yankus (11/84 additions & more)
+Rudy Zijlstra (UNIBUS module clarifications/additions)
+
+-------------------------------------------------------------------------------
+MODULE      OPTION     BUS  DESCRIPTION
+------      --------   ---  ---------------------------------------------------
+A009	    AD11-K	U   A/D convertor for 11/34
+
+A012        ADV11-A     Q   16-channel 12-bit A/D
+
+A020                    Q   16-channel  A/D, relay switched
+
+A026        AXV11-C     Q   16-channel 12-bit A/D plus 2-channel 12-bit D/A
+
+A241	    LPSAG-VG    U   LPS11 4-channel variable gain preamplifier
+
+A242	    LPSAG       U   LPS11 4-channel fixed gain preamplifier
+
+A406	    LPSSH       U   LPS11 Analogue sample-and-hold option
+
+A406	    LPSAD-12    U   LPS11 Analogue sample-and-hold (3 of 4)
+
+A407	    LPSAD-12    U   LPS11 8-channel A/D multiplexor (4 of 4)
+
+A6001       AAV11-A     Q   4-channel 12-bit D/A
+
+A6006       AAV11-C     Q   Digital-to-analogue convertor
+
+A625	    LPSVC       U   LPS11 Two 12-bit DACs (2 of 2)
+
+A804	    LPSAD-12    U   LPS11 12-bit A/D convertor (2 of 4)
+
+A8000       ADV11-C     Q   16-channel 12-bit A/D
+
+G102        		U   Sense inhibit card for 11/15
+
+G401        MS11-BR     U   4-Kword 16-bit MOS RAM (11/45)
+
+G401-YA     MS11-BR     U   4-Kword 18-bit MOS RAM (11/45)
+
+G5108                   U   Writeable programmable logic array tester for F11
+                            chipset
+
+G5115                   U   H777-TA power supply tester
+
+G5148       TU58-AA/BA  Q   Interface to parallel TU58
+
+G5152       KXT11-A     Q   Test module, 4-Kbyte RAM, 24-Kbyte PROM, CSR
+
+G5167                   Q   PULSAR (LSI-11 multiprocessor board)
+
+G5168                   Q   PULSAR event transmitter
+
+G5169                   Q   PULSAR event receiver
+
+G5173                   U   11/60 2355 control
+
+G5174                   U   11/60 2355 4-line tester
+
+G5215       KDF11-TC    Q   LSI CPU bus isolator extender
+
+G5216                   Q   PULSAR performance monitor
+
+G5281                   Q   11/23 bus exercisor
+
+G5337                   Q   11/03 multi LSI option tester
+
+G5353                   U   11/24 quick verify station controller
+
+G5616                   Q   Q-bus extender card
+
+G645                    U   8-Kword 19-bit stack board (11/05, 11/25, 11/45,
+                            PDP-10)
+
+G647                    U   16-Kword 20-bit stack board (PDP11, PDP10)
+
+G651                    U   4 to 8-Kword 16 to 18-bit mother board
+                            (Mates with H221)
+
+G652                    U   16-Kword 16 to 18-bit mother board with logic
+                            (Mates with H222-A)
+
+G652-YA                 U   G652 that mates with H222-YA
+
+G653        MMV11-A     Q   4-Kword 16-bit mother board with logic
+                            (mates with H223)
+
+G657                    U   32-Kword SPC core memory electronics with no
+                            parity (18-bit)
+
+G727-A                  U   Grant continuity card
+
+G7272                   Q   Grant continuity card
+
+H207	   		U   4096x16 core stack for 11/15 (on G616 & G617)
+
+H211	    MM8-EH	U   4-Kword 12-bit stack on G648 (for 11/20)
+
+H213                    U   4-Kword 16-bit stack on G645
+
+H214                    U   8-Kword 16-bit H213 (used in MM11-L)
+
+H215                    U   8-Kword 18-bit H213 (used in MM11-LP, ME15)
+
+H217	    		U   16-Kword memory stack
+
+H221-A                  U   8-Kword 18-bit stack (plugs into G651)
+
+H221-B                  U   8-Kword 16-bit stack (plugs into G651)
+
+H222	    MM11-DP	U   16-Kword 18-bit stack
+
+H223        MMV11-A     Q   4-Kword 16-bit stack & drive assembly
+                            (plugs into G653)
+
+H228-B      MM11-Y      U   32-Kword 18-bit 14-mil core stack (plugs into
+                            G657)
+
+H9270	                Q   4x4 Q-bus backplane
+
+H9273-A			Q   9x4 Q-bus backplane in AB only
+
+H9276-A			Q   9x4 Q-bus backplane, Q-22
+
+H9281-BA		Q   4x2 Q-bus backplane
+
+H9281-BB		Q   8x2 Q-bus backplane
+
+L4002			Q   VAX 4000-500 CPU card
+
+M105        KL11        U   Device selector for PDP-11
+                            (Also called Address selector module)
+
+M109			U   PDP-11 device selector with jumpers, bits 13-17
+
+M1091			U   Memory device selector, with jumpers, bits 11-17
+
+M167			U   Compares two 8-bit words ( <, =, > )
+
+M224        KA11        U   11/20 8-bits with data paths module, 2 latches,
+                            adder.
+
+M225        KA11        U   11/20 registers module (processor memory)
+
+M234        KE11-A      U   3 8-bit registers, adder & L/R shift
+
+M239			U   3 4-bit counters (8291s) or 74197, parallel load
+
+M2500                   U   2 64-word 4-bit MOS FIFO memories (needs -12V)
+
+M259	    KT11	U   Associative memory, 2x8, shift register
+                            capability
+
+M3100	    DECSA	U   EIA sync line unit for DECSA
+
+M3101	    DECSA	U   V.35 sync line unit for DECSA
+
+M3102	    DECSA	U   2-line async line unit for DECSA
+
+M3103	    DECSA	U   LP line unit for DECSA
+
+M3104       DHV11-A     Q   8-line async DMA MUX
+
+M3105       DHU11-A     U   16-line async DMA MUX
+
+M3106       DZQ11-M     Q   4-line double-buffered async EIA MUX, with
+                            modem control; replaces M7957
+
+M3106-PA    DZQ11-M	Q   4-line double-buffered async MUX with S-box
+                            handle
+
+M3107	    DHQ11-M	Q   8-line async MUX module, DMA, Q-22
+
+M3108-A     DSV11-A     Q   2-line sync SLU for BA23/123 (-AA is first unit,
+                            -AB is second add-on unit).
+
+M3108-P     DSV11-S     Q   2-line sync SLU for BA223 (-SF is first unit, -SG
+                            is second add-on unit).
+
+M3121	    DFA01-AA	Q   Dual integral modem, S-box, DF224 compatible
+
+M3125			Q   BITBUS to Q-bus interface
+
+M3125-PA		Q   Q-22 bus interface to Intel BITBUS 
+
+M3125-YA		Q   Q-22 bus interface to Intel BITBUS, no handle
+
+M3126	    DFA01-BA	Q   Dual integral modem, Q-bus, S-box, UK version
+
+M3127-PA    DESQA-SA/SF Q   Ethernet/thinwire S-box adaptor (DELQA+DESTA)
+
+M3127-PB    DESQA-SA/SF Q   M3127-PA with handle access thinwire pushbutton
+                            switch.
+
+M3128 	    QBIC	Q   Q-bus interface to VMI CCIC
+
+M3129	    KMV11	Q   NRZI/RS422 data convertor for KMV11
+
+M4002       KWV11-C     Q   Programmable realtime clock
+
+M454	    DC11-A	U   Crystal clock with simultaneous outputs of 28.8,
+                            19.2, 9.6, 4.8, 2.4, 1.760 KHz
+
+M5010                   Q   32-bit non-isolated dc input module
+
+M5011                   Q   16-bit non-isolated dc input module
+
+M5012                   Q   16-bit isolated dc input module
+
+M5012-YA                Q   16-bit isolated dc input module (TTL compatible)
+
+M5013                   Q   8-bit isolated ac input module
+
+M5014                   Q   Dual input counter, 16-bit
+
+M5016                   Q   Quad input counter/prescalar, 8-bit
+
+M5031                   Q   16-channel isolated dc interrupt module, 16-bit
+
+M586	    DF11-BA	U   Int. modem, 113A standard
+
+M587	    DF11-BB	U   Async modem controller
+
+M5900       DJ11	U   16-channel TTL receiver
+
+M5901	    DJ11	U   16-channel EIA transmitter
+
+M5902	    DJ11	U   16-channel full duplex TTY transceiver
+
+M5903       RH11	U   MASSBUS terminal transceiver
+
+M5904	    RH11	U   MASSBUS control transceiver
+
+M5906	    DJ11-AD/AE	U   16-channel EIA-TTL, TTL-EIA, priority sockets, 2
+                            H854.
+
+M5906-YA    DJ11-AD/AE  U   M5906 modified to accept X1 baud clock rate
+
+M5922			U   RM03 transceiver port A
+
+M5923			U   RM03 transceiver port B
+
+M5924	    DF11-L	U   Fiber optic list
+
+M5976-AA		Q   Q-bus to SCSI adaptor for BA23/BA123 enclosures
+
+M5976-SA		Q   Q-bus to SCSI adaptor for BA200/BA400 enclosures
+
+M5977-AA		Q   SCSI to Q-bus controller (MSCP/TMSCP) for 11/83
+                            and 11/93.
+
+M598	    DF11-K	U   Modem optical isolator
+
+M5980			U   10-channel TTL differential transeiver
+
+M6010                   Q   32-bit non-isolated dc output module
+
+M6010-YA                Q   32-bit non-isolated dc output module (TTL
+
+M6011                   Q   Non-isolated dc one-shot output module
+
+M6012                   Q   8-bit isolated dc output module
+
+M6013                   Q   8-bit isolated ac output module
+
+M6014                   Q   Dual 16-bit output convertor
+
+M6015                   Q   16-bit retentive dc output module
+
+M688                    U   UNIBUS power fail driver module
+
+M7015	    LPS11-S     U   LPS11 UNIBUS control
+
+M7016	    LPSKW       U   LPS11 Programmable realtime clock & 2 Schmitt 
+                            triggers.
+
+M7017	    LPSDR       U   LPS11 16-bit buffered digital I/O
+
+M7018	    LPSAD-12    U   LPS11 A/D control (1 of 4)
+
+M7019	    LPSVC       U   LPS11 Scope control (1 of 2)
+
+M7020	    LPS11-NP    U   LPS11 DMA option
+
+M7025       KW11-K      U   Dual programmable clock
+
+M7051			U   VT48 data registers & multiplexors
+
+M7052			U   VT48 dual 12x12 multiplier with successive
+                            approximation.
+
+M7053			U   VT48 scissoring & tangent control
+
+M7054			U   VT48 stack & silo control
+
+M7055			U   VT48 display status MUX
+
+M7056			U   VT48 stack & silo
+
+M7057			U   VT48 display status register
+
+M7058			U   VT48 display control
+
+M7059			U   VT48 bus control
+
+M7060			U   VT48 push button control (SPC)
+
+M7061       VSV11-F     Q   Raster graphics sync generator & cursor control
+                            (also VSV11-H, -J, -K)
+
+M7062       VSV11-MA    Q   Raster graphics image memory
+
+M7064       VSV11       Q   Raster graphics image processor card
+
+M7066	    VTV01	U   Video Display Sys: UNIBUS to Q-bus convertor
+
+M7067	    VMV21	U   Video Display Sys: sync generator & character
+                            generator (64-char, 25 lines).
+
+M7068	    VMV31	U   Video Display Sys: bit map, 128x128x4
+
+M7069	    VMV22	U   Video Display Sys: microprocessor & memory
+
+M7070	    VMV22	U   Video Display Sys: character & sync generator
+
+M7071	    		U   Video Display Sys: image memory, RAMs & buffer
+                            logic.
+
+M7075			U   Sync line transmitter; 6-, 7- or 8-bits
+
+M7090       KD11-Z      U   11/44 console interface module
+
+M7091       KE44-A      U   11/44 CIS control store module
+
+M7092       KE44-A      U   11/44 CIS data path/logic module
+
+M7093       FP11-F      U   11/44 floating point module
+
+M7094       KD11-Z      U   11/44 data path module
+
+M7095       KD11-Z      U   11/44 control module
+
+M7096       KD11-Z      U   11/44 multifunction module
+
+M7097       KK11-B      U   11/44 4-Kword cache module
+
+M7098       KD11-Z      U   11/44 UNIBUS interface
+
+M7114	    VT30-H	U   RBG graphics UNIBUS interface board
+			    (TV sync generator, memory, control & output)
+
+M7133       KDF11-UA    U   11/24 CPU board, line clock & 2 SLUs
+                            (Revision D or earlier)
+
+M7133-YA    KDF11-UA    U   11/24 CPU board, line clock & 2 SLUs
+                            (Revision E or later)
+
+M7134       KT-24       U   11/24 UNIBUS map (extended address to 22 bits)
+
+M7135       KD32-AA     Q   microVAX I datapath with G floating point
+
+M7135-YA    KD32-AB     Q   microVAX I datapath with D floating point
+
+M7136       KD32-AA/AB  Q   microVAX I memory control
+
+M7142       VK170-CA    Q   Serial video module, CRT control logic,
+                            ASCII in/video out
+
+M7161	    UDA50       U   UNIBUS disk adaptor board, no ROMs (1 of 2)
+
+M7161-YA    UDA50	U   M7161 with blasted ROMs
+
+M7162	    UDA50	U   UNIBUS disk adaptor board (2 of 2)
+
+M7164       KDA50-Q     Q   Q-bus SDI disk adaptor, Q-22 (1 of 2)
+
+M7165       KDA50-Q     Q   Q-bus SDI disk adaptor, Q-22 (2 of 2) 
+                            (For RA60/80).
+
+M7168       VCB02       Q   4-plane colour bitmap module
+
+M7169       VCB02       Q   4-plane video controller module
+
+M7193       DRQ11-CA    Q   DMA interface, 16-bit
+
+M7195-FA    MXV11-BF    Q   128-Kbyte RAM, 2 async EIA SLU, I/O, clock,
+                            2 28-pin ROM sockets
+
+M7196       TSV05       Q   TSV05 controller for Q/Q22 bus
+
+M721        KA11        U   Bus interface 1, 8-bits gated in and out
+
+M7210       KE11-A      U   Data control
+
+M7219       RC11        U   Bus interface
+
+M7220       RC11        U   Clock control
+
+M7221       RC11        U   Disk interface
+
+M7222       RC11        U   Status control
+
+M7224       RC11        U   Unit and track selector
+
+M7225       RC11        U   Status control extender
+
+M7228       KW11-P      U   Real time programmable clock
+
+M7231       KD11-A      U   11/40 data paths module
+
+M7232       KD11-A      U   11/40 micro word module
+
+M7233       KD11-A      U   11/40 IR decode module
+
+M7234       KD11-A      U   11/40 timing module
+
+M7235       KD11-A      U   11/40 processor status module
+
+M7236       KT11-D      U   11/40 memory management module
+
+M7237                   U   11/40 stack limit register
+
+M7238       KE11-E      U   11/40 EIS board
+
+M7239       KE11-F      U   11/40 FIS control
+
+M724        KA11        U   11/20 bus and console control module
+
+M725        KA11	U   11/20 bus interface and IR module
+
+M726        KA11        U   11/20 IR decode module
+
+M727        KA11        U   11/20 state control module
+
+M728        KA11	U   11/20 timing and states module
+
+M7251       KG11-A      U   XOR and CRC block check option
+
+M7254       RK11-D      U   RK05 status control module
+
+M7255       RK11-D      U   RK05 disk control module
+
+M7255-YA                U   Modified M7255 for Diablo series 30 disk drives
+
+M7256       RK11-D      U   RK05 registers module
+
+M7257       RK11-D      U   RK05 bus control module
+
+M7258       LP11        U   Printer controller (Dataproducts interface)
+
+M726        KA11        U   IR decoder for KA11
+
+M726-YA     KH11-A      U   M726 for KH11-A
+
+M7260       KD11-B      U   11/05 data paths module
+
+M7261       KD11-B      U   11/05 control logic module
+
+M7263       KD11-D      U   11/04 processor module
+
+M7264       KD11-F      Q   11/03 processor with 4-Kword MOS RAM
+
+M7264-AA    KD11-F      Q   11/03 processor with 4-Kword MOS RAM
+
+M7264-AB    KD11-F      Q   11/03 processor with 4-Kword MOS RAM
+
+M7264-BB    KD11-F      Q   11/03 processor with 4-Kword MOS RAM & DIBOL microm
+
+M7264-CB    KD11-F      Q   11/03 processor with 4-Kword MOS RAM
+
+M7264-DB    KD11-F      Q   11/03 processor with 4-Kword MOS RAM
+
+M7264-EB    KD11-F      Q   11/03 processor with 4-Kword MOS RAM
+
+M7264-FB    KD11-F      Q   11/03 processor with 4-Kword MOS RAM
+
+M7264-HB    KD11-F      Q   11/03 processor with 4-Kword MOS RAM
+
+M7264-JB    KD11-F      Q   11/03 processor with 4-Kword MOS RAM
+
+M7264-YA    KD11-H      Q   11/03 processor with 0-Kword RAM
+                            (To be replaced by M7264-YC)
+
+M7264-YB    KD11-Q      Q   11/03 processor with 0-Kword RAM & DIBOL microm
+
+M7264-YC    KD11-H      Q   11/03 processor with 0-Kword RAM
+                            (Revision F or later)
+
+M7265       KD11-E      U   11/34 data paths module
+
+M7266       KD11-E      U   11/34 control module
+
+M7268       RKV11       Q   RK11-D to Q-bus adaptor
+
+M7269       RKV11       Q   RK05 controller
+
+M727        KA11        Q   11/20 State control module
+
+M727-YA                 Q   M727 for KH11-A
+
+M7270       KD11-HA     Q   LSI-11/2 CPU, 16-bit
+
+M728        KA11        U   Timing and states module for KA11
+
+M728-YA     KH11-A      U   M728 for KH11-A
+
+M7292                   U   TU60 interface
+
+M7293       MM11-U/UP   U   Timing and control
+
+M7294       RH11        U   MASSBUS data buffer and control
+
+M7294-YA    RH11-C      U   Modified M7294 for RH11-C
+
+M7295       RH11-A      U   MASSBUS bus control
+
+M7295-YA    RH11-B      U   Modified M7295 with independent NED timeout for
+                            RH11-B
+
+M7296       RH11        U   MASSBUS control and status registers
+
+M7297       RH11        U   MASSBUS parity control
+
+M7298                   U   11/40 watchdog timer with restart and crystal clock
+
+M7454       TU80K-CP    U   TU80 interface (Dilog/Digital)
+
+M7455       TSU05       U   TSU05 controller
+
+M7458-AA    MSV11-RA    Q   1-Mbyte PMI/Q22 parity memory with CSR
+                            (Also M7458-AC, -AH, -AJ)
+
+M7485       UDA50-A     U   UNIBUS to radial disk interface with no ROMs
+                            (SDI disk controller)
+
+M7485-YA    UDA50-A     U   UNIBUS to radial disk interface with blasted ROMs
+
+M7486       UDA52       U   Controller for SDI disk drives (UDA SI)
+
+M7488                   U   UNIBUS graphics workstation
+                            (Graphics display processor)
+
+M7500       KMV1A-S     Q   Programmable comms controller, BA2xxx.
+                                -PA, -PF        RS232
+                                -PB, -PG        RS422
+                                -PC, -PH        RS423
+
+M7502                   Q   Single-line high speed intelligent communication
+                            interface
+
+M7504       DEQNA-AA    Q   Q-bus (Q-22) to ethernet adaptor, obsolete
+                            for VMS 5.x and above (use DELQA).
+
+M7506-AA    MSV11-MA    Q   512-Kbyte 18-bit RAM
+                            (Also M7506-AC, -AE, -AF, -AH, -AP)
+
+M7506-AT    MSV11-MA    Q   512-kbyte 22-bit parity/CSR MOS RAM
+                            (Also M7506-AU, -AV)
+
+M7506-BA    MSV11-MB    Q   1-Mbyte RAM
+
+M7506-BC    MSV11-MB    Q   1-Mbyte RAM
+
+M7506-BE    MSV11-MB    Q   1-Mbyte 22-bit parity/CSR MOS RAM
+
+M7506-BF    MSV11-MB    Q   1-Mbyte RAM
+
+M7506-BH    MSV11-MB    Q   1-Mbyte RAM
+
+M7506-BP    MSV11-MB    Q   1-Mbyte RAM
+
+M7506-BT    MSV11-MB    Q   1-Mbyte 22-bit parity/CSR MOS RAM
+
+M7506-BU    MSV11-MB    Q   1-Mbyte 22-bit parity/CSR MOS RAM
+
+M7506-BV    MSV11-MB    Q   1-Mbyte 22-bit parity/CSR MOS RAM
+
+M7512       RQDX1E      Q   RQDX extender for RQDX1; must be the last item in
+                            the backplane, below the RQDX1.
+
+M7513       RQDXE       Q   RQDX extender for RQDX2/3 (-AA for BA23, -FA for
+                            BA123).
+
+M7516       DELQA-M     Q   Ethernet interface (replaces DEQNA)
+
+M7516-PA    DELQA	Q   Q-22 high-performance ethernet adaptor
+
+M7521-AA    DELUA-AA    U   UNIBUS to ethernet adaptor
+                            (Also M7521-AJ, -AP)
+
+M7522			U   RX50 controller
+
+M7546       TQK50-AA    Q   TMSCP controller for TK50 tape unit
+
+M7547       TUK50-AA    U   TMSCP controller for TK50 tape unit
+
+M7551-AA    MSV11-QA    Q   1-Mbyte 22-bit parity/CSR MOS RAM
+                            (Also M7551-AC, -AE, -AF, -AH, -AJ, -AP)
+
+M7551-BA    MSV11-QB    Q   2-Mbyte 22-bit parity/CSR MOS RAM
+                            (Also M7551-BC, -BE, -BF, -BH, -BJ, -BP, -BT, -BV)
+
+M7551-CA    MSV11-QC    Q   4-Mbyte 22-bit parity/CSR MOS RAM
+                            (Also M7551-CC, -CE, -CF, -CH, -CP, -CT, -CV)
+
+M7554       KDJ11-DA    Q   J11 CPU 15MHz, 512-Kbyte RAM, 2 SLUs, LTC
+
+M7554-01    KDJ11-DA    Q   J11 CPU 15MHz, 512-Kbyte RAM, 2 SLUs, LTC (VE)
+
+M7554-02    KDJ11-DB    Q   11/53-PLUS CPU 
+                            (J11 15MHz, 1.5-Mbyte RAM, 2 SLU, LTC)
+
+M7554-04    KDJ11-DD    Q   J11 CPU 18MHz, 1.5-Mbyte RAM, 2 SLUs (CSS)
+
+M7554-PA    KDJ11-SA    Q   J11 CPU 15MHz, 512-Kbyte RAM, 2 SLUs, S-box handle
+
+M7554-PB    KDJ11-SB    Q   J11 CPU 18MHz, 512-Kbyte RAM, 2 SLUs, LAT PROM,
+                            S-box handle
+
+M7554-PC    CMR53-AA    Q   J11 CPU 18MHz, 512-Kbyte RAM, 2 SLUs, S-box handle,
+                            CMR53 boot PROM
+
+M7554-SA    KDJ11-SA    Q   J11 CPU 15MHz, 512-Kbyte RAM, 2 SLUs, S-box handle
+                            (VE)
+
+M7554-SC    KDJ11-SC    Q   J11 CPU 15MHz, 512-Kbyte RAM, 2 SLUs, S-box handle
+                            (VE)
+
+M7554-SD    KDJ11-SD    Q   J11 CPU 18MHz, 1.5-Mbyte RAM, LAT ROM, S-box handle
+
+M7554-SE    KDJ11-SE    Q   J11 CPU 18MHz, 1.5-Mbyte RAM, 2 SLUs, LTC, S-box
+                            handle
+
+M7554-YA    KDJ11-SA    Q   J11 CPU 15MHz, 512-Kbyte RAM, 2 SLUs, LTC,
+                            no handle
+
+M7554-YB    KDJ11-SB    Q   J11 CPU 15MHz, 512-Kbyte RAM, 2 SLUs, LAT PROMs,
+                            no handle
+
+M7555       RQDX3       Q   Winchester and floppy disk controller
+                            (RX50/RD50-54/RD31/RD32)
+
+M7555-YA    RQDX3-SD    Q   Controller for RX33D 48TPI floppy disk drive
+
+M7558                   Q   2-Mbyte 22-bit MOS memory
+
+M7558-AA    MSV11-SA    Q   2-Mbyte 22-bit parity/CSR MOS RAM
+                            (Also M7558-AC, -AE, -AF, -AL, -AP, -AR, -AU, -AV)
+
+M7559       TQK70       Q   TMSCP controller for TK70
+
+M7573       RQDX4   	Q   Controller for RX35, RD50/1/2/3/4
+
+M7602       QVSS        Q   Q-bus Video Sub System module for Q22 systems
+			    (uVAX I, II)
+
+M7602-YA    QVSS    	Q   Q-bus Video Sub System module, bitmap graphics
+                            option. (uVAX I, II)
+
+M7605       TQK25       Q   0.25" streaming tape drive controller (TK25)
+
+M7606-AA    KA630-AA    Q   microVAX II with 1-Mbyte, floating point, time of
+                            year clock, boot/diagnostic ROM (Q22-bus)
+                            (Also M7606-AC, -AF, -AH, -AL, -AP, -AS
+                            Also M7606-EC, -EE, -EF, -EP, -ES, -ET, -EU, -EV
+                            Also M7606-ZC, -ZF, -ZP, -ZS)
+
+M7607-AA    MS630-AA    Q   1-Mbyte RAM for microVAX II (Q-22 via CD)
+                            (Also M7607-AC, -AE, -AH, -AL, -AP, -AR, -AS, -AT,
+                                       -AU, -AV, -ZC, -ZF, -ZS)
+
+M7608-AA    MS630-BA    Q   2-Mbyte RAM for microVAX II (Q-22 via CD)
+                            (Also M7608-AC, -AE, -AH, -AL, -AP, -AR, -AS, -AT,
+                                       -AU, -AV)
+
+M7608-BA    MS630-BB    Q   4-Mbyte RAM for microVAX II (Q22-bus)
+                            (Also M7608-BC, -BE, -BH, -BL, -BP, -BR, -BS, -BT,
+                                       -BU, -BV, -YC, -YF, -YS, -ZC, -ZF, -ZS)
+
+M7609-AA    MS630-CA    Q   8-Mbyte parity 36-bit RAM for microVAX II
+                            (Also M7609-AC, -AF, -AH, -AP, -AV) (Q-22 via CD)
+
+M7616                   Q   J11 CPU, 512-Kbyte RAM, 64-Kbyte PROM
+			    (Q22 peripheral processor)
+
+M7620	    KA650-AA/BA Q   microVAX III CPU (-AA full license, -BA
+                            workstation license), 90nS.
+
+M7621	    MS650-AA    Q   8MB RAM for KA650
+
+M7622	    MS650-BA	Q   16MB RAM for KA650
+
+M7625	    KA655-BA    Q   microVAX III CPU (workstation license), 60nS
+
+M7626	    KA660	Q   VAX 4000 CPU, 57MHz Q-22 DSSI ethernet
+
+M7635-AA    KN210       Q   RISC 3000 CPU, Q-bus interface
+
+M7635-AB    KN210   	Q   M7635-AA with LSI R3000, R3020 chips
+
+M7635-AC    KN210   	Q   M7635-AA with PERF R3000, R3020 chips
+
+M7651       DRV11-WA    Q   18/22-bit DMA general purpose parallel interface
+
+M7651-YB    DRV11-WA    Q   M7651, revision C ciruit
+
+M7656	    VSV21-AA	Q   Colour graphics module: M68K processor, HD63486
+                            video processor (512x512 or 512x256 resolution). 
+                            Serial ports for mouse, trackball, console and 
+                            LK201.
+
+M7676       KXT11-AB    Q   Single-board 16-bit dual-height CPU. 
+                            16-Kbytes of static RAM 
+                            64-Kbytes of direct addressing capability 
+                            PDP-11 base level instruction set
+                            50, 60 or 800Hz realtime clock
+                            24-line parallel I/O
+                            Two async serial I/O ports
+                            Four 28-pin memory sockets for up to 16-Kbytes of
+                             additional RAM and 16-Kbytes of ROM, or an extra
+                             32-Kbytes of RAM or 32-Kbytes of ROM.
+                            (T11 processor) (FALCON-PLUS) (SBC-11/21-PLUS)
+
+M7677       MDM         U   11/84 monitor and distribution monitor
+
+M7677-YA    MDM(?)      U   11/84-A monitor (fan, blower, I/O distribution)
+
+M7679       ISDN    	Q   ISDN basic rate access Q-bus board
+
+M7700                       RK05 unit-sel/photoamp/sector-counter
+
+M7740       RQC25       Q   Q22-bus to LESI bus adaptor used on disks with
+                            MSCP. RC25 controller. Replaces M8654.
+                            (Also M7740-01, -PA) (Also called KLESI-QA)
+
+M7762       RL11        U   RL01/02 disk drive controller
+
+M7792       DEUNA       U   DEUNA port module, UNIBUS to ethernet 
+                            microprocessor. (1 of 2)
+
+M7793       DEUNA       U   DEUNA link module, M7792 to ethernet bus
+                            line unit. (2 of 2)
+
+
+M780        KL11        U   Teletype transmitter & receiver for KL11, 110 baud
+
+M780-YB     KL11    	U   150 baud M780
+
+M780-YC     KL11        U   300 baud M780
+
+M780-YD     KL11        U   600 baud M780
+
+M780-YE     KL11	U   1200 baud send, 110 baud receive M780
+
+M780-YF     KL11        U   2400 baud M780
+
+M780-YH     KL11     	U   Used in PMK02-C option
+
+M780-YS     KL11     	U   307-Kbaud M780 for KL11-S Tektronix 4010 series
+                            terminals.
+
+M7800       DL11        U   Async transmitter & receiver, 110-2400 baud
+                            (Replaces KL11, which consisted of M780,
+                            M105, M782)
+
+M7800-YA    DL11        U   M7800 without EIA chips, current loop only
+
+M7800-YB    DL11        U   M7800 with 24.6-Kbaud
+
+M7800-YC    DL11        U   M7800 with filter on ring circuit for use with
+                            EMI filter cable
+
+M7807       DV11        U   Bus control and MUX for DV11
+                            (fits in DV11 backplane)
+
+M7808       DV11        U   Modem control scan and MUX for DV11
+                            (fits in DV11 backplane)
+
+M7810       PC11        U   Paper tape reader/punch controller
+
+M7814       DZ11        U   8-line 20ma data MUX, 50 to 100-Kbaud
+
+M7819       DZ11-A      U   8-line double-buffered async EIA with modem control
+                            (50 to 96-Kbaud, 64-byte silo)
+
+M782        KL11      	U   Interrupt control, 6-bits, 1 per PDP11 peripheral
+
+M7820       KW11        U   Interrupt control, 7-bits, 1 per PDP11 peripheral
+                            (Replaced by M7821)
+
+M7821       KW11        U   Fast M7820
+
+M7823       KW11-W      U   Watchdog timer module
+
+M783	    		U   Bus transmitters 12 drivers, mixed logic
+
+M7833       DV11        U   Line card, 4 async lines for DV11
+                            (fits in DV11 backplane)
+
+M7836       DV11        U   ALU and transfer bus for DV11
+                            (fits in DV11 backplane)
+
+M7837       DV11        U   UNIBUS data and NPR control for DV11
+                            (fits in DV11 backplane)
+
+M7838       DV11        U   ROM, RAM and branch for DV11
+                            (fits in DV11 backplane)
+
+M7839       DV11        U   Line card, 4 async lines for DV11
+                            (fits in DV11 backplane)
+
+M784			U   Bus receiver (16 receivers), single in/single out
+
+M784-YA			U   M784, non-inverting
+
+M7843       DR11-K      U   Digital I/O
+
+M7843-YA    DR11-K      U   M7843 with fusible resistor replaced by diode
+
+M7846       RX11        U   RX01 floppy disk drive controller
+
+M7847-AA    MS11-E      U   Either M7847-BA, -CA, -DA or -EA
+
+M7847-AB    MS11-EP     U   Either M7847-BB, -CB, -DB or -EB
+
+M7847-AD    MS11-FP     U   Either M7847-BD, -CD, -DD or -ED
+
+M7847-AJ    MS11-JP     U   Either M7847-BJ, -CJ, -DJ or -EJ
+
+M7847-BB    MS11-EP     U   4-Kword 18-bit RAM
+
+M7847-BD    MS11-FP     U   8-Kword 18-bit RAM
+
+M7847-BF    MS11-HP     U   12-Kword 18-bit RAM
+
+M7847-BJ    MS11-JP     U   16-Kword 18-bit RAM
+
+M7847-CB    MS11-EP     U   4-Kword 18-bit RAM
+
+M7847-CD    MS11-FP     U   8-Kword 18-bit RAM
+
+M7847-CJ    MS11-JP     U   16-Kword 18-bit RAM
+
+M7847-DB    MS11-EP     U   4-Kword 18-bit RAM
+
+M7847-DD    MS11-FP     U   8-Kword 18-bit RAM
+
+M7847-DJ    MS11-JP     U   16-Kword 18-bit RAM
+
+M7847-EB    MS11-EP     U   4-Kword 18-bit RAM
+
+M7847-ED    MS11-FP     U   8-Kword 18-bit RAM
+
+M7847-EE    MS11-H      U   12-Kword 16-bit RAM
+
+M7847-EJ    MS11-JP     U   16-Kword 18-bit RAM
+
+M7847-YA    MS11-E      U   4-Kword 16-bit RAM
+
+M7847-YB    MS11-EP     U   4-Kword 18-bit RAM
+
+M7847-YC    MS11-F      U   8-Kword 16-bit RAM
+
+M7847-YD    MS11-FP     U   8-Kword 18-bit RAM
+
+M7847-YE    MS11-H      U   12-Kword 16-bit RAM
+
+M7847-YF    MS11-HP     U   12-Kword 18-bit RAM
+
+M7847-YJ    MS11-JP     U   16-Kword 18-bit RAM
+
+M785			U   Bus transceiver, 8 drivers/8 receivers (8-bit)
+
+M7850       MM11-BP/CP  U   Parity board for G651, MS11-EP/FP/HP/JP
+
+M7855	    		U   UNIBUS exercisor and tester
+
+M7856       DL11-W      U   SLU & realtime clock option
+
+M7856-YA    DL11-W      U   M7856 with 110 to 19.2-Kbaud option
+
+M7859       KY11-LB     U   Console interface; programmer's console
+
+M7860       DR11-C      U   M786+M105+M7821; general device interface to PDP11
+
+M7867       DUP11-DA    U   SDLC or DDCMP sync interface
+
+M787	    DL11-L	U   Line frequency clock
+
+M7870       KU116       U   11/60 writable control store module
+
+M7871       KD11-K      U   11/60 diagnostic control store module
+
+M7871-YA    KD11-K      U   11/60 extended control store module
+
+M7872       KD11-K      U   11/60 micro word module
+
+M7873       KD11-K      U   11/60 decode module
+
+M7874       KD11-K      U   11/60 data paths module
+
+M7875       KD11-K      U   11/60 cache kit (memory & MMU)
+
+M7876       KD11-K      U   11/60 timing module
+
+M7877       KD11-K      U   11/60 status module
+
+M7878       FP11-E      U   11/60 FNUA (floating point next micro address)
+
+M7879       FP11-E      U   11/60 exponent module
+
+M788        MR11-A      U   Control logic module
+
+M7880       FP11-E      U   11/60 FFP MULNET module
+
+M7881       FP11-E      U   11/60 FALU module
+
+M7891-AH    MS11-LA     U   32-Kword 18-bit parity RAM (Also M7891-AL)
+
+M7891-BA    MS11-LB     U   64-Kword 18-bit parity MOS memory
+                            (Also M7891-BB, -BC, -BD, -BE, -BF, -BH, -BL)
+
+M7891-CH    MS11-LC     U   96-Kword 18-bit parity RAM (Also M7891-CL)
+
+M7891-DA    MS11-LD     U   128-Kword 18-bit parity MOS memory
+                            (Also M7891-DB, -DC, -DD, -DE, -DF, -DH, -DL)
+
+M7892                   U   M7292 with 8881 & 380 (TU60 interface)
+
+M791                    U   LA30 interface for PDP-11
+
+M7910                   U   M791+M105+M7821, parallel interface between PDP-11
+                            and LA30P.
+
+M792                    U   32-word, 16-bit ROM diode matrix, all diodes in
+			                (used in DD11)
+
+M792-YA		        U   Paper tape loader
+
+M792-YB	         	U   Disk loader ROM
+
+M792-YC                 U   Card reader bootstrap ROM
+
+M792-YD	    MR11-DB     U   Bootstrap loader (11/45) (1 of 2)
+
+M792-YE     MR11-DB 	U   Bootstrap loader (11/45) (2 of 2)
+
+M792-YF                 U   DS500 loader ROM
+
+M792-YH		        U   TA11 bootstrap loader
+
+M792-YJ     TM11    	U   Bell special TM11 loader
+
+M792-YK                 U   VT20 bootstrap
+
+M792-YL                 U   RX11 floppy loader
+
+M794        DC11-D      U   Modem interface & control card
+
+M7940       DLV11       Q   SLU module
+
+M7940-YA    DLV11       Q   M7940 with extra wires to bring out clock &
+                            110/300 speed change
+
+M7940-YC    DLV11       Q   Modified M7940 for use in a tester, TTL in/out
+
+M7940-YD    DLV11       Q   Modified M7940 for use in a tester, switchable
+                            baud rate
+
+M7940-YE    DLV11       Q   Modified M7940 for use in a tester, XON/XOFF
+
+M7941	    DRV11       Q   16-bit parallel line unit
+
+M7942       MRV11-AA    Q   Space for 4K 16-bit PROM
+
+M7942-YA    MRV11-VA    Q   VT71T bootstrap
+
+M7942-YB    MRV11-AA    Q   M7942 with VT52 emulator, VT71 bootstrap
+
+M7942-YC    MRV11-VC    Q   VT72 bootstrap/diagnostic module
+
+M7942-YD    MRV11-AA    Q   M7942 with CSR11 bootstrap
+
+M7944       MSV11-B     Q   4-Kword 16-bit MOS RAM (external refresh)
+
+M7946       RXV11       Q   RX01 floppy disk controller
+
+M7948       DRV11-P     Q   LSI-11 bus foundation module. Basic Q-bus
+                            interface board with space for wire-wrapping.
+
+M7949       LAV11       Q   LA180 line printer control module
+
+M7950       DRV11-B     Q   16-bit DMA parallel general purpose interface
+
+M7951       DUV11-DA    Q   Sync interface, character protocol; DU11-DA compat.
+
+M7952       KWV11-A     Q   Programmable realtime clock
+
+M7953       MNCKW       Q   MINC programmable real time clock
+
+M7954       IBV11       Q   IEC general purpose interface (GPIB)
+
+M7955-AD    MSV11-CD    Q   16-Kword 16-bit MOS RAM with on-board refresh
+                            (Also M7955-YD, -YJ, -BD, -BJ, -CD, -CJ, -DD)
+
+M7957       DZV11       Q   4-line double-buffered async EIA MUX
+                            (With modem control, 50 to 10-Kbaud)
+
+M7966       DZS11-A 	U   8-line async MUX, diff balanced long line I/O
+			    (To be replaced by M8715)
+
+M7967       DZS11-B     U   8-line async MUX, TTL I/O, used with M5926 for 20mA
+                            loop.
+
+M7968       VW01-G      U   Writing tablet control
+
+M7969       KW11-A      U   Watchdog timer
+
+M7982       TS11        U   Serial tape control module
+
+M7983       MF11        U   MF11-S through MF11-K control module
+
+M7984-EA    MS11-KE     *   Either M7984-EB, -EC or -ED
+
+M7984-EB    MS11-KE     *   16-Kword 39-bit MOS RAM array
+
+M7984-EC    MS11-KE     *   16-Kword 39-bit MOS RAM array
+
+M7984-ED    MS11-KE     *   16-Kword 39-bit MOS RAM array
+                            (*Note: M7984-xx fit into the 11/70's MK11 memory
+                            box. MS11-KD is 32-Kword and MS11-KC is 128-Kword.)
+
+M8006-PA	        Q   72-bit opto-isolated output module
+
+M8007-PA         	Q   72-bit opto-isolated input module
+
+M8012       BDV11       Q   Bootstrap and terminator card
+
+M8013       RLV11       Q   RL01 disk controller, 1 of 2
+
+M8014       RLV11       Q   RL01 bus controller, 2 of 2
+
+M8016       KPV11-A     Q   Power fail, realtime clock, no termination
+
+M8016-YB    KPV11-B     Q   M8016 with 120-ohm termination
+
+M8016-YC    KPV11-C     Q   M8016 with 250-ohm termination
+
+M8017-AA    DLV11-E/EC  Q   Single-line async control module
+                            (Replaces M8017, M8017-YB)
+
+M8017-PA    DLV11-E/EC  Q   Single-line async control module, S-box handle
+
+M8018       KUV11-AA    Q   Writable control store module
+
+M8020       DPV11-M     Q   Single-line serial EIA sync interface
+
+M8020-PA    DPV11-SA    Q   Single-line serial sync interface, S-box handle
+
+M8021       MRV11-BA    Q   256-word RAM, space for 4-Kword UV PROM
+
+M8027       LPV11       Q   Printer interface module
+
+M8028       DLV11-F     Q   Async interface EIA/20ma, error flags, break bit
+
+M8029       RXV21       Q   RX02 floppy disk drive control module
+
+M8043       DLV11-J     Q   4-SLU peripheral interface
+
+M8044-AA    MSV11-DA    Q   4-Kword 16-bit MOS RAM (Also M8044-AB, -AC, -AD)
+
+M8044-BA    MSV11-DB    Q   8-Kword 16-bit MOS RAM (Also M8044-BB, -BC, -BD)
+
+M8044-CA    MSV11-DC    Q   16-Kword 16-bit MOS RAM
+                            (Also M8044-CB, -CC, -CD, -CE, -CF, -CH, -CL, -CM)
+
+M8044-DA    MSV11-DD    Q   32-Kword 16-bit MOS RAM
+                            (Also M8044-DB, -DC, -DD, -DE, -DF, -DH, -DL, -DM)
+
+M8045-AB    MSV11-EA    Q   4-Kword 18-bit MOS RAM
+
+M8045-CH    MSV11-EC    Q   16-Kword 18-bit MOS RAM (Also M8045-CJ, -CK, -CL)
+
+M8045-DA    MSV11-ED    Q   32-Kword 18-bit MOS RAM
+                            (Also M8045-DB, -DC, -DD, -DH, -DJ, -DK, -DL)
+
+M8047-AA    MXV11-AA    Q   4-Kword RAM, 2 async EIA SLU, sockets for 2
+                            24-pin 5V ROMs (Also M8047-AB, -AC, -AD, -AE)
+
+M8047-CA    MXV11-AC    Q   16-Kword RAM, 2 async EIA SLU, sockets for 2
+                            24-pin 5V ROMs
+                            (Also M8047-CB, -CC, -CD, -CE, -CF, -CH, -CM)
+
+M8047-HA    MXV11-HA    Q   16-Kword RAM, 2 async EIA SLU (8 bits + parity),
+                            sockets for 2 24-pin 5V ROMs, 1-K I/O address,
+                            jumper to 2-K (Also M8047-HB, -HC, -HD, -HE, -HF)
+
+M8048       MRV11-C     Q   Universal PROM/ROM module with sockets for 16
+                            24-pin ROMs, up to 32-Kword
+
+M8049       DRV11-J     Q   Hi-density parallel line unit (4 lines)
+
+M8049-AA    DRV1J-SA/SF Q   Modification of DRV11-J to DRV1J-SA/-SF
+
+M8049-PA    DRV11-J     Q   M8049 with S-box handle
+
+M8053       DMV11       Q   Microprogrammed controller V.35, RS232/423, with
+                            space for ROM
+
+M8053-AA    DMV11       Q   Microprogrammed controller (needs one of M5930-
+                            M5931) (Also M8053-AB, -AC, -ETC)
+
+M8053-MA    DMV11-A     Q   M8053 with DDCMP control ROM (point-to-point or
+                            multidrop)
+
+M8053-PA    DMV11       Q   M8053 with S-box handle
+
+M8059-FA    MSV11-LF    Q   64-Kword MOS RAM, single voltage
+                            (Also M8059-FC, -FF, -FH, -FJ, -FP, -FV)
+
+M8059-KA    MSV11-LK    Q   128-Kword MOS RAM, single voltage
+                            (Also M8059-KC, -KF, -KH, -KJ, -KP, -KV)
+
+M8061       RLV12       Q   RL01/RL02 disk control, 22-bit address
+
+M8063-AA    KXT11-AA    Q   FALCON (SBC-11/21) single-board CPU with 2 SLU,
+                            1 parallel line unit, line frequency clock,
+                            16-Kbyte RAM (T11 processor)
+
+M8063-BA    KXT11-BA    Q   FALCON (SBC-11/21) single-board CPU with 2 SLU,
+                            1 parallel line unit, line frequency clock,
+                            16-Kbyte RAM (T11 processor)
+
+M8064       DMV11       Q   Microprogrammed controller, integral modem, space
+                            for ROM (single-line sync)
+
+M8064-MA    DMV11       Q   M8064 with DDCMP point-to-point or multidrop,
+                            integral modem interface
+
+M8067-FA    MSV11-PF    Q   128-Kbyte MOS memory with parity CSR
+                            (Also M8067-FB, -FC)
+
+M8067-KA    MSV11-PK    Q   256-kbyte MOS memory with parity CSR
+                            (Also M8067-KC, -KE, -KF, -KH, -KJ, -KP, -KV)
+
+M8067-LA    MSV11-PL    Q   512-Kbyte MOS memory with parity CSR
+                            (Also M8067-LC, -LF, -LH, -LJ, -LP, -LV)
+
+M8100                   U   11/45 data path module
+
+M8101                   U   11/45 general register address module
+
+M8102                   U   11/45 instruction register control module
+
+M8103                   U   11/45 ROM address control module
+
+M8104                   U   11/45 processor data and UNIBUS registers module
+
+M8105                   U   11/45 timing and miscellaneous control module
+
+M8106                   U   11/45 UNIBUS control module (Replaced by M8119)
+
+M8107                   U   11/45 segmentation address paths module
+
+M8108       KT11-C      U   11/45 segmentation status register module
+
+M8108-YA    KT11-CD     U   11/45 segmentation status register module
+
+M8109                   U   11/45 timing generator module
+
+M8110                   U   11/45 memory control for MOS memory
+
+M8111                   U   11/45 1-Kword 16-bit bipolar memory
+
+M8111-YA                U   11/45 1-Kword 18-bit bipolar memory
+
+M8112                   U   11/45 floating point ROM control module
+
+M8113                   U   11/45 floating point exponent data paths module
+
+M8114                   U   11/45 fraction high order data path module
+
+M8115                   U   11/45 fraction low order data path module
+
+M8116                   U   11/45 segmentation jumper board
+
+M8119                   U   11/45 UNIBUS control for FP11-C compatibility
+                            (Replaces M8106)
+
+M8120                   U   11/45 memory control for bipolar memory
+
+M8121-YA    MS11-AP     U   4-Kword 18-bit bipolar memory
+
+M8123       KB11-C      U   11/70 ROM & address control, FP11-C compatible
+
+M8124       RH70-C      U   11/74 M8150 with expanded silo
+
+M8125       RH70-C      U   11/74 M8153-YA new layout
+
+M8126       FP11-C      U   11/70 fraction processor, high order
+
+M8127       FP11-C      U   11/70 fraction processor, low order
+
+M8128       FP11-C      U   11/70 floating point ROM control
+
+M8129       FP11-C      U   11/70 fraction processor, exponent path
+
+M8130       KB11-C      U   11/70 data paths module
+
+M8131       KB11-C      U   11/70 general registers and ALU control
+
+M8132       KB11-C      U   11/70 instruction register decode & condition codes
+
+M8132-YA    KB11-C      U   11/74 instruction register decode & condition
+                            codes modified to indicate full decode of ASRB
+
+M8133       KB11-C      U   11/70 ROM & ROM control module
+
+M8134       KB11-C      U   11/70 processor data & UNIBUS registers module
+
+M8135       KB11-C      U   11/70 trap and miscellaneous control module
+
+M8136       KB11-C      U   11/70 UNIBUS and console control module
+
+M8137       KB11-C      U   11/70 system address path module
+
+M8138       KB11-C      U   11/70 segmentation status register, used with FP11-B
+
+M8138-YA    KB11-C      U   11/70 segmentation status register, 
+                            used with FP11-C.
+
+M8139       KB11-C      U   11/70 timing generator module
+
+M8140       KB11-C      U   11/70 segmentation and console control module
+
+M8141       KB11-C      U   11/70 mapping box
+
+M8142       KB11-C      U   11/70 cache control board
+
+M8143       KB11-C      U   11/70 cache address memory board
+
+M8144       KB11-C      U   11/70 cache data memory
+
+M8145       KB11-C      U   11/70 cache data path
+
+M8147       MJ11-A/B    U   11/70 memory control and timing module
+                            (Replaces M8148)
+
+M8148       MJ11-A      U   11/70 memory control and timing module
+                            (Replaced by M8147)
+
+M8149       MJ11        U   11/70 memory transceiver card
+
+M8150       RH70        U   11/70 MASSBUS data path module
+
+M8151       RH70        U   11/70 MASSBUS control and status module
+
+M8152       RH70        U   11/70 MASSBUS address and word count registers
+
+M8153       RH70        U   11/70 MASSBUS UNIBUS control
+                            (M8150-M8153 is option RH55 in an 11/55)
+
+M8153-YA    RH70        U   11/70 M8153 with independent NED timeout for
+                            RH70-B (see M8125)
+
+M8156       RHS70-A     U   Data path module
+
+M8157       RHS70-A     U   DMA control module
+
+M8158       MK11        U   Address buffer module
+
+M8159       MK11        U   Data buffer module
+
+M8160       MK11        U   Control A module
+
+M8161       MK11        U   Control B module
+
+M8162       MK11        U   Port MUX A module
+
+M8163       MK11        U   Port MUX B module
+
+M8164       MK11/MKA11  U   Data buffer module (Replaces M8159)
+
+M8165-YA    KE74-A      U   11/74 CCR, CISP control ROM logic card #1
+
+M8165-YB    KE74-A      U   11/74 CCR, CISP control ROM logic card #2
+
+M8166       KE74-A      U   11/74 CCS, CISP control store
+
+M8167       KE74-A      U   11/74 CDI, CISP decimal integral
+
+M8168       KE74-A      U   11/74 DSC, CISP descriptor unit
+
+M8169                   U   11/74 maintenance display and control
+
+M8177       KB11-CM     U   11/74 system address path
+
+M8181       KB11-EM     U   11/74 mapping box
+
+M8182       KB11-CM     U   11/74 cache control board
+
+M8183       KB11-CM     U   11/74 cache address memory board
+
+M8184       KB11-EM     U   11/74 cache data memory
+
+M8185       KB11-EM     U   11/74 cache data path
+
+M8185-YC    KDF11-AC    Q   11/23 CPU without options
+
+M8186-YA    KDF11-AA    Q   11/23 CPU with KTF11-AA (MMU) and sockets for
+                            KEF11-AA (FP11)
+
+M8186-YB    KDF11-AB    Q   11/23 CPU with KTF11-AA (MMU) AND KEF11-AA (FP11)
+
+M8186-YC    KDF11-AC    Q   11/23 CPU without options
+
+M8188       FPF11       Q   Floating point processor
+
+M8189       KDF11-BA    Q   11/23-PLUS single-board CPU
+
+M8190       KDJ11-B     U   11/84 CPU: J11 CPU 15MHz with unusable socket for 
+                            FPJ11 and 2 SLUs, boot & diagnostic ROMs, 3 ROM 
+                            sockets, 8-Kbyte cache.
+
+M8190-AB    KDJ11-BB    Q   J11 CPU 15MHz with 2 boot & diagnostic ROMs, FPJ11
+                            compatibility (warm floating point, but will accept
+                            FPA)
+
+M8190-AC    KDJ11-BD    Q   J11 CPU 15MHz with 2 boot & diagnostic ROMs,
+                            FPJ11-AA
+
+M8190-AD    KDJ11-BA    Q   J11 CPU 18MHz with 2 boot & diagnostic ROMs, FPJ11
+                            compatibility (warm floating point, but will accept
+                            FPA)
+
+M8190-AE    KDJ11-BF    Q/U 11/83-84 CPU J11 CPU 18MHz with 2 boot & diagnostic
+                            ROMs, FPJ11-AA.
+
+M8191	    KTJ11-B     U   11/84 UNIBUS PMI controller (contains 4 optional
+			    boot ROM sockets (M9312 compatible)).
+
+M8192       KDJ11-A     Q   LSI-11/73 CPU
+
+M8192-YB    KDJ11-AB    Q   LSI-11/73 CPU 8-Kbyte cache, FPJ11-AA compatible,
+                            no manuals. 
+
+M8192-YC    KDJ11-AC    Q   LSI-11/73 CPU 8-Kbyte cache with FPJ11-AA, no
+                            manuals.
+
+M8194       KDF11       Q   Data memory module
+
+M8195       KDF11       Q   Cache data path module
+
+M820        KA11        U   11/20 data path control module
+
+M821        KA11	U   11/20 register control module
+
+M822        KA11	U   11/20 flag control module
+
+M823        KA11	U   11/20 codes data module
+
+M824        KA11	U   11/20 priority module
+
+M825        KA11	U   11/20 power failure and control module
+
+M8200       DMC11       U   1-line sync DDCMP DMA, microprocessor board
+                            (Space for 1K ROM)
+
+M8200-YA    DMC11-R     U   1-line sync DDCMP microprocessor with 1K control
+                            ROM (point-to-point, used with M8201).
+
+M8200-YB    DMC11-AL    U   1-line sync DDCMP microprocessor with 1K control
+			    ROM (point-to-point slave, used with M8202).
+
+M8200-YC    DMC11       U   1-line sync DDCMP microprocessor with 1K control
+			    ROM for LPA11.
+    
+M8201       DMC11       U   1-line sync DDCMP DMA, EIA & V35 line board
+
+M8202       DMC11       U   1-line sync DDCMP DMA, coax line board
+
+M8202-YA    DMC11-MA    U   1-Mbaud integral modem line unit
+
+M8202-YB    DMC11	U   500-Kbaud integral modem line unit
+
+M8202-YC    DMC11       U   250-Kbaud integral modem line unit
+
+M8202-YD    DMC11-MD	U   56-Kbaud integral modem line unit
+
+M8202-YE    ISB11-A	U   Multi-drop 56-Kbaud integral modem line unit
+
+M8203       DMP11       U   Line unit, RS-449, integral modem
+
+M8204       KMC11-A     U   Microprocessor, DMC11 code, 1K RAM programme space
+
+M8206       DMC11  	U   Microprocessor, DMC11 code, 4K RAM programme space
+
+M8207       DMC11	U   Microcontroller with space for ROM
+
+M8207-RA    DMR11	U   Microprocessor based sync communication controller,
+                            implements DDCMP protocol.
+
+M8207-YA    DMP11	U   Microprocessor with DDCMP control ROM
+                            (point-to-point or multidrop, used with M8203)
+
+M8217       DW11-A      U   UNIBUS to Q-bus interface module
+
+M8256       RX211       U   RX02 floppy disk drive control module
+
+M826			U   75 to 250-ns clock with SR (8-phase clock)
+
+M8264       KD11-D/E    U   11/34 No sack time-out (needed for KD11-D, KD11-E)
+
+M8265       KD11-EA     U   11/34A data paths module (Replaces M7265)
+
+M8266       KD11-EA     U   11/34A control module (Replaces M7266)
+
+M8267       FP11-A      U   11/34A floating point processor
+
+M8267-TA    FP11-A      U   Test module for M8267
+
+M8268       KK11-A      U   11/34 cache module
+
+M827        KE11-A      U   Clock and states
+
+M8291	    CR-11	U   CR-11/CM-11 card reader controller
+
+M8294       MM11-W/-WP  U   32K timing and UNIBUS interface
+
+M8295	    VT30-H	U   RGB graphics memory board
+
+M8377       KXT11-CA    Q   T11 16-bit single-board computer. 
+                            32-Kbytes of static RAM, two 28-pin
+                            sockets for up to 32-Kbytes of user ROM
+                            or static RAM. 20 lines of parallel I/O,
+                            three programmable SLUs - one async console line,
+                            and two sync/async (one with modem control)
+                            with rates up to 76.8-Kbaud.
+                            Two channels of DMA, three programmable
+                            interval timers. System line time clock and
+                            Onboard diagnostic with LED indicators.
+                            Can operate as either a single-line board 
+                            computer, or as a peripheral processor.
+                            (As a peripheral processor, up to 14
+                            KXT11-CAs may be configured on a single 
+                            Q-bus with a host processor such as the 
+                            KDJ11 or KDF11. This product is fully 
+                            supported by MicroPower/Pascal and
+                            associated tool kits.)
+
+M8392-AA    	        Q   68020, 1-Mbyte, 2 x 8-channel UARTs
+
+M8392-BA		Q   68020, 1-Mbyte, 2 x 8-channel UARTs, S-box handle
+
+M8396	    DMF32       U   8 async lines, only lines 0 and 1 have
+                            split speed capability and full modem
+                            control. DMA or silo mode. 50 to 19.2K. 1
+                            sync line up to 19.2K, 1 line printer
+                            interface or 1 parallel interface.
+
+M8398	    DMZ32       U   24-line async interface, up to 19.2K.
+                            Optional remote communication panel. DMA mode.
+
+M8578       MRV11-D     Q   PROM/ROM module with 16 sockets; 24/28-pin devices
+                            including 8K by 8 static RAMs, and 32K by 8 chips
+                            for a maximum of 512K-bytes of 22-bit addressing.
+                            Requires MXV11-B2 bootstrap ROM for bootstrapping
+                            capability. (Q22-bus)
+
+M8586                   U   LP20 control
+
+M8587			U   LP20 data path
+
+M8631-AA    MCV11-DA    Q   4-Kword 16-bit 2Kx8 static CMOS RAM with 96-hour
+                            battery backup (Also M8631-AF, -AL) (Q22-bus)
+
+M8631-CA    MCV11-DC    Q   16-Kword 16-bit 2kx8 static CMOS RAM with 96-hour
+                            battery backup (Also M8631-CF, -CL) (Q22-bus)
+
+M8634       IEQ11-A     Q   DMA version of IEEE(GPIB) interface
+
+M8637-BA    MSV11-JB    Q   1-Mbyte ECC PMI RAM with CSR (Q22-bus)
+                            (Also M8637-BC, -BF, -BH, -BL, -BP)
+
+M8637-CA    MSV11-JC    Q   2-Mbyte ECC PMI RAM with CSR (Q22-bus)
+                            (Also M8637-CC, -CF, -CH, -CL, -CP)
+
+M8637-DA    MSV11-JD    Q   1-Mbyte ECC RAM
+                            (Also M8637-DC, -DE, -DF, -DH, -DL, -DP, -DT, -DV)
+
+M8637-EA    MSV11-JE    Q   2-Mbyte ECC RAM
+                            (Also M8637-EC, -EE, -EF, -EH, -EL, -EP, -ET, -EV)
+
+M8638                   Q   HDLC DMA single channel sync MUX controller
+
+M8639-YA    RQDX1       Q   RD51/52 & RX50 control module
+
+M8639-YB    RQDX2       Q   RD51/52 & RX50 control module, can be expanded
+
+M8716       DR11-W      U   General purpose DMA parallel interface
+                            (DR11-B hex)
+
+M8717       		U   Interprocessor interrupt and sanity timer
+
+M8718			U   Modem control, 16-lines (CTS & RTS)
+
+M8720-YA    MSS11-KA    U   4-Kword 18-bit MOS RAM
+
+M8720-YB    MSS11-KB    U   8-Kword 18-bit MOS RAM
+
+M8720-YC    MSS11-KC    U   12-Kword 18-bit MOS RAM
+
+M8720-YD    MSS11-KD    U   16-Kword 18-bit MOS RAM
+
+M8720-YE    MSS11-KE    U   4-Kword 18-bit static MOS RAM
+
+M8720-YF    MSS11-KF    U   8-Kword 18-bit static MOS RAM
+
+M8720-YH    MSS11-KH	U   12-Kword 18-bit static MOS RAM
+
+M8720-YJ    MSS11-KJ    U   16-Kword 18-bit static MOS RAM
+
+M8721-YA                U   UNIBUS repeater
+
+M8721-YB    DT07        U   Isolated loopversion DT07 port module
+
+M8721-YC    DT07	U   DT07 switched UNIBUS repeater
+
+M8721-YD    DT07	U   Port terminated DT07 port module
+
+M8722-AH    MS11-MA     U   128-Kbyte MOS ECC memory (11/44, 11/24)
+                            (Also M8722-AN)
+
+M8722-BA    MS11-MB     U   256-Kbyte MOS ECC memory (11/44, 11/24)
+                            (Also M8722-BB, -BC, -BD, -BF, -BH, -BJ, -BK, -BL,
+                                       -BM, -BN)
+
+M8728-AA                U   64-Kword 39-bit MOS memory array (11/70, 11/750)
+                            (Also M8728-AB, -AC, -AD, -AE, -AF, -AH, -AK, -AM,
+                                       -AN)
+
+M8728-CM                U   16-Kword 39-bit MOS memory array (11/70)
+                            (Also M8728-CN)
+
+M873                    U   UNIBUS restart with space for 4 ROMs (256x4)
+
+M8730       KW11-C      U   Calendar and clock module
+
+M8730-YA    KW11-C      U   Calendar and clock module with more features
+
+M8739       KLESI-UA    U   LESI-to-UNIBUS interface for RC25, TU81
+
+M8743-AA    MDECS-AA    U   512-Kbyte ECC RAM
+                            (Also M8743-AB, -AC, -AD, -AE, -AF, -AH, -AJ, -AK,
+                                       -AL, -AM, -AN, -AP, -AV)
+
+M8743-BA    MS11-PB     U   1-Mbyte ECC RAM
+                            (Also M8743-BB, -BC, -BD, -BE, -BF, -BH, -BJ, -BK,
+                                       -BL, -BM, -BN, -BP, -BV)
+
+M8901-YC    TM02-FE     U   Data synchroniser for 75 IPS drive
+						    (Replaces M8901-YA, -YC)
+
+M8901-YD    TM03-AB     U   Data synchroniser for 125 IPS drive
+
+M8902       TM02-FA     U   TM02 tape control, PE (also TM02-FB, -FC, -FD)
+
+M8902-YA    TM02-FE     U   M8902 for 75 IPS drive (also TM02-FF, -FH, -FJ)
+
+M8903       TM02-FA     U   TM02 tape control, common mode
+			    (also TM02-FB, -FC, -FD)
+
+M8903-YA    TM02-FE     U   M8903 for 75 IPS drive (also TM02-FF, -FH, -FJ)
+
+M8904       TM02-FA     U   TM02 tape control, NRZI (also TM02-FB, -FC, -FD)
+
+M8904-YA    TM02-FE     U   TU45 M8904 (also TM02-FF, -FH, -FJ)
+
+M8905       TM02-FA     U   TM02 maintenance register (also TM02-FB, -FC, -FD)
+
+M8905-YA    TM02-FE     U   TM02-FE M8905 for 75 IPS drive
+
+M8905-YB    TM03        U   TM03 M8905
+
+M8906       TM02	U   TM02 16-bit fiddler
+
+M8908-YA    TM03        U   TM03 MASSBUS interface (replaces M8908)
+
+M8909       TM02	U   TM02 MASSBUS interface (replaced by M8909-YA)
+
+M8909-YA    TM02/03     U   TM02/03 MASSBUS interface (replaces M8909)
+
+M8928       TM03        U   TU45 magtape adapter for Pertec 9000
+			    (replaces M8921, M8928)
+          
+M8981-AA    KDJ11-EA    Q/U 11/93-94 CPU 18MHz, DCJ11, FPJ11, 2-Mbyte parity 
+                            RAM, 8 async SLUs, boot/diagnostic ROM
+
+M8981-BA    KDJ11-EB    Q/U 11/93-94 CPU 18MHz, DCJ11, FPJ11, 4-Mbyte parity 
+                            RAM, 8 async SLUs, boot/diagnostic ROM
+
+M9014			U   UNIBUS to 3 H854s
+
+M9015			U   3 H854s to UNIBUS
+
+M9031			U   UNIBUS to 3 3M cables for 11/74
+
+M9037			Q   Grant continuity
+
+M9039			U   TE16 terminator (will replace M9001 series & M8913)
+
+M9047                   Q   Grant continuity (also M9047-SA, -SF)
+
+M9058                   Q   Distribution/adaptor/buffer board for RQDX1/2/3
+                            to four drives and switch panels, fits BA23/124.
+
+M9061-AA                U   11/84 AC/DC reboot sequencer
+
+M9202                   U   UNIBUS connector, inverted (M9192+M9292 assembled
+                            1" apart with 2' cable)
+
+M930                    U   Terminator for PDP11 bus, 120-ohm to +3V, 1000pf
+                            on BF1 & BF2
+
+M9300                   U   UNIBUS B terminator (M930 with NPR logic)
+
+M9301                   U   UNIBUS terminator with space for 512-word ROM
+                            bootstrap (slots A & B in hex SPC; addresses:
+                            765000, 773000)
+
+M9301-SA                U   M9301 with Western Electric bootstrap
+
+M9301-SB                U   M9301 with Chase bootstrap (M9301-YA + 2nd RP04)
+
+M9301-SC                U   M9301 with Chase bootstrap (M9301-YC + 2nd RK11)
+
+M9301-SD                U   M9301 with SEDM bootstrap for WECO
+
+M9301-SE                U   M9301 with Canada Post Office bootstrap
+
+M9301-SF                U   M9301 with DA11 bootstrap
+
+M9301-SH                U   M9301-YC modified for RX11
+
+M9301-SJ                U   M9301-YA + RF11 boot (WECO)
+
+M9301-SK                U   Boot for DMC11, RX01, TU10, DL11, PTR, ASCII,
+                            diagnostics
+
+M9301-SL                U   M9301-SE with no remote switch panel
+
+M9301-SV                U   M9301 with DQ11-DA DECnet loader, RK, RX, TMA11
+                            boots
+
+M9301-SW                U   M9301-SF updated with DA11 DECnet 2 bootstrap
+
+M9301-SX                U   M9301 with DA11 DECnet 2 loader
+
+M9301-SY                U   M9301 with DMC11 DECnet & TJE16 loader
+
+M9301-WA                U   M9301 with 765000 & 766000 addresses, DN87S SMP
+                            boot (TOPS-10)
+
+M9301-WB                U   M9301-WA except DN20-CC, -CD SMP boot (TOPS-10)
+
+M9301-YC                U   M9301 with 11/70 bootstrap
+
+M9301-YD                U   M9301 with DDCMP bootstrap
+
+M9301-YE                U   M9301 with bootstrap for DECnet, DL11-E, DU11,
+                            DUP11, low speed PTR, ASCII console
+
+M9301-YF                U   M9301 with boot for PC11, RP02-6, RS03-4, RK05-6,
+                            RX01, TU10, TU16, TU56, TS03, TTY, ASCII console,
+                            diagnostics
+
+M9301-YH                U   M9301 with 11/60 bootstrap (works with 11/70)
+
+M9301-YJ                U   M9301 with bootstrap for DECnet DMC11, RX01, TU10,
+                            ASCII console
+
+M9301-YL                U   M9301 with Olivetti bootstrap
+
+M9302                   U   11/04 UNIBUS terminator, far end
+                            (Fits in any Standard UNIBUS slot, terminating all
+			    newer UNIBUS machines.)
+
+M9302-YA                U   M9302 with different resistors for minimum UNIBUS
+                            levels
+
+M9302-YB                U   M9302 card used to mount an overtemperature relay
+
+M9303			U   M930 with individual +5V for each terminator (used
+                            with 2347 UNIBUS tester)
+
+M9303-YA		U   M9303 + M9307 wired together with 1'(?) spacers.
+                            (used with 2347 UNIBUS tester)
+
+M9304			U   Long M930 for low margin testing
+
+M9304-YA		U   Long M930 for high margin testing
+
+M9305			U   M981 for low margin testing
+
+M9305			U   M981 for high margin testing
+
+M9306			U   11/04 near end UNIBUS terminator, no boot
+
+M9306-YB		U   M9306 with different resistors to give a minimum
+                            UNIBUS level when put in parallel with another
+                            terminator.
+
+M9307			U   M919 for 2 40-conductor 3M cable
+
+M9308			U   Single-ended margin head (UNIBUS terminator with
+                            sack turn-around logic)
+
+M9309			U   Long M930
+
+M9311			U   M9301 with 766000 and 763000 addresses and GT62
+                            comm boot loader.
+
+M9312                   U   Bootstrap terminator with 5 empty ROM sockets; one
+                            for CPU diagnostics, 4 for peripheral boots
+
+M9312-YA                U   M9312 revision C or later for 11/74
+
+M9313	    		U   UNIBUS exercisor + terminator (UET)
+
+M9400-YA    REV11-A     Q   120-ohm terminators with refresh & floppy boot
+
+M9400-YB    TEV11       Q   120-ohm terminators
+
+M9400-YC    REV11-C     Q   Refresh and boot alone
+
+M9400-YD    REV11-D     Q   Headers alone
+
+M9400-YE    REV11-E     Q   Headers and 250-ohm terminators
+                            (can be used with M9401 as a Q-bus extender)
+
+M9400-YF    REV11-F     Q   M9400-YA with boot sockets with no ROMs
+
+M9400-YH    REV11-H     Q   LDP/COMM boot & floppy boot with terminators
+
+M9400-YJ    REV11-J     Q   DMA refresh bootstrap, cable connector, 250-ohm
+                            terminator
+
+M9400-YK    REV11-K     Q   M9400-YH with no terminators
+
+M9400-YL    REV11-L     Q   M9400-YH with cable connectors
+
+M9400-YM    REV11-M     Q   Refresh with DECnet bootstrap
+
+M9400-YN    REV11-N     Q   RX02 boot and refresh
+
+M9401                   Q   Mirror-image connector used at other end of cable
+                            to M9400 to join 2 backplanes.
+
+M9404                   Q   1st Q22-bus cable connector, no terminators
+
+M9404-YA                Q   Cable connector for expansion box, with 240-Ohm
+                            terminators.
+
+M9405                   Q   2nd Q22-bus cable connector, no terminators, mirror
+                            image
+
+M9405-YA                Q   M9405 with 120-Ohm terminators
+
+M9713-AA		U   11/94 +5V and -15V minimum load module for KDJ11-E
+
+M992-YB                 U   Bootstrap diode matrix
+
+W9301                   U   Quad-height hi-density wire wrappable module
+
+W9302                   U   Hex-height hi-density wire wrappable module
+
+W9511                   Q   Quad-height wire wrap module, no sockets
+
+W9512                   Q   Dual-height wire wrap module, no sockets
+
+W9513                   Q   W9511 with 58 pre-mounted DIP sockets
+
+W9514                   Q   W9512 with 25 pre-mounted DIP sockets
+
+            DQ619       Q   Dilog floppy disk drive controller, RX02 emulation,
+                            Shugart SA450 compatible, DSD or Dilog media
+                            compatible, supports two drives, 22-bit addresssing
+                            capability
+
+	    TC02	Q   Emulex Pertec-interface tape drive controller.
+                            TS-11 (MS:) emulation. Early revisions incompatible
+                            with VMS.
+
+	    TC13	Q   Emulex Pertec-interface tape drive controller.
+                            Switchable TU81 TMSCP (MU:) or TS-11 (MS:)
+                            emulation.
+
+	    ADC-01	U   Ampex controller for up to two SMD disks. Limited 
+                            to drives with low data rates and requires a custom
+                            driver.
+
+	    TC-130	U   Western Peripherals tape controller and formatter.
+                            4 UNIBUS modules in a system unit. Interfaces with
+                            industry standard non-formatted drives and emulates 
+                            a TU10.
+
+	    SDC-DLV11J  Q   Sigma clone of DLV11-J. 4-line SLU.
+
+	    ACT DH/DM   U   Able Comput Technology 16 async communication line
+                            controller with modem control. All standard DH11
+                            baud rates, plus 19.2-Kbaud. Emulates DEC
+                            DH11+DM11.
+
+            DQ132       Q   TS-11 emulation for Pertec formatted tape, up to
+                            4 drives. Q-22. Dilog.
+
+            DQ153       Q   TMSCP emulation for Pertec formatted tape, up to
+                            4 drives, LSI-11 boot, LSI-11 & VAX config
+                            programme & diagnostics in ROM, NVRAM config
+                            settings. Q-22. Dilog.
+
+            QD21        Q   MSCP for 2 ESDI disk drives, LSI-11 boot, LSI-11
+                            & VAX config and diagnostic programmes in ROM,
+                            NVRAM config settings. Q-22. Emulex.
+
+            QD32        Q   MSCP 2-drive SMD-E disk controller, diagnostic
+                            and setup programmes in ROM, NVRAM config
+                            settings. Q-22. Emulex.
+
+            QD33        Q   Emulex SMD controller for up to two SMD disks.
+                            Supports SMD-0 and SMD-E, with data rates up to
+                            24MHz for SMD-E. MSCP emulation (DU:). DMA (uses
+                            adaptive techniques and block mode, supports
+                            scatter-write and gather-read on the uVAX-I).
+
+            QTO         Q   TD Systems SCSI TMSCP tape controller, LSI-11 &
+                            VAX config and diagnostic programmes in ROM,
+                            NVRAM config settings. Q-22.
+
+            MLSI-TM11   Q   MDB 800/1600 BPI Pertec unformatted magtape
+                            (3-cable) formatter/controller, TM-11 emulation.
+            
+            DQ614       Q   Dilog ST-506 emulation of four RL01/02
+
+            
+
+
+
+--
+Informatiks                       |
+Ronald Copley, owner              |  Buying and selling small to medium
+1010 Township RD 78W              |  quantities of used Pyramid, Sun, 
+Scottown OH  45678-9051           |  DEC (PDPs) and Data General computer
++1.614.643.1340                   |  equipment. Trades welcome!!
+(evenings, please)                |
+--
+
+
+

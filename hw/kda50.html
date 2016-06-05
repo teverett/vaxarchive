@@ -1,0 +1,28 @@
+<html><head><title>KDA50 switch settings</title></head>
+<body bgcolor="#ffffff">
+
+
+<h1>KDA50 switch settings</h1>
+<p>From my KDA50 user manual:
+
+<p>Hold the M7164 board with the LEDs & ribbon cable connectors upwards
+and the Qbus edge connectors down.  The block of 10 dip switches sets
+the bus address.
+
+<p>The left-most switch is S1 (and corresponds to address bit 11) and the 
+right-most is S10 (and corresponds to address bit 2).
+
+<p>To set the address to 172150, the switches should be (from left to
+right):
+<pre>
+   A11 A10  A9  A8  A7  A6  A5  A4  A3  A2
+    S1  S2  S3  S4  S5  S6  S7  S8  S9 S10
+
+   off  on off off off  on  on off  on off
+</pre>
+<p>From: Kenn Humborg <kenn at linux.ie>
+<p>More info at:
+<a href="http://eisner.decus.org/DECUServe/DECnotes/HARDWARE_HELP/1158.HTML">http://eisner.decus.org/DECUServe/DECnotes/HARDWARE_HELP/1158.HTML</a>
+<hr>
+</body>
+</html>

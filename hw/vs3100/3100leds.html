@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0054)http://www.nvg.ntnu.no/data/hardware/vax3100-leds.html -->
+<HTML><HEAD><TITLE>VAXstation 3100 LED Definitions</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.3211.1700" name=GENERATOR></HEAD>
+<BODY bgColor=white>
+<H1>
+<CENTER>VAXstation 3100</CENTER></H1>
+<H2>
+<CENTER>Diagnostic LED Definitions</CENTER></H2><BR><BR>
+<P>There are eight LED's divided into two felds of four on the back of the 
+system box. These LED's provide feedback during each phase of power-up 
+initialization and testing. The first four indicate the state of the system 
+while the second four indicate substate and are dependent on the indication 
+given from the state LED's. 
+<P>
+<TABLE border=2>
+  <TBODY>
+  <TR>
+    <TH>State</TH>
+    <TH>Substate</TH>
+    <TH>Definition</TH></TR>
+  <TR>
+    <TD>1111</TD>
+    <TD>1111</TD>
+    <TD>Power is applies but no instruction is executed.</TD></TR>
+  <TR>
+    <TD>1111</TD>
+    <TD>0000</TD>
+    <TD>Power is applied. The ROM code is successfully started and several 
+      instructions have been executed.</TD></TR>
+  <TR>
+    <TD>1110</TD>
+    <TD>0000</TD>
+    <TD>Console memory sizing routine is entered. Memory to hold the console 
+      data structures is located. The substate variables have no meaning in this 
+      section of the test.</TD></TR>
+  <TR>
+    <TD>1101</TD>
+    <TD>0000</TD>
+    <TD>The console data structures are initialized and have started testing 
+      the NVR.</TD></TR>
+  <TR>
+    <TD>1100</TD>
+    <TD>0000</TD>
+    <TD>The NVR test completed and the DZ test has started.</TD></TR>
+  <TR>
+    <TD>1011</TD>
+    <TD>0000</TD>
+    <TD>The DZ test completes. An optional video has been found but its 
+      testing has not been started. This is part of the console determination 
+      code.</TD></TR>
+  <TR>
+    <TD>1011</TD>
+    <TD>0001</TD>
+    <TD>The DZ test completes. No optional video is installed or, if it is 
+      installed, fails self-test. In either case, the base monochrome video test 
+      has been entered.</TD></TR>
+  <TR>
+    <TD>1010</TD>
+    <TD>0000</TD>
+    <TD>The video subsystem was tested and the console initialization sequence 
+      was entered.</TD></TR>
+  <TR>
+    <TD>1001</TD>
+    <TD>XXXX</TD>
+    <TD>The system initializes and power-up testing starts. The substate 
+      variable indicates the subsystem test being excuted. See subsystem table 
+      below.</TD></TR>
+  <TR>
+    <TD>1000</TD>
+    <TD>XXXX</TD>
+    <TD>The self-test completes with the substate indicating the failing 
+      subsystem. See subsystem table below. Enter TEST 50 to see results.</TD></TR>
+  <TR>
+    <TD>0111</TD>
+    <TD>XXXX</TD>
+    <TD>Self-test was entered from the console TEST command. The substate 
+      indicats the subsystem test currently being executed. See subsystem table 
+      below. Enter TEST 50 to see results.</TD></TR>
+  <TR>
+    <TD>0110</TD>
+    <TD>XXXX</TD>
+    <TD>The self-test completes from the TEST command with the substate 
+      indicating the failing subsystem. See subsystem table below. Enter TEST 50 
+      to see results.</TD></TR>
+  <TR>
+    <TD>0101</TD>
+    <TD>XXXX</TD>
+    <TD>The self-test started under control of the APT system. The substate 
+      indicats the subsystem test currently being executed. See subsystem table 
+      below. Enter TEST 50 to see results.</TD></TR>
+  <TR>
+    <TD>0100</TD>
+    <TD>XXXX</TD>
+    <TD>The system exerciser started from a console TEST command. The substate 
+      indicats the value of the lower four bits of the command. If the system 
+      exerciser starts with a T 101, the substate contains a 0x0001. Read the 
+      test results on the screen. </TD></TR>
+  <TR>
+    <TD>0011</TD>
+    <TD>0000</TD>
+    <TD>The system exerciser started under control of the APT test delivery 
+      system. Read the test results on the screen.</TD></TR>
+  <TR>
+    <TD>0010</TD>
+    <TD>XXXX</TD>
+    <TD>The entity-based module received a request from a host to enter 
+      monitor mode. This lets the host send commands to the system. This is 
+      indicated if the functionality of the EBM is implemented at a later 
+      release of the system ROM. Reserved for future use.</TD></TR>
+  <TR>
+    <TD>0001</TD>
+    <TD>XXXX</TD>
+    <TD>Console mode was successfully entered and is ready to accept commands. 
+      This does not apply to power on. The substate indicates the failing 
+      subsystem if there is one. This differs from a self-test complete, because 
+      the console can be entered by means other than TEST command or power-on 
+      halt (for example HALT button). </TD></TR>
+  <TR>
+    <TD>0000</TD>
+    <TD>XXXX</TD>
+    <TD>Attempting to boot the system. Once control passes to VMB, the state 
+      LED's have no meaning.</TD></TR></TBODY></TABLE>
+<P>
+<CENTER>
+<TABLE border=2>
+  <TBODY>
+  <TR>
+    <TH colSpan=4>Subsystem Table</TH></TR>
+  <TR>
+    <TH>Substate</TH>
+    <TH>Subsystem</TH>
+    <TH>Substate</TH>
+    <TH>Subsystem</TH></TR>
+  <TR>
+    <TD>1111</TD>
+    <TD>MONO</TD>
+    <TD>1110</TD>
+    <TD>CLK</TD></TR>
+  <TR>
+    <TD>1101</TD>
+    <TD>NVR</TD>
+    <TD>1100</TD>
+    <TD>DZ</TD></TR>
+  <TR>
+    <TD>1011</TD>
+    <TD>MEM</TD>
+    <TD>1010</TD>
+    <TD>MM</TD></TR>
+  <TR>
+    <TD>1001</TD>
+    <TD>FP</TD>
+    <TD>1000</TD>
+    <TD>IT</TD></TR>
+  <TR>
+    <TD>0111</TD>
+    <TD>STRG-1 or SCSI-A</TD>
+    <TD>0110</TD>
+    <TD>SCSI-A or SCSI-B</TD></TR>
+  <TR>
+    <TD>0101</TD>
+    <TD>SYS</TD>
+    <TD>0100</TD>
+    <TD>8PLN</TD></TR>
+  <TR>
+    <TD>0011</TD>
+    <TD>(option)</TD>
+    <TD>0010</TD>
+    <TD>(option)</TD></TR>
+  <TR>
+    <TD>0001</TD>
+    <TD>NI</TD></TR></TBODY></TABLE></CENTER></BODY></HTML>

@@ -1,0 +1,83 @@
+<head><title>TK50 controls and possible errors</title></head>
+<body bgcolor="#FFFFFF">
+<h1>TK50 controls</h1>
+<h2>load/unload button</h2>
+<pre>
+in   - loads the tape (10-15 seconds)
+out  - rewinds and unloads the tape
+</pre>
+<h2>cartridge release handle</h2>
+<pre>
+up   - lets you insert a tape or
+       remove a tape after rewind and unload operations are completed
+down - locks tape in operating position
+</pre>
+<h2>TK50 lights</h2>
+<pre>
+green  red    function
+off    off    no power to tape drive
+on     off    it is safe to move the cartridge release handle. power is present.
+off    on     do not move the cartridge release handle. one of following is in effect:
+              - power up test is occurring
+              - cartridge is inserted but handle is still up
+              - tape is loading or unloading
+              - tape is stopped
+on     on     tape loaded successfully
+flash  on     tape is in motion (except rewind) and read/write commands are
+              being processed. irregular flashing of green light means that
+              tape calibration is occurring (first use of tape).
+flash  flash
+slow   slow   tape is rewinding
+off    flash
+       fast   tape or drive fault exists.
+</pre>
+<h1>TK50 possible errors</h1>
+<pre>
+Date: Sat, 04 Oct 1997 19:35:25 -0400
+From: "David M. Heller" <dmheller@frontiernet.net>
+To: port-vax@NetBSD.ORG
+Subject: Re: blinking tk50 -> dead??
+
+Bruce Lane wrote:
+> 
+> >Date: Fri, 3 Oct 1997 11:55:52 -0400
+> >X-Sender: bobart@genesis.dmatech.com
+> >To: "J. Buck Caldwell" <buck_c@polygon.com>
+> >From: David Bobart <bobart@dmatech.com>
+> >Subject: Re: blinking tk50 -> dead??
+> >Cc: port-vax@netbsd.org
+> >Sender: port-vax-owner@NetBSD.ORG
+> >Delivered-To: port-vax@NetBSD.ORG
+> >
+> >>Are you brave? TK50's have a common failing - the metal fish tape leader
+> >>used to grab and feed the tape in the cartridge. If you are comfortable
+> >>with it, take the metal cage off the top of the drive, then check to
+> >>make sure the fish tape is hooked onto both the reel and a standoff
+> >>where the head of the tape would be. That's the only thing I've ever
+> >>seen that caused the quickflash.
+> 
+>         Believe it or not, there's something else; dirty heads. I had the
+> quickflash problem with two TK50's in my own MicroVAXen. I carefully
+> removed the shell and the head guard, swabbed the head with 93% isopropyl
+> alcohol (available at any drug store), dried it, swabbed the head guard as
+> well, and put the whole mess back together.
+> 
+>         No problems since! It started working right away, and my read errors
+> vanished into the mist.
+> 
+> -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+> Bruce Lane, Sysop,  The Dragon's Cave BBS (Fidonet 1:343/272)
+ 
+  Yes, dirty heads can cause that problem, but be careful: too much alcohol
+ will cause the heads to fall apart! The heads are just glued together
+ very cheaply. This has happened to me. Another thing to watch for is
+ bad tapes.
+
+					Regards,
+					Dave
+</pre>
+
+<hr>
+<p>Back to the <a href="index.html">hardware page</a></p>
+</body>
+</html>

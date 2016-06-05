@@ -1,0 +1,250 @@
+<HTML>
+<HEAD>
+<TITLE>The VAX Network Booting HOWTO: Introduction</TITLE>
+</HEAD>
+<BODY>
+Previous
+<A HREF="VAX-netboot-HOWTO-2.html">Next</A>
+<A HREF="VAX-netboot-HOWTO.html#toc1">Table of Contents</A>
+<HR>
+<H2><A NAME="intro"></A> <A NAME="s1">1. Introduction</A></H2>
+
+<P>After acquiring a VAXstation 3100, I was interested in making the
+machine a bit more useful by running some type of Unix operating
+system on it.  Thoughts of running VAX/VMS crossed my mind for a few
+seconds, but I quickly regained my sanity.  VMS just isn't Unix.
+(Depending on your viewpoint that can be read as either an insult or a
+compliment to either of the two operating systems).  Then there was
+Ultrix, and although it would satisfy my desire to run Unix -- Ultrix
+just isn't the best version of Unix I've ever worked with.  In fact it
+is probably the worst version of Unix I've ever worked with.  The one
+remaining option was to run NetBSD/vax.  An end goal at hand, my quest
+began.</P>
+<P>Although still in it's early stages, NetBSD/vax is pleasingly
+functional in its support of the
+<A HREF="#supptd-plat">VAXstation and MicroVAX systems</A>
+discussed in this guide.  NetBSD/vax has addressed my desire to run
+a modern Unix on my personal slice of DEC VAX history.  Still, it was
+no small task to get from the point of having a VAXstation without an
+operating system to the point where the machine booted up to a
+cheerful login prompt.  In order to make the lives of others easier
+as they too attempt to breathe new life into their sleepy VAX
+systems, I have assembled this guide.</P>
+<P><B>Update:</B> With the release of NetBSD 1.3, support for the
+netbooting of NetBSD/vax has been officially incorporated into a full
+fledged release of NetBSD/vax.</P>
+
+<H2><A NAME="netb-overview"></A> <A NAME="ss1.1">1.1 Overview of The Netbooting Process</A></H2>
+
+<P>Before we even get started, it will help you to have a general
+understanding of exactly what takes place during the netbooting
+process.</P>
+<P>There are three phases to the netbooting process: (1) MOP loading the
+NetBSD/vax bootloader from the MOP server and starting it, (2) the
+bootloader starting the NetBSD/vax kernel, (3) the kernel NFS mounting
+the root filesystem and proceeding with normal startup.</P>
+<P>MOP is short for Maintenance Operations Protocol.  It's a DEC
+proprietary communications protocol used in many DEC systems for
+things like, well, netbooting workstations.  The VAXstations, in
+addition to many other VAXen have the client side support for MOP
+built into their system ROMs.  Without this built-in MOP client code,
+we wouldn't get very far in netbooting the machines. This is because
+MOP provides the means by which the NetBSD/vax bootloader is
+transferred to the VAX client.  To boot a machine from the network
+using MOP you need to have a MOP server in addition to your VAX's
+client implementation of MOP.  Setting up a MOP server on a bootserver
+machine is covered later in the HOWTO.</P>
+<P>After using MOP to transfer the NetBSD/vax second stage bootloader
+from the bootserver, the bootloader begins executing.  The bootloader
+then sends a RARP request out on the local network to determine the IP
+address which should be assigned to the VAX client.  The IP address to
+assign to the VAX is based on its hardware ethernet address.  You'll
+have to specify the mappings of ethernet address to IP addresses, but
+this is covered in the HOWTO. We will configure the bootserver as the
+machine for answering the RARP requests.</P>
+<P>Following the determination of the VAX's IP address, the bootloader
+begins a dialog with the bootparamd server.  The bootparamd server
+generally runs along with the MOP server on the bootserver machine.
+The dialog with bootparamd lets the VAX client know important things
+like, where to find the NFS filesystem on which the NetBSD/vax kernel
+lives.</P>
+<P>After gathering information from bootparamd, the bootloader can NFS
+mount the appropriate root filesystem and transfer execution to the
+NetBSD/vax kernel located on that filesystem.  From this point on, the
+booting of NetBSD/vax goes much the same way as it would from a local
+disk.</P>
+<P><EM>For a more detailed overview of netbooting, see the NetBSD man
+page for diskless(8).</EM></P>
+<P>Based on the phases of netbooting described above, you can see that
+we've got a number of requirements for successfully booting a VAX
+client from the network.  Those requirements being: the presence of a
+MOP server, a machine with support for answering RARP requests, a
+bootparamd server, and an NFS server to host the VAX's root
+filesystem.</P>
+
+
+
+<H2><A NAME="supptd-plat"></A> <A NAME="ss1.2">1.2 Supported Platforms</A></H2>
+
+<P>There are several members of the VAXstation family which I know work
+with the netboot setup as described in this document.  These machines
+are all older models of VAXstation.</P>
+<P><B>VAXstation 2000</B>,
+<B>VAXstation 3100/M30</B>,
+<B>VAXstation 3100/M38</B>,
+<B>VAXstation 3100/M40</B>,
+<B>VAXstation 3100/M48</B>, and
+<B>VAXstation 3100/M76</B></P>
+<P>In addition to the VAXstations, several of the MicroVAX and VAXserver
+named systems may also be successfully netbooted.</P>
+<P><B>MicroVAX 2000</B>,
+<B>MicroVAX 3100/M10</B>,
+<B>MicroVAX 3100/M10e</B>,
+<B>MicroVAX 3100/M20</B>,
+<B>MicroVAX 3100/M20e</B>, and
+<B>VAXserver 3100</B></P>
+
+
+<H2><A NAME="supptd-plat-quirks"></A> <A NAME="ss1.3">1.3 Supported Platform Quirks</A></H2>
+
+<P>Although a fairly broad range of systems is supported, this support
+tends to come with certain limitations.    </P>
+
+<H3><A NAME="disp-limits"></A> Display Limitations</H3>
+
+<P>The NetBSD/vax port presently has no support included for display
+hardware. None of the display framebuffers or enhanced display
+adapters are supported.  They are not even supported in the capacity
+of a console device.  The only non pseudo terminal support for direct
+interaction with a booted NetBSD/vax system is through the serial
+console.  You will either need a serial terminal such as a VT220, or
+you will need to interface the VAX to another system such a PC running
+a communications software package.</P>
+
+<H3><A NAME="mem-limits"></A> Memory Limitations</H3>
+
+
+<P>Presently, the VAXstation 3100's and MicroVAX 3100's are unable to
+boot from the network when they have memory configurations greater
+than 16Megs.  The memory areas critical to the operation of the Lance
+ethernet device get mapped in such a way that memory configurations of
+more than 16Megs confuse NetBSD's interaction with the Lance device.</P>
+<P>The workaround for this stumbling block is the common sense solution
+of removing memory until the system has no greater than 16Megs of RAM.
+Yes, it's painful thing to do if you've got 32Megs of RAM in your
+workstation.  But then you have to ask yourself, do I want an
+oversized paperweight with 32Megs of RAM or do I want a nifty
+operational NetBSD/vax system with 16Megs?</P>
+<P>See
+<A HREF="VAX-netboot-HOWTO-7.html#out-buff-busy">Boot Hangs - output buffer busy</A> 
+for more details on this problem behavior.</P>
+
+<H3><A NAME="eth-limits"></A> Ethernet Device Limitations</H3>
+
+<P>You cannot netboot VAXstation and MicroVAX systems which do not have
+the lance ethernet device present.  The reason for the lance ethernet
+requirement is that there is no support in the bootloader for Q-bus,
+Unibus, or other non-lance ethernet devices.  Examples of specific
+devices which are NOT supported by the bootloader at this time include
+DEQNA, DELQA, DEUNA, and DELUA.  Basically, if it's not a lance
+ethernet device you won't be netbooting based on the information
+contained in this document.</P>
+
+
+<H3><A NAME="mem-limits"></A> Disk Limitations</H3>
+
+<P>The local disk support for the various platforms is somewhat flaky at
+the moment.  This is one of the reasons that netbooting these systems
+is presently the most viable way to operate these systems.</P>
+<P>Of the supported systems, the VAXstation 2000 and the VAXstation
+3100/M76 have the best disk support.  This is mainly due to those
+being the types of systems on which the majority of the VAXstation
+kernel development was carried out.  By "best disk support" I mean
+that the kernel device drivers support the more efficient DMA I/O data
+transfers on the disk controllers of these machines.  In the case of
+the VAXstation 2000, both its MFM (ST506) and SCSI controllers are
+supported by NetBSD/vax.  In the case of the VAXstation 3100/M76 it
+has a pair of SCSI controllers integrated into the main system board.
+Both of the these SCSI controllers are supported.</P>
+<P>The other systems, the VAXstation 3100 M30/M38/M40/M48, do have
+support for SCSI controllers present in them.  The model 30-48
+VAXstation 3100's have separate daughter boards on which their disk
+I/O controllers reside.  Two types of controller boards were made for
+these machines. One was board contained both an MFM (ST506) controller
+and a SCSI controller.  The other board had two SCSI controllers built
+into it.  Only the SCSI controllers on these daughter boards are
+supported by the NetBSD/vax kernel, and presently the drivers must be
+modified in such a way that they run in a degraded mode of Programmed
+I/O (PIO) data transfers.</P>
+<P>In my experience the PIO mode works reliably, but the read and write
+rates to the disks are a painfully slow 30KB/sec.  Using the NFS
+mounted filesystems are significantly faster unless your network is
+really heavily loaded.</P>
+<P>I'm not familiar with the MicroVAX systems so I don't know to what
+extent disk I/O is supported with them.  The MicroVAX 2000 mainboard,
+being identical in design to the VAXstation 2000, will have fully
+functional NetBSD/vax controller drivers.  As for the listed MicroVAX
+3100 models, they deviate a bit more in design from their VAXstation
+3100 siblings.  I would suppose that if a particular MicroVAX 3100 can
+be netbooted, and if the MicroVAX 3100's use the same disk controllers
+as the VAXstation 3100's, then there's a good chance that the SCSI
+drivers will at least work in the degraded PIO transfer mode.  Keep in
+mind that the MicroVAX 3100 information is speculative at this point.</P>
+
+
+<H2><A NAME="acknowledge"></A> <A NAME="ss1.4">1.4 Acknowledgments</A></H2>
+
+<P>Many thanks go out to those of both the NetBSD/vax community as well
+as members of the VAX/Linux porting efforts. I would like to thank in
+particular:</P>
+<P><EM>In alphabetical order</EM></P>
+<P>
+<DL>
+
+<DT><B>Bertram Barth</B><DD><P>For all the excellent work on the NetBSD with
+VAXstation 3100 support.  Bertram is truly a port-vax mailing list
+hero. Additional thanks go out to Bertram for adding SCSI
+controller autodetection code to allow systems with less than two
+SCSI controllers to boot properly.</P>
+<DT><B>Enrik Berkhan</B><DD><P>For researching and finding a workaround for the
+difficulties with the bootparamd server under the current Linux
+implementation of RARP.</P>
+<DT><B>Bruce Calder</B><DD><P>For visiting on a weekend and doing most of the
+work to get the NetBSD kernel image to actually load during our
+first attempts at netbooting. </P>
+<DT><B>Antonio Carlini</B><DD><P>For clarification on the various types,
+designs, and designations of VAX systems.  </P>
+<DT><B>Mats O. Jansson</B><DD><P>For mopd, without mopd none of this would be
+possible.</P>
+<DT><B>Karl Maftoum</B><DD><P>For porting mopd to Linux, else this guide would
+be quite thin, for providing lots of pointers when I first got my
+VAXstation 3100, and also for charging headlong into the perils of
+porting Linux to the VAX architecture.</P>
+<DT><B>Anders Magnusson (Ragge)</B><DD><P>For all the excellent work on the
+NetBSD/vax port and being very helpful in general.  Yet another
+port-vax hero. Without Ragge, there wouldn't be a NetBSD/vax port.
+Many thanks for the excellent work on 1.3 as well.</P>
+<DT><B>Kevin McQuiggin</B><DD><P>For creating the FreeBSD sections.  That's one
+less Unix left unexplained.</P>
+<DT><B>Mattias Nordlund</B><DD><P>For pointing me to the Linux version of
+bootparamd.</P>
+<DT><B>Tim Shoppa</B><DD><P>For providing me with all sorts of excellent
+information to all my VAX hardware questions.  Not to mention his
+hand delivering a pair of VAXstation 3100's to me on a trip from
+Vancouver in Canada to Southern California.  <EM>Tim also provided
+an interesting account of how he once traveled on a plane with a
+PDP-11 as carry-on luggage.</EM>  </P>
+
+</DL>
+</P>
+<P>Many thanks in general to the NetBSD/vax, NetBSD, and Linux
+communities for providing a lot of positive feedback on this HOWTO.</P>
+
+
+
+<HR>
+Previous
+<A HREF="VAX-netboot-HOWTO-2.html">Next</A>
+<A HREF="VAX-netboot-HOWTO.html#toc1">Table of Contents</A>
+</BODY>
+</HTML>

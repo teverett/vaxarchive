@@ -1,0 +1,461 @@
+<TITLE>5. General Q and A</TITLE>
+
+<H1>5. General Q and A</H1>
+
+<hr>
+
+<A HREF="FAQ.html#toc5">Contents of this section</A>
+
+<hr>
+
+<H2>5.1 <A NAME="ss51"></A> My uVAXII crashes every 24 hours. Why?</H2>
+
+A: You're probably running V1.0A, please upgrade to V1.1. If you can't 
+upgrade, please note the following:<p>
+
+Ragge told me the following in an e-mail message (in Swedish, I've 
+translated it into English to the best of my abilities):<p>
+
+"Try turning off /etc/daily in cron, I think it's an 'fsck -n' that's 
+causing the problem. This has been fixed in later kernels, the problem 
+is that 'fsck' is trying to do DMA to userspace to pages that are not 
+mapped."<p>
+
+<H2>5.2 <A NAME="ss52"></A> Can I use a TK70 on my NetBSD/VAX system?</H2>
+
+A: Sure. Here is what Ragge has to say on the subject (in a message posted 
+to the port-vax mailing list):
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Mon, 25 Sep 1995 19:05:51 +0100 (MET)
+From: Anders Magnusson <ragge@ludd.luth.se>
+To: Jason Downs <downsj@teeny.org>
+Cc: port-vax@NetBSD.ORG
+Subject: Re: TK70
+
+> 
+> Except for the fact that my installation is rather old by now, and I
+> just finished FTPing the more recent one.  I'd like to put it on tape,
+> but I can't seem to write to my TK70...  It just has IO errors, and the
+> kernel eventually panics.
+> 
+It should work on TK70 also, but there may be some troubles. It can 
+be a good idea to first write something on the tape from scratch
+with the right density. Then be sure making mt -f /dev/rmt8 rewind
+before trying to write the boot blocks. I don't know why this is
+necessary, but it worked for me.
+Also be sure that you are using a cassette of type "CompacTape II"
+otherwise it definitely won't work. TK70 can't write TK50 tapes.
+
+-- Ragge
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<H2>5.3 <A NAME="ss53"></A> How can I low-level format my RD53/RD54 disks?</H2>
+
+A: You will need the DEC Field Service Maintenance tape for your machine, and 
+boot off that. <b>This is the only way to get it right!</b> Don't even think 
+about using some PC SW or whatnot, you need to get the drive ID and 
+different other stuff written to your disk, only the DEC tape will do this.<p>
+
+Here's what Ken Wellsch &lt;kcwellsc@math.uwaterloo.ca&gt; had to say 
+on the subject in a posting to port-vax:<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Wed, 24 Jan 1996 09:29:50 -0500 (EST)
+From: Ken Wellsch <kcwellsc@math.uwaterloo.ca>
+To: "W. Robert Williams" <wrw1@cec.wustl.edu>
+Cc: port-vax@NetBSD.ORG
+Subject: Re: Low level of RD53
+
+| Is there any way I can format these on a PC or some other system.  I don't
+| have the field maint kit so I can't format them on the VAX.  I do have
+| access to the VAX-Ultrix 4.4 CD-ROM.  Is there a way I can mount the CD 
+| via NFS and use the software on it to low-level format the drives?
+| ---------------------------------------------------------------------------
+| wrw1@cec.wustl.edu
+
+Low level formatting is tied directly with the hardware used to talk with
+the disk (in this case an RD53, Micropolis 1325/1335).  You can format it
+on a PC or anything that talks with an MFM disk (with a tweak to R7) but
+you'll not be able to then use it with an RQDXn controller.
+
+We used to take this drastic route when even the field service diagnostics
+would not format a drive, which I suspect resulted from one or more of
+the critical blocks used when RQDX3's and DEC MSCP RCT tables were bad.
+A PC reformatting tended to wipe anything and everything so one could
+often then convince the FE diags to work - but this is false economy
+as the drive will likely fail soon again as the bogus critical block(s)
+fail eventually.
+
+A number of folks have kept around an old VS2000 just to do this formatting.
+You don't even need the big video head as a DEC console cable (or something
+that shorts pins 8-9) will allow an ASCII terminal as console.  The firmware
+in the VS2000 acts like an RQDX3 although I recall the resulting disk
+interleave ends up being 1:2 or 1:3 (I'd have to check the archive info)
+rather than 1:1 as on a real RQDX3.  I doubt anyone will notice a performance
+drop 8-)
+
+With an RQDX3 controller, there is specific label information written to
+the disk so it is unlikely you'll find a formatting solution outside of
+DEC hardware & software.
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<H2>5.4 <A NAME="ss54"></A> What about support for the MicroVAX 3100? Or VAXBI?</H2>
+
+A: <b>The MicroVAX 3100/VAXstation 3100 family is not supported (yet) by 
+NetBSD/VAX!</b><p>
+
+Here's what Paul A Vixie &lt;paul@vix.com&gt; had to say on the subject 
+on the port-vax mailing list:<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Thu, 05 Oct 1995 23:04:02 -0700
+From: Paul A Vixie <paul@vix.com>
+To: port-vax@NetBSD.ORG
+Subject: Re: Other CPUs 
+
+sometimes i scare myself by knowing the answer to things like this,
+since the medical research folks assure me that you only have some
+fixed number of brain cells and that means i WILL NOT GET THESE BACK
+for useful content.  anyway:
+
+> > Isn't that CPU in VS3100? Does that mean it'll work on VS3100 soon?
+> 
+>   The names KA650 and KA630 refer to boards, not chipsets.  The KA630
+> uses the 78032 processor, and I'm fairly sure that the KA650 uses the
+> same chipset (called CVAX) that the vs3100 uses.
+
+all true.  and the problem with VS3100 support isn't at the CPU chip level;
+supporting the slight differences in page table format or cache invalidation
+are easy.  all the supporting logic in a VS3100 is different -- counters,
+timers, memory mapping, and so on.  all the device drivers are different --
+"small disk" isn't RQDX3 or even close; "small tape" isn't TZQ50 or SCSI
+but it's sort of close to both of them(!!); the list goes on.  the things
+that make NetBSD hard to get working on a VS3100 are similar to the things
+that keep it from running on a VAXstar ("microvax 2000" or "vaxstation 2000"):
+same CPU, different surrounding electronics.
+
+there is cause for hope in the case of the VS3100, since its disk controller
+and ethernet and serial are the same chips used by the decstation 3100.  (they
+were done at the same time and were forced by idiots in management to use the
+same enclosure and many of the same substandard I/O devices.)  the counters
+and timers and interrupts and memory mapping will be all cattywumpus, though,
+and i think that's going to pretty much kill BSD on the VS3100 unless someone
+with Ultrix internals know-how decides to pitch in.
+
+>   Can anyone comment on the possibility of VAXBI support?  I know it's
+> a complicated bus and I think it's not too well documented.  However,
+> BI machines are becoming *very* cheap on the used market, and some of
+> them are really sweet machines, IMHO.
+
+chris torek did VAXBI support for BSD4.3 back when he was in maryland.  as
+far as i know the support got back to berkeley and appeared in 4.3-reno.
+just getting the VAXBI and DEBNT and KDB50 drivers out of 4.3-reno would
+not torque any code lawyers since it was all original work.  the upper layer
+interfaces are all different, of course, but these drivers would give you
+a good starting point (better than the one chris had.)
+
+note that not all BI machines are equal.  just as the UBA mapping registers
+were different among the 730/750/78x/86x0, so are the BI mapping registers
+among the various 8xxx machines.  you will find that the 85xx/87xx/88xx are
+very similar to each other but very different from the 82xx/83xx (which used
+the BI as a system bus with the usual PMI between CPU and memory.)
+
+(can i have those brain cells back now?)
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<H2>5.5 <A NAME="ss55"></A> Can I run PPP on NetBSD/VAX?</H2>
+
+A: Yes probably, if you're running V1.1 (serial line support is now 
+included). If you're running V1.0A you're out of luck though:<p>
+
+Not yet. Here's what Ragge said on the subject on port-vax:<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Sat, 14 Oct 1995 22:30:18 +0100 (MET)
+From: Anders Magnusson <ragge@ludd.luth.se>
+To: Robert Byer <byer@carl.a-com.com>
+Cc: PORT-VAX@NetBSD.ORG
+Subject: Re: PPP With VAX NetBSD...
+
+> 
+> 
+> I was noticing that NetBSD has PPP with it, but when I try to run it (just
+> to see what would happen) it says that the "kernel" can't run it and that I
+> have to do soemthing to run PPP on it.
+> 
+> Has anyone ran PPP on the VAX NetBSD port and is it even possible???  If so,
+> what do I have to do to get it running as I would appreciate any and all
+> help on this.
+> 
+> I haven't looked to hard at everything yet (just got it running) and I 
+> though I would ask before I started messing things up.
+> 
+It should be able to run PPP on it, but (as far as i know) noone
+has tried. PPP isn't compiled into the generic kernel either, and
+because there is no serial line support it's rather useless.
+The console system on vax is not intended to work reliable and
+you will probably loose lots of bytes if you are going to try
+to put ppp packets through the console line.
+
+-- Ragge
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<H2>5.6 <A NAME="ss56"></A> Why is my VAX suddenly talking Swedish to me?</H2>
+
+A: Because Ragge forgot to translate some bits and pieces in his code to 
+English (Ragge is from Sweden, in case you didn't guess...). Here's a 
+(partial? complete?) list of Swedish texts still left in the source (this 
+list has been slightly edited by me to include the parts Oscar didn't 
+understand). Posted to port-vax by Oscar Oberg &lt;m9270@abc.se&gt;.
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Tue, 31 Oct 1995 07:41:56 +0100 (MET)
+From: Oscar Oberg <m9270@abc.se>
+To: port-vax@NetBSD.ORG
+Subject: Re: Compiling kernel
+
+
+Just FYI here's a quick translation of the ones I understand :)
+
+> db_disasm.c:340:                printf("Ok{nd instruktion: %2x",*i_pl&0xff);
+"Unknown instruction"
+> db_disasm.c:377:                printf("Oinpl. s{tt.");
+"Unimplemented method"
+> pmap.c:567:             panic("remove_pmap_from_mapping: j{ttefel");
+"remove_pmap_from_mapping: huge error"
+> trap.c:389:     printf("retur %s pc %x, psl %x, ap %x, pid %d, v{rde %d r0 
+%d, r1 %d, frame %x\n",
+"return %s pc %x psl %x ap %x pid %d value %d r0 %d r1 %d frame %x\n"
+> Makefile.vax:66:SYSTEM_LD_TAIL=@echo Nu {r k{rnan klar!!!!
+"The kernel's done!!!!"
+> files.vax:219:# Dom h{ra f}r vara kvar s} l{nge f}r vi se vilka vi beh|ver...
+"These kan stay for now and we'll see later which we need..."
+> uda.c:1973:printf("H{r.\n");
+"Here.\n" (???)
+> uda.c:2031:     printf("Dumpar {r inte implementerade {n :) \n");
+"Dumps aren't implemented yet :) \n");
+
+Long live VAX and plz port NetBSD to VAX8200!! ;)
+
+--
+Oscar
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<H2>5.7 <A NAME="ss57"></A> Is 'top' ported to NetBSD/VAX?</H2>
+
+A: Yes it is. Ragge has more on this in a posting to port-vax:<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Sun, 28 Jan 1996 14:53:43 +0100 (MET)
+From: Anders Magnusson <ragge@ludd.luth.se>
+To: bertram@gummo.bbb.sub.org
+Cc: ragge@ludd.luth.se, port-vax@NetBSD.ORG
+Subject: Re: top?
+
+> 
+> > > Has anyone ported top to run on the vax port?  It compiles okay (with
+> > > the usual annoyances involving sys_errlist[]), but gets a floating point
+> > > exception.  I suspect it's something fairly simple, but didn't want to
+> > > go debugging if someone has already fixed it.
+> > > 
+> > If you have an old libm, there may be a bug in scalb() causing troubles.
+> > Be sure that you have at least the libm that were in 1.1 Release.
+> 
+> Apropos top: top shows the cpu states in percentage for user/system/interrupt
+> and idle. I've never seen anything else but 0.0% idle on my vax. Is this
+> specific to the vax-architecture or are there other reasons for that?
+> vmstat and ps (sum of %CPU for all processes is 100) show a similiar 
+> behaviour.
+> 
+This is vax specific. All cputime counting isn't correct yet.
+
+-- Ragge
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<H2>5.8 <A NAME="ss58"></A> How do I build a kernel for the MicroVAX III?</H2>
+
+A: Ragge explains on port-vax:<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Fri, 9 Feb 1996 18:12:35 +0100 (MET)
+From: Anders Magnusson <ragge@ludd.luth.se>
+To: "Thomas S. Traylor" <tst@titan.cs.mci.com>
+Cc: port-vax@NetBSD.ORG
+Subject: Re: MicroVAX III
+
+> 
+> Hey,
+> 
+> What lines need to be added/uncommnented form 
+> /src/sys/arch/vax/conf/file.vax to get a kernel built for a MicroVAX III?
+> 
+> I've added arch/vax/vax/ka650.c are there any others?
+> 
+You need options VAX650 in your kernel config file, then you should
+be able to compile without problem.
+
+-- Ragge
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<H2>5.9 <A NAME="ss59"></A> Why do I get "garbage" on the console when I try to login?</H2>
+
+A: You need to set the console terminal to 7E1. That's 7 bits, even parity 
+and 1 stop bit. Thanks to Ragge for this info.<p>
+
+You can change the console to 8N1 (8 bits, no parity) if you want to, as 
+explained by Lloyd Parkes &lt;Lloyd.Parkes@vuw.ac.nz&gt; on the port-vax 
+list:<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Tue, 26 Mar 1996 11:14:11 +1400
+From: Lloyd Parkes <Lloyd.Parkes@vuw.ac.nz>
+To: Andrew Litt <ajlitt@mail.utexas.edu>
+Cc: port-vax@NetBSD.ORG
+Subject: Re: Building a microVAX serial console cable 
+
+> I have had problems with
+> a couple of terminal programs on the PC (Minicom for Linux) not working
+> with the 7E1 that NetBSD switches to at the login prompt 
+
+I fixed this by editing /etc/ttys and /etc/gettytab to tell it that I had an 
+8N1 console. Worked just fine. 
+
+Cheers,
+Lloyd
+
+------------------- End included message ---------------------------------
+</xmp>
+
+Here's what I did:<p>
+
+I edited the file /etc/gettytab to include the following:<br>
+
+<pre>
+8bit.9600|9600-baud-8bit:\
+        :np:sp#9600:
+</pre>
+
+I then modified the "console" entry in /etc/ttys:<br>
+
+<pre>
+console "/usr/libexec/getty 8bit.9600"  unknown on secure
+</pre>
+
+<H2>5.10 <A NAME="ss510"></A> What to do if I have little disk space?</H2>
+
+A: You could try NFS. Bertram Barth &lt;bertram@gummo.bbb.sub.org&gt; wrote 
+me a message detailing this:<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Sun, 18 Feb 96 16:30 MET
+From: Bertram Barth <bertram@gummo.bbb.sub.org>
+To: Gunnar Helliesen <gunnar@bitcon.no>
+Subject: Re: I didn't get very far (TK50 boot) solved + more Q's
+
+Gunnar Helliesen writes:
+[...]
+> 4) Anyone have a spare RD54? ;-)
+[...]
+
+   Since additional 70/150MB are not that much these days, I prefer another
+   way to get more disk-space (assuming your VAX has an Ethernet controller):
+   If you already have your private network, just add another SCSI-disk
+   to your server and export this to the VAX. If not, get a cheap i386
+   (even a 386/25 should do that job) with SCSI and Ethernet and install 
+   one of the free Unices on that machine and export a big-enough partition
+   to the VAX. 
+   IMHO there are some advantages in this procedure:
+   - SCSI disks are big enough and quite cheap these days (1GB for $300)
+   - NetBSD/i386 is more stable than NetBSD/vax. Thus even if the VAX
+     crashes, you don't lose data
+   - you can share the same partition from different VAXen without them
+     being dependent on each other (I've one source-tree for three VAXen,
+     they also share /usr/local and /usr/share, thus their local RD53 
+     only holds / (10MB), swap (20MB) and /usr (40MB) and is sufficient)
+   - Since NetBSD/vax doesn't support X, you'll want a machine running X
+     nevertheless in order to have more than one terminals to your VAX.
+     Use this machine as your nfs-server, so you can edit locally (=fast)
+     and compile remote on the VAX (=slow).
+
+Ciao,
+        bertram
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<H2>5.11 <A NAME="ss511"></A> Which bootflags can I give to the boot loader?</H2>
+
+A: Lots. The following is an extract from a message from Bertram 
+Barth &lt;bertram@gummo.bbb.sub.org&gt; (again!) to me:<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+    Bootflags are used to give information about how to boot
+    (eg. single-user, ask-for-filename) to the /boot program.
+    Bootflags can be combined by adding/or-ing their values.
+    They are specified via the boot-command from console prompt:
+
+        >>> b/43 dua0
+
+    specifies the value 0x43 to be placed in register R5 which is 
+    later copied to register R11 and evaluated by /boot.
+    In this example the value 0x43 expands to  RB_ASKNAME | RB_SINGLE | RB_KDB
+
+    Valid flags are (not all of them are evaluated):
+    [for the most recent list look in /usr/include/sys/reboot.h]
+
+#define RB_ASKNAME      0x001   /* ask for file name to reboot from */
+#define RB_SINGLE       0x002   /* reboot to single user only */
+#define RB_NOSYNC       0x004   /* dont sync before reboot */
+#define RB_HALT         0x008   /* don't reboot, just halt */
+#define RB_INITNAME     0x010   /* name given for /etc/init (unused) */
+#define RB_DFLTROOT     0x020   /* use compiled-in rootdev */
+#define RB_KDB          0x040   /* give control to kernel debugger */
+#define RB_RDONLY       0x080   /* mount root fs read-only */
+#define RB_DUMP         0x100   /* dump kernel memory before reboot */
+#define RB_MINIROOT     0x200   /* mini-root present in memory at boot time */
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<HR><p>
+
+Top of <A HREF="section6.html">next</A> chapter,
+Table of contents of <a href="FAQ.html#toc6">next chapter</a>.<br>
+Table of contents of <A HREF="FAQ.html#toc5">this chapter</A>, 
+General <A HREF="FAQ.html#toc">table of contents</A>.<p>
+

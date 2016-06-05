@@ -1,0 +1,102 @@
+<html><head><title>DEQNA/DELQA</title></head>
+<body bgcolor="#FFFFFF">
+<h1>The DEQNA/DELQA switches</h1>
+
+<p>You only have three jumpers on a DEQNA.
+<pre>
+					In		Out
+W1	I/O Page Address		17774440	17774460
+W2	BDMR Holdoff Timer		No Delay	5 uS Delay
+W3	Sanity Timer at Initialization	Disabled	Enabled
+</pre>
+
+<p>On the DELQA there are 5 switches.
+
+<p>As shipped, all 5 DIP switches are closed.  This means that the board
+is at CSR 17774440 (first interface), operating in normal mode, with
+triggered MOP remote boot disabled.
+
+<p>Switch 1 controls the CSR: closed is first interface, open is second
+interface, at CSR 17774460.
+
+<p>Switch 2 is reserved.
+
+<p>Switch 3 controls the emulation: closed is normal (DELQA) mode, open
+is DEQNA-lock mode.
+
+<p>Switch 4 controls triggered MOP remote boot in normal mode, automatic
+sanity timer start in DEQNA-lock mode.  In both cases, the facility in
+question is disabled when switch 4 is closed, enabled when it is open.
+
+<p>Switch 5 is reserved.
+
+<h1>Pinouts</h1>
+<p>Here's a pinout for a DELQA.
+
+<p>DELQA:
+
+IDC connector, 12 pin by 2 pin:
+<pre>
+(NC) (PUR) (DK BRN) (NC)  (BLU) (SHIELD) (ORG) (NC)  (WHI) (BLK) (PLUGGED) (NC)
+(NC) (BRN) (NC)     (GRN) (NC)  (YEL)    (NC)  (GRY) (NC)  (NC) (RED)      (NC)
+</pre>
+<p>The RED lead goes to a 1.5 amp, 25 V, slow blow fuse, that then goes to
+the DB15 connector.
+
+<p>DB15 connector:
+<pre>
+PIN	COLOUR
+1	NC
+2	BLU
+3	ORG
+4	SHIELD
+5	WHI
+6	BLK
+7	DK BRN
+8	NC
+9	GRN
+10	YEL
+11	NC
+12	GRY
+13	RED (FROM FUSE)
+14	NC
+15	BRN
+</pre>
+<p>("NC" means "not connected")
+
+<h1>Reading the ethernet address</h1>
+<p>The DEQNA is usually at 17774440 octal.  You can read the ethernet address
+here.  If yours is there, do the following:  I'll give you an example from one
+of mine.  My MAC address is 08002B029707 (0800 indicates DEC MFR)
+
+<pre>
+FRESH INIT
+
+&gt;&gt;&gt; e/p 20001920
+    p  20001920  FF00FF08
+&gt;&gt;&gt; e
+    p  20001924  FF02FF2B
+&gt;&gt;&gt; e
+    p  20001928  FF07FF97
+</pre>
+<p>Ignore the FF's
+
+<p>Read the complete bytes from right to left staring at 1920:
+<pre>
+FF00FF08 becomes  0800
+FF02FF2B becomes  2B02
+FF07FF97 becomes  9707
+</pre>
+<p>There you have the hardware address encoded in PROM!1
+
+
+<p>To convert a device from octal (PDP qbus) to HEX MVII Qbus)  do the following:
+
+<p>subtract 17760000<br>
+convert to hex<br>
+ad 2000000 hex.
+
+<p>The standard alternate address is 17774460.  ==&gt;   14460   ==&gt; 0x1930  ==&gt; 20001930
+<hr>
+</body>
+</html>

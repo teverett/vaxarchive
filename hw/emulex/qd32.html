@@ -1,0 +1,26 @@
+<html><head><title>Emulex QD33 SMD controller</title></head>
+<body bgcolor="#FFFFFF">
+<h1>QD33</h1>
+<p>Setting up an Emulex QD33 SMD controller and formatting the drives
+is done via an on-board setup program. Go to the chevron prompt
+and issue these commands:
+<pre>
+u
+i
+d/p/w 20001f40 20
+d/p/w 20088000 80000001                   
+d/p/w 20088004 80000002
+d/w   20001468 1
+e/w   20001468 ( should be 0900 or b00 )
+d/w   2000146a 3003
+e/w   2000146a ( 100 )
+d/w   2000146a 4401
+s  80  for a VSII, s 82
+</pre>
+<p>This assumes the controller is at its standard address 772150.
+After the S80 the menu of the on board program will appear.
+<p>Follow the menu. Be warned, that you must use units 0 and 1 on
+the drives, and the entries are ordered in the eeprom that way.
+IE, first setup is for unit 0, second is for unit 1.
+</body>
+</html>

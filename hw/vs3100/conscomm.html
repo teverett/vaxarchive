@@ -1,0 +1,264 @@
+<HEAD>
+<TITLE>VS3100 Console Commands</TITLE>
+</HEAD>
+<BODY>
+<h1>VS3100 Console Commands</h1>
+<pre>
+In the pursuit of getting to know our VSxx00 machines better with 
+the goal of getting a VS port of NetBSD, here goes:
+
+VAXstation 3100 Boot Monitor 'Research'
+
+HELP command
+
+Syntax:
+
+ HELP
+
+ Prints out the following:
+
+
+ DEPOSIT [{ /B | /W | /L}] [{ /P | /V | /I }] [/G] [/U] [/N:&lt;n&gt;]
+         [{ &lt;addr&gt; | &lt;sym&gt; | + | - | * | @ } [&lt;datum&gt;]]
+ EXAMINE [{ /B | /W | /L}] [{ /P | /V | /I }] [/G] [/U] [/N:&lt;n&gt;]
+         [{ &lt;addr&gt; | &lt;sym&gt; | + | - | * | @ }]
+ SET BOOT &lt;ddau&gt;
+ SET BFLG &lt;bflg&gt;
+ SET HALT &lt;1-3&gt;
+ SET KBD &lt;0-15&gt;
+ SET MOP &lt;0-1&gt;
+ SET TRIG &lt;0-1&gt;
+ SET PWSD
+ SET PSE &lt;0-1&gt;
+ SHOW { BOOT | BFLG | DEV | ETHER | HALT | KBD | MOP |
+        TRIG | MEM | ESTAT | SCSIA | SCSIB | PSE | VER}
+ INITIALIZE
+ UNJAM
+ BOOT [/[R5:]&lt;bflg&gt;] &lt;ddau&gt;:
+ CONTINUE
+ START &lt;addr&gt;
+ REPEAT &lt;addr&gt;
+ TEST &lt;n&gt; [&lt;m&gt;]
+ FIND [{ /MEMORY | /RPB }]
+ LOGIN
+ XFER &lt;addr&gt; &lt;cnt&gt; ...
+ DTE
+ HALT
+ HELP
+
+BOOT command
+
+Syntax:
+
+  BOOT [/[R5:]&lt;bflg&gt;] &lt;ddau&gt;:
+
+
+ ddau - device in VMS/VMB column listed in 'SHOW DEV' command
+ R5: - ???
+ bflg - ???
+
+  Bootstraps from and submits control to the loaded program retrieved from
+  device 'ddau'
+
+CONTINUE command
+
+Syntax:
+
+ CONTINUE
+
+  Continues boot process interrupted by user
+
+DTE  Command
+
+Syntax:
+ 
+ DTE
+
+ Returns a '*&gt;&gt;&gt;' prompt
+ Runs Terminal mode (VT-100 compatible XON/XOFF flow control)
+ ^P - exits terminal mode to Monitor mode.
+
+DEPOSIT command
+
+Syntax:
+
+ DEPOSIT [{ /B | /W | /L}] [{ /P | /V | /I }] [/G] [/U] [/N:&lt;n&gt;]
+         [{ &lt;addr&gt; | &lt;sym&gt; | + | - | * | @ } [&lt;datum&gt;]]
+
+ Writes argument(s) to memory
+
+  /B - byte  (8 bit) 
+  /W - word  (16 bit)
+  /L - long  (32 bit)
+  /P - ???
+  /V - ???
+  /I - I registers (0x00-0x13) what are they for ???
+  /G - G registers (0x00-0x0f) what are they for ???
+  /U - ???
+  /N:&lt;n&gt; - number of entries (bytes/words/longs)
+  &lt;addr&gt; - memory address (hexidecimal)
+  &lt;sym&gt; - ???
+  + - increments pointer by byte/word/long
+  - - decrements pointer by byte/word/long
+  * - ???
+  @ - ???
+  &lt;datum&gt;  - that which is written to memory determined by  above  
+             args 
+
+
+
+EXAMINE command
+
+Syntax:
+
+ EXAMINE [{ /B | /W | /L}] [{ /P | /V | /I }] [/G] [/U] [/N:&lt;n&gt;]
+         [{ &lt;addr&gt; | &lt;sym&gt; | + | - | * | @ }]
+
+Examines memory contents
+
+  /B - byte  (8 bit) 
+  /W - word  (16 bit)
+  /L - long  (32 bit)
+  /P - ???
+  /V - ???
+  /I - I registers (0x00-0x13) what are they for???
+  /G - G registers (0x00-0x0f) what are they for???
+  /U - ???
+  /N:&lt;n&gt; - number of entries (bytes/words/longs)
+  &lt;addr&gt; - memory address (hexidecimal)
+  &lt;sym&gt; - ???
+  + - increment pointer by 1=byte, 2=word, 3=long
+  - - decrement pointer by 1=byte, 2=word, 3=long
+  * - ???
+  @ - ???
+
+
+LOGIN command
+
+Syntax:
+
+ LOGIN
+  
+  Prompts for username and password ???
+
+HALT command
+
+Syntax:
+
+ HALT
+
+  ???
+
+XFER command
+
+Syntax:
+
+ XFER &lt;addr&gt; &lt;cnt&gt; ...
+
+  ???
+
+UNJAM command
+
+Syntax:
+
+ UNJAM
+
+  ???
+
+SHOW command
+
+Syntax:
+
+ SHOW { BOOT | BFLG | DEV | ETHER | HALT | KBD | MOP |
+        TRIG | MEM | ESTAT | SCSIA | SCSIB | PSE | VER}
+
+  Displays info on selected device.
+
+  SHOW BOOT - Displays boot device set by 'SET BOOT' command
+  SHOW BFLG - ???
+  SHOW DEV - Displays peripheral device data according to
+             the following structure:
+
+   VMS/VMB  ULTRIX  ADDR  DEVTYP NUMBYTES RM/FX WP DEVNAM REV
+   -------  ------  ----  ------ -------- ----- -- ------ ---
+   xxxx     xxxx    xxxx  xxxx   xxxx     xx    xx  xxxx  xxxx
+         
+   VMS/VMB - Device name assigned by the VMS OS
+   ULTRIX  - Device name assigned by the Ultrix OS
+   ADDR    - Combination SCSI host / SCSI Dev ID / ??? / ???
+   DEVTYP  - Device type such as DISK, INITR, etc.
+   NUMBYTES - Device capacity
+   RM/FX - Removable or fixed media
+   WP - Write Protect active
+   DEVNAM - Device name - RX23 = FDD, RZ24 = HDD, etc.
+   REV - Device firmware revision info.   
+
+
+  SHOW ETHER - Displays IP address: ID XX-XX-XX-XX-XX-XX
+  SHOW HALT - ???
+  SHOW KBD - Displays numeric code coresponding to language
+             set by SET KBD or TEST 54 commands
+  SHOW MOP - Displays master operating program info ???
+  SHOW TRIG - ???
+  SHOW MEM - Displays system RAM size.
+  SHOW ESTAT - Displays ethernet status???
+  SHOW SCSIA - Displays first SCSI host ID
+  SHOW SCSIB - Displays second SCSI host ID
+  SHOW PSE - ???
+  SHOW VER - Displays ROM version info.
+
+TEST command
+
+Syntax:
+
+ TEST &lt;n&gt; [&lt;m&gt;]
+
+ n - number in decimal 00-99
+ M - UNKNOWN
+
+Function:
+ 
+ Performs peripheral tests
+00 - System diags???
+01 - ??? 
+02 - ???
+03 - ???
+04 - ???
+05 - ???
+06 - ???
+07 - ???
+08 - ???
+09 - ???
+50 - SCSI HDD subsystem
+51 - SCSI FDD subsystem
+54 - Set default language
+61 - Reserved
+62 - Reserved
+75 - SCSI HDD format & surface test
+76 - SCSI FDD format & surface test
+80 - Video grid-circle-dots
+81 - E's
+82 - White full raster
+83 - Blue-red-green=white vertical bars
+84 - Red full raster
+85 - Green full raster
+86 - Blue full raster
+87 - Black-blue-red-magenta-green-cyan-yellow-white vertical bars
+88 - Ascending staircase AKA 'gray-scale'
+89 - Upwardly scrolling H's
+
+all other return '?23 ILL CMD'
+
+
+-------cut here------------------------------------------------------------
+
+---------------------------------------------------------------------------
+Brian D. Chase            Unix/Network Shaman          <A HREF="mailto:brianc@carpediem.com">brianc@carpediem.com</A>
+-- Compression, Inc. - 13765 Alton Pkwy, Suite B - Irvine, CA 92618, USA --
+
+
+</PRE>
+<hr>
+<p>Back to <a href="index.html">VS3100 page</a>
+</BODY>
+</HTML>

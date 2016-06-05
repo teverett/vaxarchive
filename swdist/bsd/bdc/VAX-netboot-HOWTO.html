@@ -1,0 +1,155 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<HTML>
+<HEAD>
+<TITLE>The VAX Network Booting HOWTO</TITLE>
+</HEAD>
+<BODY>
+Previous
+<A HREF="VAX-netboot-HOWTO-1.html">Next</A>
+Table of Contents
+<HR>
+<H1>The VAX Network Booting HOWTO</H1>
+
+<H2>Brian Chase, <CODE>bdc@world.std.com</CODE></H2>v0.5, 31 Jan 1998 
+<P><HR><EM>This is a guide to network booting DEC VAXstation and MicroVAX systems
+with NetBSD/vax from a Unix based bootserver.  The information in this
+guide does not apply in a general way to bootserving.  It is
+specifically geared towards MOP initiated bootserving as is common to
+DEC's line of VAX computers.
+The latest version of this document can be obtained from:
+<A HREF="http://world.std.com/~bdc/projects/vaxen/">http://world.std.com/~bdc/projects/vaxen/</A>
+Comments, questions, and corrections are welcome and expected.</EM><HR></P>
+<P>
+<H2><A NAME="toc1">1.</A> <A HREF="VAX-netboot-HOWTO-1.html">Introduction</A></H2>
+<UL>
+<LI><A HREF="VAX-netboot-HOWTO-1.html#ss1.1">1.1 Overview of The Netbooting Process</A>
+<LI><A HREF="VAX-netboot-HOWTO-1.html#ss1.2">1.2 Supported Platforms</A>
+<LI><A HREF="VAX-netboot-HOWTO-1.html#ss1.3">1.3 Supported Platform Quirks</A>
+<LI><A HREF="VAX-netboot-HOWTO-1.html#ss1.4">1.4 Acknowledgments</A>
+</UL>
+
+<P>
+<H2><A NAME="toc2">2.</A> <A HREF="VAX-netboot-HOWTO-2.html">Getting Your System up to Speed</A></H2>
+<UL>
+<LI><A HREF="VAX-netboot-HOWTO-2.html#ss2.1">2.1 Modifications for Linux</A>
+<LI><A HREF="VAX-netboot-HOWTO-2.html#ss2.2">2.2 Modifications for FreeBSD (Contributed by Kevin McQuiggin)</A>
+<LI><A HREF="VAX-netboot-HOWTO-2.html#ss2.3">2.3 Modifications for Solaris <EM><F>not completed</F></EM></A>
+<LI><A HREF="VAX-netboot-HOWTO-2.html#ss2.4">2.4 Modifications for IRIX <EM><F>not completed</F></EM></A>
+<LI><A HREF="VAX-netboot-HOWTO-2.html#ss2.5">2.5 Modifications for NeXTSTEP <EM><F>not completed</F></EM></A>
+</UL>
+
+<P>
+<H2><A NAME="toc3">3.</A> <A HREF="VAX-netboot-HOWTO-3.html">Bootserver Configuration</A></H2>
+<UL>
+<LI><A HREF="VAX-netboot-HOWTO-3.html#ss3.1">3.1 Obtaining The NetBSD/vax Kernel and MOP Bootloader Images</A>
+<LI><A HREF="VAX-netboot-HOWTO-3.html#ss3.2">3.2 Obtaining The NetBSD/vax Binaries</A>
+<LI><A HREF="VAX-netboot-HOWTO-3.html#ss3.3">3.3 Editing Some Relevant Files</A>
+<LI><A HREF="VAX-netboot-HOWTO-3.html#ss3.4">3.4 Setting up The MOP Bootloader Image Directory</A>
+<LI><A HREF="VAX-netboot-HOWTO-3.html#ss3.5">3.5 Setting up The VAX Client's NFS Root Directory and Swap File</A>
+<LI><A HREF="VAX-netboot-HOWTO-3.html#ss3.6">3.6 Setting up The NFS Root Directory for Export</A>
+<LI><A HREF="VAX-netboot-HOWTO-3.html#ss3.7">3.7 Setting up <CODE>/etc/bootparams</CODE></A>
+</UL>
+
+<P>
+<H2><A NAME="toc4">4.</A> <A HREF="VAX-netboot-HOWTO-4.html">Performing A Test Run</A></H2>
+<UL>
+<LI><A HREF="VAX-netboot-HOWTO-4.html#ss4.1">4.1 Setting up The RARP Table</A>
+<LI><A HREF="VAX-netboot-HOWTO-4.html#ss4.2">4.2 Running The NFS Server</A>
+<LI><A HREF="VAX-netboot-HOWTO-4.html#ss4.3">4.3 Running The MOP Server</A>
+<LI><A HREF="VAX-netboot-HOWTO-4.html#ss4.4">4.4 Running The bootparamd Server </A>
+<LI><A HREF="VAX-netboot-HOWTO-4.html#ss4.5">4.5 Booting from The VAX Client Console</A>
+</UL>
+
+<P>
+<H2><A NAME="toc5">5.</A> <A HREF="VAX-netboot-HOWTO-5.html">Multiuser Configuration</A></H2>
+<UL>
+<LI><A HREF="VAX-netboot-HOWTO-5.html#ss5.1">5.1 Entering Single User Mode</A>
+<LI><A HREF="VAX-netboot-HOWTO-5.html#ss5.2">5.2 Modifying The Configuration</A>
+<LI><A HREF="VAX-netboot-HOWTO-5.html#ss5.3">5.3 Booting up Multiuser</A>
+</UL>
+
+<P>
+<H2><A NAME="toc6">6.</A> <A HREF="VAX-netboot-HOWTO-6.html">Automating The Bootserver and Booting Process</A></H2>
+<UL>
+<LI><A HREF="VAX-netboot-HOWTO-6.html#ss6.1">6.1 Automating The Bootserver under NetBSD</A>
+<LI><A HREF="VAX-netboot-HOWTO-6.html#ss6.2">6.2 Automating The Bootserver under OpenBSD</A>
+<LI><A HREF="VAX-netboot-HOWTO-6.html#ss6.3">6.3 Automating The Bootserver under Linux</A>
+<LI><A HREF="VAX-netboot-HOWTO-6.html#ss6.4">6.4 Automating The Bootserver under FreeBSD</A>
+<LI><A HREF="VAX-netboot-HOWTO-6.html#ss6.5">6.5 More on MOP (or Look Mom, No Hands!)</A>
+</UL>
+
+<P>
+<H2><A NAME="toc7">7.</A> <A HREF="VAX-netboot-HOWTO-7.html">Something Went Wrong</A></H2>
+<UL>
+<LI><A HREF="VAX-netboot-HOWTO-7.html#ss7.1">7.1 Bootloader Fails to Load The Kernel</A>
+<LI><A HREF="VAX-netboot-HOWTO-7.html#ss7.2">7.2 Boot Hangs - output buffer busy</A>
+<LI><A HREF="VAX-netboot-HOWTO-7.html#ss7.3">7.3 Boot Hangs - kernel stops, but I can ping client</A>
+</UL>
+
+<P>
+<H2><A NAME="toc8">8.</A> <A HREF="VAX-netboot-HOWTO-8.html">APPENDIX A - Obtaining Your Hardware Ethernet Address</A></H2>
+
+<P>
+<H2><A NAME="toc9">9.</A> <A HREF="VAX-netboot-HOWTO-9.html">APPENDIX B - Scripts for Linux</A></H2>
+
+
+<HR>
+Previous
+<A HREF="VAX-netboot-HOWTO-1.html">Next</A>
+Table of Contents
+</BODY>
+</HTML>

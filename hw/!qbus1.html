@@ -1,0 +1,492 @@
+<html>
+<pre>
+From:	SMTP%"leichter<AT>lrw.com" 21-MAR-1995 03:51:28.33
+Subj:	RE: Sticking MV II cards into a MV3400
+
+	I've got a couple of disk controllers (Emulex QD21 and Dilog DQ686) in
+	a couple of MVII's that I want to junk.  I've got access to a MV3400
+	and was wondering if the Q-bus backplanes are different on these
+	systems.  I realize that the mounting equipment is different (MVII's
+	in BA23 vs the MV3400 with a BA213), but I can tolerate some
+	jury-rigging in this application.
+
+The Q-bus is pretty standard; your boards should work.  The only Q-bus
+systems that get a bit odd are on things like the whatever-4000-it-is that
+provides a Q-bus interface.  It has some restrictions - but the problems are
+in the interface to the rest of the system, not in the Q-bus itself.  Other
+than that, unless you have some *really* old Q-18 stuff - well, DEC is pretty
+good at designing and specifying buses and the Q-bus was at least their 3rd
+generation (after the Unibus and the Omnibus).
+
+							-- Jerry
+</pre>
+<hr>
+<pre>
+From:	SMTP%"SMS<AT>provis.com" 21-MAR-1995 04:59:18.20
+Subj:	Sticking MV II cards into a MV3400
+
+   One more caution.  While the boards are almost certain to work,
+half-size (dual-height) boards must go into the top half of the BA213
+backplane (rows A-B).  In the BA123, slots 5 and up have bus continuity
+through both halves (rows A-B and C-D), so putting two small boards into
+one slot can work.  In a BA23, my old books are not so clear, but the
+same may be true for slots 4 and up.  In a BA213, it's one board only
+per slot.  Otherwise, it can't miss.  We have mu-VAX IIs (BA123) and a
+4200 (BA215 and BA213), and have run several boards in both.  (Moving a
+board from a BA[1]23 to a BA21x is easier than going the other way,
+mechanically.)
+
+   Getting rid of any 8MB memory boards from your junk mu-VAX IIs?  I
+could help.
+
+------------------------------------------------------------------------
+
+   Steven M. Schweda                    (+1) 612-636-8950  (voice)
+   Provis Corporation                   (+1) 612-636-8951  (facsimile)
+   2685 Long Lake Road                  sms<AT>provis.com  (e-mail)
+   Roseville, MN  55113-2537
+
+</pre>
+<hr>
+<pre>
+From:	SMTP%"hoffman<AT>xdelta.enet.dec.com (Stephen Hoffman)" 21-MAR-1995 16:13:02.90
+Subj:	Re: Sticking MV II cards into a MV3400
+
+
+In article <3kl7vg$cpi<AT>saba.info.ucla.edu>, ron<AT>pisces.fusion.ucla.edu () writes:
+:
+:I've got a couple of disk controllers (Emulex QD21 and Dilog DQ686) in
+:a couple of MVII's that I want to junk.  I've got access to a MV3400 and
+:was wondering if the Q-bus backplanes are different on these systems.  I
+:realize that the mounting equipment is different (MVII's in BA23 vs the
+:MV3400 with a BA213), but I can tolerate some jury-rigging in this application.
+
+
+  ATTEMPT ANY AND ALL Q-BUS MODIFICATIONS AT YOUR OWN RISK -- CONTACT
+  YOUR HARDWARE SERVICE ORGANIZATION FOR FURTHER ASSISTANCE.
+
+  You may (will?) end up with RF emissions and/or RFI problems if the
+  enclosure is not properly RF-sealed.
+
+  First, if you are not familiar with working inside the Q-bus enclosure,
+  or if you are unfamiliar with the DMA grant continuity, or if you are
+  unwilling to make potentially permanent modifications to the card, or
+  if you are unwilling to place other cards at risk due to an incorrect
+  installation, or if you are unfamiliar with working with static-sensitive
+  electronic components, DO NOT ATTEMPT THIS.
+
+  Dual-width cards should install and operate in the upper half of the
+  slot in the BA2xx and BA4xx system.
+
+  If it is a quad-width card, what you are considering likely involves the
+  electrical modification of a Q22/Q22 card to operate in a Q22/CD slot. 
+  (In the BA23 and BA123, these Q22/CD slots are restricted to "memory" and
+  "processor" modules, and Quad-width boards can *not* be installed in these
+  slots.  The KA640 MicroVAX 3400 processor shipped in a BA2xx enclosure.)
+
+  Quad-width cards may/will cause you problems in the BA2xx or BA4xx series
+  Q22/CD enclosures -- you should be aware that a DMA grant continuity etch
+  on the lower half of the card is *not* permissible in a CD slot.  (All
+  BA2xx and BA4xx series enclosures are Q22/CD in all slots -- most (all?)
+  Q-bus cards not intended for use in the BA2xx or BA4xx series will have
+  this etch, and it will cause problems.)  If the DMA or Q-bus circuitry
+  is connected off the lower etch fingers, you will have real trouble here. 
+  If it is "just" the DMA grant continuity circuitry, some surgery on the
+  card etch may allow the card to operate in a Q22/CD slot.
+
+  I DO <**NOT**> RECOMMEND MAKING THESE MODIFICATIONS, NOR DO I RECOMMEND
+  INSTALLING MODULES IN AN ENCLOSURE THEY WERE NOT INTENDED TO RESIDE IN.
+  CONTACT YOUR HARDWARE SERVICE ORGANIZATION FOR FURTHER ASSISTANCE.
+
+  ------------------------------ Opinionative -------------------------------
+   Stephen Hoffman, NR EMT-I, WEMT, N1THN        hoffman<AT>xdelta.enet.dec.com
+        OpenVMS Engineering, Digital Equipment Corporation, Nashua NH
+
+</pre>
+<hr>
+<pre>
+From:	SMTP%"news<AT>spcuna.spc.edu (Network News)" 21-MAR-1995 21:40:15.23
+Subj:	Re: Sticking MV II cards into a MV3400
+
+In article <3kl7vg$cpi<AT>saba.info.ucla.edu>, ron<AT>pisces.fusion.ucla.edu () writes:
+> I've got a couple of disk controllers (Emulex QD21 and Dilog DQ686) in
+> a couple of MVII's that I want to junk.  I've got access to a MV3400 and
+> was wondering if the Q-bus backplanes are different on these systems.  I
+> realize that the mounting equipment is different (MVII's in BA23 vs the
+> MV3400 with a BA213), but I can tolerate some jury-rigging in this application.
+
+  Almost all MVII systems (MVII, VSII, VSII/GPX) were delivered in BA23 or
+BA123 cabinets. The BA23 is 3 C-D slots followed by Q22 slots, the BA123 is
+4 C-D slots followed by Q22 slots. The BA2xx/4xx cabinets used for the later
+MicroVAX/VAX systems are only C-D slots. This means that any dual-height
+card *must* go in the A-B (usually top) positions in those cabinets. Depend-
+ing on the weight of the card and the stiffness of the backplane connectors,
+the card may tilt out of its socket. There's a plastic baffle which looks
+like a dual-height card that is used to support these cards as well as make
+sure the airflow works properly. If you're only moving one dual card it
+shouldn't matter.
+
+  You've already observed that the mounting is different (the new systems
+are S-box). DEC retrofitted some cards (the KLESI-SA is a regular KLESI
+with a S-handle riveted on), redesigned some cards (the CXY08/CXA16/CXB16
+are re-layouts of the DHV11/DHQ11 family), and left some cards alone (the
+TQK70 is the same board in both cabinets). DEC sells blank S-box fillers
+as well as some with cutouts, so you could probably do something that both
+looked Ok and maintained the airflow and FCC compliance if you wanted.
+
+  Some boards won't work in the newer CPU's. An obvious example is Micro-
+VAX II memory. There are some more subtle issues, though. For example, many
+older boards (like the TSV05 controller) and 3rd-party boards didn't work
+in KA650/KA655-based systems (3500/3600/3800/3900) due to an error in the
+Q-bus interface IC on those processor boards which DEC was very reluctant
+to fix. Eventually DEC fixed it - if your system is on DEC hardware support
+you should be able to get a new CPU (for the KA650 it's Rev. K1, I think).
+If you're not on DEC hardware support, it's probably cheaper to buy a used
+CPU on the surplus market (making sure it's up to rev) than to get DEC to
+swap it on the time+materials plan. I don't think this affected the KA640
+(3300/3400) but I'm not certain.
+
+	Terry Kennedy		  Operations Manager, Academic Computing
+	terry<AT>spcvxa.spc.edu	  St. Peter's College, Jersey City, NJ USA
+        +1 201 915 9381 (voice)   +1 201 435-3662 (FAX)
+</pre>
+<hr>
+<pre>
+From:	SMTP%"Info-VAX-Request<AT>Mvb.Saic.Com" 22-MAR-1995 16:20:55.54
+Subj:	Re: Sticking MV II cards into a MV3400
+
+Stephen Hoffman, NR EMT-I, WEMT, N1THN        hoffman<AT>xdelta.enet.dec.com:
+>In article <3kl7vg$cpi<AT>saba.info.ucla.edu>, ron<AT>pisces.fusion.ucla.edu () writes:
+>:
+>:I've got a couple of disk controllers (Emulex QD21 and Dilog DQ686) in
+>:a couple of MVII's that I want to junk.  I've got access to a MV3400 and
+>:was wondering if the Q-bus backplanes are different on these systems.  I
+>:realize that the mounting equipment is different (MVII's in BA23 vs the
+>:MV3400 with a BA213), but I can tolerate some jury-rigging in this application.
+>
+>
+>  ATTEMPT ANY AND ALL Q-BUS MODIFICATIONS AT YOUR OWN RISK -- CONTACT
+>  YOUR HARDWARE SERVICE ORGANIZATION FOR FURTHER ASSISTANCE.
+>
+>  You may (will?) end up with RF emissions and/or RFI problems if the
+>  enclosure is not properly RF-sealed.
+>
+>  First, if you are not familiar with working inside the Q-bus enclosure,
+>  or if you are unfamiliar with the DMA grant continuity, or if you are
+>  unwilling to make potentially permanent modifications to the card, or
+>  if you are unwilling to place other cards at risk due to an incorrect
+>  installation, or if you are unfamiliar with working with static-sensitive
+>  electronic components, DO NOT ATTEMPT THIS.
+>
+>  Dual-width cards should install and operate in the upper half of the
+>  slot in the BA2xx and BA4xx system.
+>
+>  If it is a quad-width card, what you are considering likely involves the
+>  electrical modification of a Q22/Q22 card to operate in a Q22/CD slot. 
+>  (In the BA23 and BA123, these Q22/CD slots are restricted to "memory" and
+>  "processor" modules, and Quad-width boards can *not* be installed in these
+>  slots.  The KA640 MicroVAX 3400 processor shipped in a BA2xx enclosure.)
+>
+>  Quad-width cards may/will cause you problems in the BA2xx or BA4xx series
+>  Q22/CD enclosures -- you should be aware that a DMA grant continuity etch
+>  on the lower half of the card is *not* permissible in a CD slot.  (All
+>  BA2xx and BA4xx series enclosures are Q22/CD in all slots -- most (all?)
+>  Q-bus cards not intended for use in the BA2xx or BA4xx series will have
+>  this etch, and it will cause problems.)  If the DMA or Q-bus circuitry
+>  is connected off the lower etch fingers, you will have real trouble here. 
+>  If it is "just" the DMA grant continuity circuitry, some surgery on the
+>  card etch may allow the card to operate in a Q22/CD slot.
+>
+>  I DO <**NOT**> RECOMMEND MAKING THESE MODIFICATIONS, NOR DO I RECOMMEND
+>  INSTALLING MODULES IN AN ENCLOSURE THEY WERE NOT INTENDED TO RESIDE IN.
+>  CONTACT YOUR HARDWARE SERVICE ORGANIZATION FOR FURTHER ASSISTANCE.
+
+I'm certainly not going to disagree with the sentiments, but FWIW I believe 
+it should be possible to use a quad height card in a Q22/CD backplane, 
+provided some care is taken.
+
+Because of the way that the CD connections work, I believe that the effect
+of the DMA (and BR) grant continuity etches will depend entirely on the
+adjacent cards. Putting a double height Q-bus grant card (or double height
+module) in the AB slots either side of the quad height card should mean
+that these grant etches are not connected to anything. 
+
+I think. I may be wrong.
+
+
+Mark Iline	system<AT>meng.ucl.ac.uk
+Dept Mech Eng, University College, London. UK
+
+</pre>
+<hr>
+<pre>
+From:	SMTP%"hoffman<AT>xdelta.enet.dec.com" 22-MAR-1995 17:40:04.66
+Subj:	Re: Sticking MV II cards into a MV3400
+
+
+    Hello Mark Iline,
+
+>Because of the way that the CD connections work, I believe that the effect
+>of the DMA (and BR) grant continuity etches will depend entirely on the
+>adjacent cards. Putting a double height Q-bus grant card (or double height
+>module) in the AB slots either side of the quad height card should mean
+>that these grant etches are not connected to anything. 
+
+>I think. I may be wrong.
+
+   Ignoring mounting and EMI/RFI, "dual" modules placed in the AB slots
+   will work correctly in either BA23/BA123 or BA2xx/BA4xx.  The "quad"
+   Q22-bus modules are the problematic ones.
+
+   The CD (lower) section of the BA2xx and BA4xx is not a Q22-bus, it's
+   part of the PMI CPU-memory interconnect bus.  Shorting the CD-PMI
+   pins in the position that matches the CD-Q22-bus DMA grant continuity
+   pins is not something I'd care to try.
+
+   The last time I was swapping Q22-bus boards between the BA23/BA123 and
+   the BA2xx/BA4xx series, I had to cut the DMA grant continuity etch on
+   the BA23/BA123 "quad" modules to get them to work in the BA2xx/BA4xx.
+   (The fellow that designed the particular module I was working with had
+   specifically placed a zero-ohm resistor -- a jumper -- across these two
+   pins to make cutting this easy.)
+
+   I don't have the KA630/KA640/KA65x module pinouts handy to check what's
+   in that pin position in tbe backplane.  If I can dig up a copy, I'll
+   check to see what might happen when those two PMI pins are shorted.
+
+   Steve
+
+  ------------------------------ Opinionative -------------------------------
+   Stephen Hoffman, NR EMT-I, WEMT, N1THN        hoffman<AT>xdelta.enet.dec.com
+        OpenVMS Engineering, Digital Equipment Corporation, Nashua NH
+</pre>
+<hr>
+<pre>
+From:	DRKCLU::IVAX         "Mark Iline - Info-VAX account" 23-MAR-1995 12:42:36.99
+Subj:	Re: Sticking MV II cards into a MV3400
+
+Hi Steve.
+
+
+>   Ignoring mounting and EMI/RFI, "dual" modules placed in the AB slots
+>   will work correctly in either BA23/BA123 or BA2xx/BA4xx.  The "quad"
+>   Q22-bus modules are the problematic ones.
+>
+>   The CD (lower) section of the BA2xx and BA4xx is not a Q22-bus, it's
+>   part of the PMI CPU-memory interconnect bus.  Shorting the CD-PMI
+>   pins in the position that matches the CD-Q22-bus DMA grant continuity
+>   pins is not something I'd care to try.
+>
+>   The last time I was swapping Q22-bus boards between the BA23/BA123 and
+>   the BA2xx/BA4xx series, I had to cut the DMA grant continuity etch on
+>   the BA23/BA123 "quad" modules to get them to work in the BA2xx/BA4xx.
+>   (The fellow that designed the particular module I was working with had
+>   specifically placed a zero-ohm resistor -- a jumper -- across these two
+>   pins to make cutting this easy.)
+>
+>   I don't have the KA630/KA640/KA65x module pinouts handy to check what's
+>   in that pin position in tbe backplane.  If I can dig up a copy, I'll
+>   check to see what might happen when those two PMI pins are shorted.
+>
+
+I've got a fair understanding of the problem. I'm not 100% sure, but my 
+understanding is that the pins on the CD side of the backplane are simply 
+connected such that the top contacts connect to the bottom contacts on the 
+slot above, and so forth.
+
+I think this originally came about for dual card controllers like the RLV11 
+(the RLV211 was a single card, supporting 22 bits) (I think), so that the 
+two cards didn't need an 'over the top' connector. The same mechanism 
+allows LMI (uVAX II memory) to have its private memory bus (although it 
+still needs a ribbon cable), and PMI (11/83 ?), in which the memory cards 
+sit above the CPU card, whereas the Q-bus cards are below.
+
+If I'm right about the CD wiring, as long as the CD slots either side of
+the non-skunked quad height card are free, you should be ok, since the
+grant tracks aren't connected to anything.
+
+
+Mark
+
+Mark Iline	system<AT>meng.ucl.ac.uk
+Dept Mech Eng, University College, London. UK
+
+From:	SMTP%"leichter<AT>lrw.com" 23-MAR-1995 14:08:03.12
+To:	Info-VAX<AT>Mvb.Saic.Com
+CC:	
+Subj:	Re: 100% CPU usage slows down other processes
+
+	> [I wrote:]
+	> Short of giving the real CPU hogs lower priorities, there isn't much
+	> you can do on a V5.5-2 system.  V6.0 adds support for a class
+	> scheduler, which allows you to assign processes to different
+	> classes, each of which can only get some pre-defined fraction of the
+	> available CPU time.  For example, you could assign processes that
+	> are using a great deal of CPU time to class B, and all others to
+	> class A, and the specify that class B is to be allows at most 70% of
+	> the CPU.  All the CPU-bound processes together will share the 70%
+	> give to class B, while 30% will remain available for everyone
+	> else.  Again, however, this is new to V6.0.  (Actually, the
+	> mechanism has been there for quite some time, but support and
+	> documentation are new to V6.0.  I don't know if the newly-documented
+	> $SCHED system call actually works the same way in V5.5.)
+
+	I'm suprised this thread didn't continue with more discussion on the
+	above statement. Can you tell me where this class scheduler is
+	maintained from? What documentation should I be looking at to utilise
+	this V6.0 feature?
+
+The System Services manual, what else?  The basic operational model is that a
+privileged process first uses $SCHED (CSH$_SET_QUANT function) to establish
+a group of classes and assign class quanta to them.  As processes in different
+classes run, VMS will deduct the time they use from their class's quantum.
+When a class's quantum reaches 0, no processes in that class will be
+scheduled until $SCHED is used to assign more time.
+
+Then the privileged process asks VMS to tell it about all processes
+(CSH$_READ_ALL) or only about processes that have not been assigned a
+scheduler class (CSH$_READ_NEW), and if it wishes it assigns them
+(CSH$_SET_CLASS).  Once it's done, the process can request that an AST be
+delivered when new processes enter the system (CSH$_SET_ATTN_AST).  (It must
+also arrange to use CSH$_SET_QUANT periodically to refresh the times allocated
+to the various processes.  As a safety "dead-man" switch, VMS will disable
+class scheduling if too long a time - normally 30 seconds, but this is
+settable - goes by without the use of the CSH$_SET_QUANT function.)
+
+I've seen an example of a simple class scheduler, but I'm not sure where.  It
+may even be in the VMS V6.0 SYS$EXAMPLES; more likely, it appeared in a
+Digital Systems Journal article within the last 6 months or so.  The code
+examples from those articles are available on line somewhere, perhaps from
+Hunter Goatley's site, but I'm not sure.
+
+By the way, someone pointed out to me that the code for the scheduling facili-
+ty was not shipped before V6.0.  (I seem to recall that it was being used
+experimentally within DEC several versions earlier, but probably only on
+specially-built development versions of VMS.)
+							-- Jerry
+</pre>
+<hr>
+<pre>
+From:	SMTP%"hoffman<AT>xdelta.enet.dec.com" 23-MAR-1995 14:59:50.98
+Subj:	Re: Sticking MV II cards into a MV3400
+
+
+    Hello Mark Iline,
+
+>>   The CD (lower) section of the BA2xx and BA4xx is not a Q22-bus, it's
+>>   part of the PMI CPU-memory interconnect bus.  Shorting the CD-PMI
+>>   pins in the position that matches the CD-Q22-bus DMA grant continuity
+>>   pins is not something I'd care to try.
+>>
+>>   The last time I was swapping Q22-bus boards between the BA23/BA123 and
+>>   the BA2xx/BA4xx series, I had to cut the DMA grant continuity etch on
+>>   the BA23/BA123 "quad" modules to get them to work in the BA2xx/BA4xx.
+>>   (The fellow that designed the particular module I was working with had
+>>   specifically placed a zero-ohm resistor -- a jumper -- across these two
+>>   pins to make cutting this easy.)
+>>
+>>   I don't have the KA630/KA640/KA65x module pinouts handy to check what's
+>>   in that pin position in tbe backplane.  If I can dig up a copy, I'll
+>>   check to see what might happen when those two PMI pins are shorted.
+
+>I've got a fair understanding of the problem. I'm not 100% sure, but my 
+>understanding is that the pins on the CD side of the backplane are simply 
+>connected such that the top contacts connect to the bottom contacts on the 
+>slot above, and so forth.
+
+>I think this originally came about for dual card controllers like the RLV11 
+>(the RLV211 was a single card, supporting 22 bits) (I think), so that the 
+>two cards didn't need an 'over the top' connector. The same mechanism 
+>allows LMI (uVAX II memory) to have its private memory bus (although it 
+>still needs a ribbon cable), and PMI (11/83 ?), in which the memory cards 
+>sit above the CPU card, whereas the Q-bus cards are below.
+
+    Dual cards are, as I've mentioned, not a problem -- assuming they
+    are installed in the AB portion of the BA2xx or BA4xx bus, and
+    assuming EMI/RFI is handled.
+
+>If I'm right about the CD wiring, as long as the CD slots either side of
+>the non-skunked quad height card are free, you should be ok, since the
+>grant tracks aren't connected to anything.
+
+    Various members of the MicroVAX family used *both* the over-the-top
+    ribbon cable *and* the CD portion of the backplane to communicate
+    with the memory modules.  I *know* the KA650 puts out the main memory
+    address on the CD pins on the backplane, and reads/writes the data via
+    the over-the-top ribbon cable interconnect.  The memory control lines
+    are also present on the CD pins.
+
+    If you're right and the pin on the bottom of one card in the CD fingers
+    is daisy-chained -- connected to the pin on the top of the next card
+    in the bus, etc., then (with a gap between the modules) you're right,
+    the configuration may work as long as no adjacent card(s) also use the
+    CD.  I would not want to bet on this, and I would not want to leave
+    this system for the next fellow to maintain -- it's too likely that
+    a simple subsequent module addition or removal will have rather
+    unforseen and puzzling consequences.  And if the card accesses the
+    Q-signals bus via the CD pins as I could envision some (mis)designed
+    modules doing, all bets are (obviously) off.
+
+    In the particular configuration I were working with, one of the
+    requirements was stuffing as many modules as we could into the box,
+    and cutting the grant was thus necessary -- since the modules were
+    backed up against the memory modules.
+
+    Steve
+
+  ------------------------------ Opinionative -------------------------------
+   Stephen Hoffman, NR EMT-I, WEMT, N1THN        hoffman<AT>xdelta.enet.dec.com
+        OpenVMS Engineering, Digital Equipment Corporation, Nashua NH
+</pre>
+<hr>
+<pre>
+From:	DRKCLU::IVAX         "Mark Iline - Info-VAX account" 23-MAR-1995 15:38:42.63
+Subj:	Re: Sticking MV II cards into a MV3400
+
+>>I think this originally came about for dual card controllers like the RLV11 
+>>(the RLV211 was a single card, supporting 22 bits) (I think), so that the 
+>>two cards didn't need an 'over the top' connector. The same mechanism 
+>>allows LMI (uVAX II memory) to have its private memory bus (although it 
+>>still needs a ribbon cable), and PMI (11/83 ?), in which the memory cards 
+>>sit above the CPU card, whereas the Q-bus cards are below.
+>
+>    Dual cards are, as I've mentioned, not a problem -- assuming they
+>    are installed in the AB portion of the BA2xx or BA4xx bus, and
+>    assuming EMI/RFI is handled.
+
+Ah, but I wasn't referring to dual *height* cards. The 'dual card' RLV11
+controller was composed of 2 quad height cards that communicated over the
+CD interconnect. 
+
+>    If you're right and the pin on the bottom of one card in the CD fingers
+>    is daisy-chained -- connected to the pin on the top of the next card
+>    in the bus, etc., then (with a gap between the modules) you're right,
+>    the configuration may work as long as no adjacent card(s) also use the
+>    CD.  I would not want to bet on this, and I would not want to leave
+>    this system for the next fellow to maintain -- it's too likely that
+>    a simple subsequent module addition or removal will have rather
+>    unforseen and puzzling consequences.  And if the card accesses the
+>    Q-signals bus via the CD pins as I could envision some (mis)designed
+>    modules doing, all bets are (obviously) off.
+
+Fair point about maintainability.
+
+I must admit, I'd doubt that any quad height cards that are at all recent
+would access Q-bus lines via the CD slots. There's no point, and Q/CD
+backplanes were common around the time of the (pre-BA23) 11/23 (in fact
+probably with DEC supplied 11/03s, precisely because of the RLV11. As
+you've observed, modules were designed to work either in the 'serpentine'
+Q/Q backplanes, or the 'straight down' Q/CD backplanes by having only
+grants on the CD slots, and jumpers to disconnect these.
+
+>    In the particular configuration I were working with, one of the
+>    requirements was stuffing as many modules as we could into the box,
+>    and cutting the grant was thus necessary -- since the modules were
+>    backed up against the memory modules.
+
+Surely not moving the graphics card on a VSII/RC (5 slot VSII) into a Q/CD 
+slot to free up another double height Q-bus slot ;-) ? Naughty people like 
+us took the araldite/epoxy out of the other 3 slots.
+
+
+Mark

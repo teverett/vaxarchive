@@ -1,0 +1,260 @@
+<HTML>
+<HEAD>
+<TITLE>The VAX Network Booting HOWTO: Automating The Bootserver and Booting Process</TITLE>
+</HEAD>
+<BODY>
+<A HREF="VAX-netboot-HOWTO-5.html">Previous</A>
+<A HREF="VAX-netboot-HOWTO-7.html">Next</A>
+<A HREF="VAX-netboot-HOWTO.html#toc6">Table of Contents</A>
+<HR>
+<H2><A NAME="auto-boot"></A> <A NAME="s6">6. Automating The Bootserver and Booting Process</A></H2>
+
+<P>No, you're not forever doomed to manually prepare your bootserver for
+booting up your VAX client.  You just have to make a few changes to
+what your bootserver runs when it first boots up.</P>
+
+
+<H2><A NAME="auto-netbsd"></A> <A NAME="ss6.1">6.1 Automating The Bootserver under NetBSD</A></H2>
+
+<P>Hey, this is easy! That's what I thought when I figured out how to
+start all the nifty bootserver related daemons at boot time under
+NetBSD.  On your NetBSD bootserver, you will need to edit the
+<CODE>/etc/rc.conf</CODE> file, a file which is a virtual network services
+supermarket.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# example lines from /etc/rc.conf and how they should be set:
+bootparamd=YES
+bootparamd_flags=&quot;&quot;
+rarpd=YES
+rarpd_flags=&quot;-a&quot;
+mopd=YES
+mopd_flags=&quot;-a&quot;
+nfs_server=YES
+nfsd_flags=&quot;-tun 4&quot;
+mountd_flags=&quot;&quot;
+nfs_client=YES
+nfsiod_flags=&quot;-tun 4&quot;
+# end of example
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>After making the above changes, reboot your system and then your
+should be ready to bootserve VAX clients. </P>
+
+
+
+<H2><A NAME="auto-openbsd"></A> <A NAME="ss6.2">6.2 Automating The Bootserver under OpenBSD</A></H2>
+
+<P>OpenBSD is strikingly similar in layout to NetBSD, but then OpenBSD
+borrows heavily from its roots in NetBSD.  There was one major
+difference, instead of configuring <CODE>/etc/rc.conf</CODE>, under
+OpenBSD you must directly configure a file named
+<CODE>/etc/netstart</CODE>.</P>
+<P>Examine the well commented <CODE>/etc/netstart</CODE> file on your OpenBSD
+system paying special attention to the lines near the beginning of the
+file.</P>
+
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# example lines from /etc/netstart and how they should be set:
+rarpd_flags=&quot;-a&quot;
+bootparamd_flags=&quot;&quot;
+nfs_server=YES
+# end of example
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>With OpenBSD, you still have to perform a bit of your own script work
+to get the MOP server running, but it's a one time thing.  Edit the
+/etc/rc.local file to contain the following conditional statement just
+before the end of the file:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# code for starting the MOP server at boot time.
+if [ -f /usr/sbin/mopd ]; then
+      echo -n ' mopd';        /usr/sbin/mopd -a
+fi
+# end of code
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>After modifying the items above, reboot your system and then you
+should be ready to bootserve VAX clients. </P>
+
+
+
+<H2><A NAME="auto-linux"></A> <A NAME="ss6.3">6.3 Automating The Bootserver under Linux</A></H2>
+
+<P>Linux requires a bit more work than the other operating systems, but
+I've put together some helper scripts for making the process simpler.
+The scripts are available from my web page at the following link: 
+<A HREF="http://world.std.com/~bdc/projects/vaxen/netboot/linux-nb.tar.gz">http://world.std.com/~bdc/projects/vaxen/netboot/linux-nb.tar.gz</A>
+I've also included the text of the scripts at the end of this guide in
+<A HREF="VAX-netboot-HOWTO-9.html#appendix-b">Appendix B</A> for people who don't have
+access to the web.</P>
+<P>There are three scripts you will need: <CODE>areths.csh</CODE>,
+<CODE>vaxboot-sysv.sh</CODE>, and <CODE>vaxboot-bsd.sh</CODE>.</P>
+<P>The <CODE>areths.csh</CODE> script is sort of like a poor man's
+<CODE>rarpd</CODE> for Linux. The script reads in the contents of your
+<CODE>/etc/ethers</CODE> file and loads the ARP cache and RARP tables with
+the appropriate information. </P>
+<P>The vaxboot scripts are for automatically calling the
+<CODE>areths.csh</CODE> script and running the <CODE>rpc.bootparamd</CODE> and
+<CODE>mopd</CODE> daemons during the system boot.  The
+<CODE>vaxboot-sysv.sh</CODE> is for the SysV style init used by the RedHat
+distribution.  The <CODE>vaxboot-bsd.sh</CODE> is for the BSD style init
+used by the Slackware distribution.  In fact you can use
+<CODE>vaxboot-bsd.sh</CODE> with RedHat as well, if you call it from the
+<CODE>/etc/rc.d/rc.local</CODE> script.  RedHat caters to both styles of
+system initializations. </P>
+
+<P>
+<BLOCKQUOTE>
+<B><EM>I would like to take this opportunity to say that I think that all the
+Linux distributions I've worked with have really weird init setups.</EM></B>
+</BLOCKQUOTE>
+</P>
+<P>First, copy the <CODE>areths.csh</CODE> script to
+<CODE>/usr/local/sbin</CODE>.  BTW, the scripts are all written in mind
+with the various bootserver components living in
+<CODE>/usr/local/sbin</CODE>.  You'll have to edit the scripts if you've
+placed the components elsewhere.</P>
+
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# mkdir -p /usr/local/sbin
+# cp areths.csh /usr/local/sbin 
+# chmod a+x /usr/local/sbin/areths.csh
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P><B>Configuring for RedHat <EM>(SysV Style init)</EM></B></P>
+<P>Under RedHat Linux, copy the file <CODE>vaxboot-sysv.sh</CODE> to the
+directory <CODE>/etc/rc.d/init.d</CODE> and set its execute permissions.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# cp vaxboot-sysv.sh /etc/rc.d/init.d
+# chmod a+x /etc/rc.d/init.d/vaxboot-sysv.sh
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Next you'll need to setup some links in the runlevel directories so
+the booting system knows what to do with the script when entering
+certain runlevels.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# ln -s /etc/rc.d/init.d/vaxboot-sysv.sh /etc/rc.d/rc1.d/K07vaxboot-sysv
+# ln -s /etc/rc.d/init.d/vaxboot-sysv.sh /etc/rc.d/rc2.d/S99vaxboot-sysv
+# ln -s /etc/rc.d/init.d/vaxboot-sysv.sh /etc/rc.d/rc3.d/S99vaxboot-sysv
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>RedHat runs the NFS server components by default, so you need not
+worry about setting up anything for them.  At this point reboot your
+machine, and everything should be in order to netboot your
+VAX client. </P>
+<P><B>Configuring for Slackware <EM>(BSD Style init)</EM></B></P>
+<P>Under Slackware Linux, copy the file <CODE>vaxboot-bsd.sh</CODE> to the
+directory <CODE>/usr/local/etc</CODE>.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# mkdir -p /usr/local/etc
+# cp vaxboot-bsd.sh /usr/local/etc
+# chmod a+x /usr/local/etc/vaxboot-bsd.sh
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Ummm, it's been a while since I've run Slackware, but if I remember
+correctly there's a file either named <CODE>/etc/rc.local</CODE> or maybe
+<CODE>/etc/rc.d/rc.local</CODE> which is specifically for user
+customizations.  Anyway, find that <CODE>rc.local</CODE> file and add the
+following lines to the end of that file:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# example additions to rc.local file under Linux
+# Start the bootserver
+/usr/local/etc/vaxboot-bsd.sh
+
+# end of example
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Again, resorting to vague and fuzzy recollections of my Slackware
+days. I'm fairly sure that you needed to uncomment certain sections of
+the configuration files for Slackware, as the NFS servers were not run
+by default.  I'm thinking of files named <CODE>rc.inet1</CODE> and
+<CODE>rc.inet2</CODE> but I'll leave figuring out the details as an
+exercise for the reader. Reboot your machine, and everything should be
+in order to netboot your VAX client (assuming you get NFS running).</P>
+<P><EM>(I haven't actually tested this under Slackware.  I'm only pretending
+that I know it works).</EM></P>
+
+
+<H2><A NAME="auto-freebsd"></A> <A NAME="ss6.4">6.4 Automating The Bootserver under FreeBSD</A></H2>
+
+<P><EM>Not written yet!</EM></P>
+
+
+
+<H2><A NAME="mom"></A> <A NAME="ss6.5">6.5 More on MOP (or Look Mom, No Hands!)</A></H2>
+
+<P>There's one more very useful thing you can do to make your MOP
+configuration much simpler...  Reflect back to many pages before the
+current section to section on 
+<A HREF="VAX-netboot-HOWTO-3.html#mbli-dir">setting up the MOP images</A>.  Times were simpler, and you were happily linking the
+file <CODE>boot.mopformat</CODE> to <CODE>MOPBOOT.SYS</CODE>, carefully noting
+that the link name must be capitalized.</P>
+<P>Well, much like the simpler times of your childhood, you were lied to.
+There is no Santa Claus, and not all file names must be capitalized.
+But I digress.</P>
+<P>Going back into the <CODE>/tftpboot/mop</CODE> directory. If you create a
+link to the <CODE>boot.mopformat</CODE> file with your VAX client's
+ethernet address as its name, you can then boot your VAXstation from
+the console without specifying the `/100' parameter.  Better yet it
+doesn't prompt you for the name of the bootloader.  The VAX
+automatically grabs whatever file is associated with the ethernet
+address named file.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# cd /tftpboot/mop
+# ln -s boot.mopformat 08002b1659bb.SYS 
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>You will note the lower case letters used in the ethernet address
+name.  In this case if you don't use the lower case letters, the MOP
+server will not acknowledge the filename as containing valid
+representation of the ethernet address. You must use the lower case
+form of the letters. </P>
+<P>You can even take things one step further.  At least on the VAXstation
+3100's (and maybe others) you can set the default boot device to be the
+ethernet device.</P>
+<P>From the VAXstation console prompt, type the following:
+<BLOCKQUOTE><CODE>
+<PRE>
+&gt;&gt;&gt; set boot esa0
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>The next time you power on the VAXstation, it will try to boot from
+the ESA0 ethernet device.  This in turn MOP loads the bootloader from
+your bootserver.  Oooooh ahhhh, impress your friends.</P>
+
+
+
+<HR>
+<A HREF="VAX-netboot-HOWTO-5.html">Previous</A>
+<A HREF="VAX-netboot-HOWTO-7.html">Next</A>
+<A HREF="VAX-netboot-HOWTO.html#toc6">Table of Contents</A>
+</BODY>
+</HTML>

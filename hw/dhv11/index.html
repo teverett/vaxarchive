@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>DHV11 (M3104)</title>
+</head>
+<body bgcolor="#ffffff">
+<center><img src="../../vax780.jpg" width="120" height="107" alt="VAX 11/780"><img src="../../vaxarch.gif" alt="VAXARCHIVE" width="351" height="81"></center>
+<h1>DHV11 (M3104)</h1>
+<p><center><a href="m3104.jpg"><img src="m3104k.jpg" alt="m3104k.jpg" width="300" height="232"></a></center></p>
+<p><center><font size=-1>The DHV11 (Click on the image to see a larger one)</font></center></p>
+<p>The DHV11, Module number M3104, is a Q-bus 8-line async serial card with DMA. It goes with several cabinet kits:</p><ul>
+<li>CK-DHV11-AA  - DHV CAB KIT FOR BA123,8 RS232 DATA LINES</li>
+<li>CK-DHV11-AC  - Cab kit for DHV11,EIA,30"cable,shielded insert</li>
+<li>CK-DHV11-AF  - DHV11 CAB KIT FOR SHIELDED H9642CAB,8 RS232 DATA</li>
+</ul>
+<p>Because it can place a heavy load on the system, it needs a high
+priority on the bus. The preferred order for the usual Q-bus cards is,
+after the cpu and memory:</p>
+<p>1.  TSV05 9 track magtape controller<br>
+2.  DMV11 Microprocessor controlled DECnet communications interface<br>
+3.  TQK25 Controller for 8 inch magtape drive<br>
+4.  DHV11 Microprocessor controlled communications multiplexor<br>
+5.  DEQNA Ethernet controller<br>
+6.  TQK50 Controller for single spindle cartridge magtape<br>
+7.  RLV12 Controller for 14 inch RL series disk drives<br>
+8.  RQDX3 Controller for 5 1/4 inch RD/RX drives<br>
+9.  KDA50 Controller for 14 inch RA series disk drives<br>
+10.  RQC25 Controller for 8 inch RC25 series disk drives<br>
+11.  RQDX2 Controller for 5 1/4 inch RD/RX drives<br>
+12.  DRV11-WA General purpose 22 bit DMA interface</p>
+<p>The DHV11 has two banks of switches, 8 and 8, 16 total.
+Viewed from top of board with bus fingers at bottom, cables at top,
+the default settings are</p><PRE>
+0=OPEN
+1=CLOSED
+         Bank 1:  Bank 2:  CSR
+         00001001 00011000 160440 300
+switch # 12345678 12345678
+</PRE>
+<p>Here follows 4 pages of documentation for the DHV11 in .jpg files. At the bottom
+of the page is a link to the same information in .tif files.<br>
+They are a mirror of http://www.ezol.net/dec/dhv11/</p>
+<p><center><img src="dhv2.jpg" alt="dhv2.jpg" width="556" height="754"></center></p>
+<p><center><img src="dhv3.jpg" alt="dhv3.jpg" width="556" height="790"></center></p>
+<p><center><img src="dhv4.jpg" alt="dhv4.jpg" width="556" height="790"></center></p>
+<p><center><img src="dhv5.jpg" alt="dhv5.jpg" width="556" height="754"></center></p>
+<p>For more details, check the <a href="http://sunsite.unc.edu/pub/academic/computer-science/history/pdp-11/hardware/micronotes/numerical">Micronotes</a></p>
+<p><a href="http://sunsite.unc.edu/pub/academic/computer-science/history/pdp-11/hardware/dhv11.config">Micronote dhv11.config</a></p>
+<hr>
+<p><a href="dhvtif.html">The DHV11 docs in .tif form</a></p>
+<p>Back to the <a href="../index.html">hardware page</a></p>
+</body>
+</html>

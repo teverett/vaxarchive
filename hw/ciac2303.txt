@@ -1,0 +1,487 @@
+The Console Password For Dec Workstations
+
+Allan L. Van Lehn
+
+CIAC-2303
+U. S. Department of Energy
+Computer Incident Advisory Capability
+
+UCRL-MA-115604
+Lawrence Livermore National Laboratory
+Livermore, California
+
+October, 1993
+
+DISCLAIMER
+----------
+
+This document was prepared as an account of work sponsored by an agency of the 
+United States Government.  Neither the United States Government nor the 
+University of California nor any of their employees, makes any warranty, 
+express or implied, or assumes any legal liability or responsibility for the 
+accuracy, completeness, or usefulness of any information, apparatus, product, 
+or process disclosed, or represents that its use would not infringe privately 
+owned rights.  Reference herein to any specific commercial product, product, 
+process, or service by trade name, trademark, manufacturer, or otherwise, does 
+not necessarily constitute or imply its endorsement, recommendation, or 
+favoring by the United States Government or the University of California.  The 
+views and opinions of authors expressed herein do not necessarily state or 
+reflect those of the United States Government or the University of California, 
+and shall not used for advertising or product endorsement purposes.
+
+Work performed under the auspices of the U.S. Department of Energy by Lawrence 
+Livermore National Laboratory under Contract W-7405-ENG-48.
+
+==============================
+
+Table of Contents
+-----------------
+
+Overview
+  Introduction
+  Notation used in this document
+  Warnings
+VAXstations
+  Selecting and entering the VAXstation console password
+  Enabling and disabling the password
+  Placing the VAXstation in privileged mode
+  Learning the status of the password
+  Exiting privileged mode
+  VAXstation 3100 Series console commands
+  VAXstation 4000 Series console commands
+DECstations
+  Setting the DECstation console password
+  Enabling and disabling the password
+  DECstation console commands
+Conclusion
+
+==============================
+
+        The Console Password Feature for DEC Workstations
+
+
+Overview
+--------
+
+
+Introduction
+
+Newer VAXstations and all DECstations offer a “hardware” password feature 
+that, when enabled, restricts unauthorized access to your system console 
+terminal when turned on or restarted.  VAXstation 3100s shipped after July, 
+1989 offer this feature.  A description of this feature should be part of the 
+Hardware User Guide for your workstation; however, some of the early systems 
+did not document this security enhancement.  This document is based on the 
+author’s investigation as well as information provided by the Digital 
+Equipment Corporation.
+
+
+Notation used in this document
+
+Due to the different commands and syntax, VAXstations and DECstations will be 
+described in two seperate sections within this document.  In the VAXstation 
+section of this document, uppercase commands are used only to improve 
+readability; lowercase commands are acceptable.  Console input may be in 
+uppercase or lowercase (VAXstations are not case sensitive, but DECstations 
+are).  Commands may be abbreviated to the minimum set of unique letters.  
+Commands are not acted upon until the Return key is pressed, thus allowing 
+corrections to be made with the <’ > (delete key) or < Control-U > (hold down 
+the control key while pressing the letter U).
+
+
+Notation   Meaning
+>>> or >>  Console or chevron prompt.  VAXstations use the three chevron 
+           prompt (>>>) and DECstations use the two chevron prompt (>>).
+R>         A DECstation console that has its password set will use R> for 
+           its prompt, indicating it is in restricted mode.
+<  >       Angle brackets enclose items which show the range of digits or 
+           name (possibly an abbreviation) of the data to be supplied.
+[  ]       Square brackets surround optional items.
+{  }       Curly brackets (braces) indicate you must select only one of the 
+           enclosed optional items.
+|          The vertical bar character separates optional items and may be 
+           read as a logical “or.”
+Control-C  Aborts an operation in progress.
+Control-Q  Resumes output to the screen.
+Control-S  Suspends output to the screen.
+Control-U  Is the line erase key sequence.
+’          Character delete key.
+
+
+Warnings
+
++  When a DEC workstation is first shipped, its console system operates in 
+privileged command mode.  If you do nothing to change from privileged mode, 
+there will be no console command restrictions.  Anyone with physical console 
+access can activate any console command, the most vulnerable being interactive 
+booting.  When you set and enable the console password, you can restrict the 
+available console commands to:
+
+(1)  booting without parameters from the default device,
+
+(2)  a command used to enable privileged command mode and,
+
+(3)  other commands that do not provide information or control to 
+     unauthorized personnel.
+ 
++  If you have set a password and then forget what it is, you must have a DEC 
+Field Service Engineer open up your system to re-enable privileged command 
+mode.
+
+
+VAXstations
+-----------
+
+
+Selecting and entering the VAXstation console password
+
+Step  Command/Action
+1     Select a password:
+
+      The password must be a hexadecimal string of characters (0 through 9 and 
+      A through F) with a length of exactly sixteen characters.  Examples of 
+      valid passwords are:
+
+        1ACED33BD23AF301
+        DAC324EABEA222EA
+        111111111AACCDEE
+
+      Examples of invalid passwords are:
+
+        FACE              (not 16 characters long)
+        442ED2FFAC213SE2  (illegal hex character, S)
+
++  If the password is the wrong length, contains a non-hex character, or does 
+not match (old password to old password or new password to new password), the 
+SET PSWD command fails and the following error message displays:  ?31 ILL PSWD
+
+The system does not prevent password reuse, but it is good security practice 
+to select a previously unused one.
+
+2     Enter the password:
+
+      Use the privileged SET PSWD command to enter a new password into the 
+      console system:
+
+        >>> SET PSWD
+
+3     Validate your authority to change the old password:
+
+      After you type the above command, the console prompts you for the old 
+      password:
+
+        3100 series        4000 series
+        0 >>>        or    PSWD0 >>>
+
+      Enter the old password and press < Return >.  If there is no old 
+      password, the console proceeds to prompt for a new password:
+
+        1 >>>        or    PSWD1 >>>
+
+      The console does not echo (display) any password as you enter it.
+
+4     Confirm the correct entry of the new password:
+
+      If the password character string entered in step 3 is legal, the console 
+      prompts you to enter the new password a second time, to verify correct 
+      entry:
+
+        2 >>>        or    PSWD2 >>>
+
+      Re-enter the new password and press < Return >.  If the confirming 
+      password exactly matches the new password, the new password is accepted.
+
+
+Enabling and disabling the password
+
+After selecting and entering a password, described in the previous section, 
+use the privileged command SET PSE to enable (activate) or disable 
+(deactivate) the password.  Entering and enabling are separate actions, i.e., 
+entering a password will not automatically enable (or disable) that password.  
+If you do not use one of the following commands, the password state will 
+remain as it was before the first or a new password was entered.
+
+Action  Command
+Enable  >>> SET PSE 1
+
+        +  If you have not set a password (see step 2), the following error 
+        message is displayed:  ?33 NO PSWD DEF
+
+Disable >>> SET PSE 0
+
++  If you enter something other than “1” or “0”, the following error message 
+is displayed:  ?24 INV DGT
+
+
+Placing the VAXstation in privileged mode
+
+Use the LOGIN  command to place a VAXstation in privileged mode.  This makes 
+all console commands accessible.  The form of the command is
+
+>>> LOGIN
+
++  If a password is not enabled, the error message returned is:  
+        ?32 PSWD NOTEN
+
+If a password is enabled, the console prompts for password entry:
+
+        3100 series         4000 series
+        ? >>>         or    PSWD0 >>>
+
+If the correct password is entered, the VAXstation is placed in privileged 
+mode.  You then have access to all commands until issuing a command that exits 
+console privileged mode (see the section “Exiting Privileged Mode,” below).
+
++  If an incorrect password is entered, the error message returned is:  
+        ?23 ILL CMD
+
+
+Learning the status of the password
+
+To check on the status of the password feature, use the command:
+
+>>> SHOW PSE
+
+If a “1” or “PSE = 00000001” is displayed, the password is enabled.  If a “0” 
+or “PSE = 00000000” is displayed, the password is disabled.
+
++  If the console is already in unprivileged mode, entering this command will 
+result in the error message, ?23 ILL CMD, indicating that the password is 
+enabled.
+
+
+Exiting privileged mode
+
+The following console commands, executed while the console is in privileged 
+mode, cause an exit from privileged mode before any other operations are begun 
+(also see asterisked commands in the Console Commands table on the next page):
+
+>>> BOOT (with any supplied parameters)
+>>> CONTINUE
+>>> HALT
+>>> START
+
+Once privileged mode is exited, you must use the LOGIN command and correctly 
+enter the console password to regain privileged mode.
+
+
+VAXstation 3100 Series console commands
+
+The following commands are for the VAXstation 3100 series computers.  Use the 
+help command to find commands available on your particular make and model.
+
+Unprivileged commands
+  >>>  BOOT
+  >>>  CONTINUE
+  >>>  HALT
+  >>>  LOGIN
+
+Privileged commands
+  >>>  BOOT* [/[R5:]<bflg>] [<ddau>[:]]
+  >>>  CONTINUE*
+  >>>  DEPOSIT [{ /B | /W | /L }] [{ /P | /V | /I }] [/G] [/U] /N:<n>]
+       [{ <addr> | <sym> | + | - | * | @ }  [<datum>]]
+  >>>  DTE
+  >>>  EXAMINE [{ /B | /W | /L }] [{ /P | /V | /I }] [/G] [/U] [N:<n>]
+       [{ <addr> | <sym> | + | - | * | @ }]
+  >>>  FIND [{ /MEMORY | /RPB }]
+  >>>  HALT*
+  >>>  HELP
+  >>>  INITIALIZE
+  >>>  LOGIN
+  >>>  REPEAT <cmd>
+  >>>  SET BFLG <bflg>   “8 hex digits”
+  >>>  SET BOOT <ddau>
+  >>>  SET HALT <1-3>
+  >>>  SET KBD <0-15>
+  >>>  SET MOP <0-1>
+  >>>  SET PSE <0-1>
+  >>>  SET PSWD
+  >>>  SET TRIG <0-1>
+  >>>  SHOW { BFLG | BOOT | DEV | ESTAT | ETHER |HALT | KBD | MEM | MOP| PSE | 
+       SCSIA | SCSIB | TRIG }
+  >>>  START* <addr>
+  >>>  TEST <n> [<m>]
+  >>>  UNJAM
+  >>>  XFER  <addr> <cnt> ...
+
+*  executing these commands will terminate console privileged mode
+
+
+VAXstation 4000 Series console commands
+
+The following commands are for the VAXstation 4000 series computers.  Use the 
+help command to find commands available on your particular make and model.
+
+Unprivileged commands
+  >>>  BOOT
+  >>>  CONTINUE
+  >>>  HALT
+  >>>  LOGIN
+  >>>  !  “begin comment”
+
+Privileged commands
+  >>>  BOOT* [/[R5:]<bflg>] [<ddau>[:]]
+  >>>  CONTINUE*
+  >>>  DEPOSIT [{ /B | /W | /L }] [{ /P | /V | /I }] [/G] [/U] [/N:<n>]
+       [{ <addr> | <sym> | + | - | * | @ }  [<datum>]]
+  >>>  EXAMINE [{ /B | /W | /L }] [{ /P | /V | /I }] [/G] [/U] [/N:<n>]
+       [{ <addr> | <sym> | + | - | * | @ }]
+  >>>  FIND [{ /MEMORY | /RPB }]
+  >>>  HALT*
+  >>>  HELP
+  >>>  INITIALIZE
+  >>>  LOGIN
+  >>>  REPEAT <cmd>
+  >>>  SET BFLG <bflg>   “8 hex digits”
+  >>>  SET BOOT <ddau>
+  >>>  SET DIAGENV <1-3>
+  >>>  SET HALT <1-3>
+  >>>  SET KBD <0-15>
+  >>>  SET MOP <0-1>
+  >>>  SET PSE <0-1>
+  >>>  SET PSWD
+  >>>  SET SCSI <0-7>
+  >>>  SET TRIG <0-1>
+  >>>  SHOW { BFLG | BOOT | CONFIG | DEV | DIAGENV | ERROR | ESTAT | ETHER | 
+       FBOOT | HALT | KBD | MEM | MOP | PSE | SCSI | TRIG }
+  >>>  START* <addr>
+  >>>  TEST [/UTIL]  <devnam | devnbr>
+  >>>  UNJAM
+  >>>  X  <addr> <cnt> ...
+  >>>  ?  “help command”
+  >>>  !  “begin comment”
+  
+* executing these commands will terminate console privileged mode
+
+
+DECstations
+-----------
+
+
+Setting the DECstation console password
+
+If you have multiple monitors connected to your workstation, the monitor 
+connected to the option slot with the lowest number is the system console.  
+This monitor displays all system information.  The following commands are for 
+the DECstation 5000 model 200:
+
+Step  Command/Action
+1     Select a password:
+
+      The password must be an ASCII string of characters with a minimum length 
+      of six characters.  The system does not prevent password reuse, but it 
+      is good security practice to select a previously unused one.
+
+2     Enter the password:
+
+      Use the privileged command < passwd -s > to enter a new password into 
+      the console system:
+
+        >> passwd -s
+
+      If the console password is already set and the console is in restricted 
+      mode, you must use the passwd command without arguments to activate 
+      privileged command mode.  The passwd command then prompts with the 
+      prompt “PWD: ” 
+
+The console does not echo (display) any password as you enter it.
+
+3     Confirm the correct entry of the new password:
+
+      Enter the new password and press Return.  If the password character 
+      string is legal, the console prompts you to re-enter the new password, 
+      in order to verify that it was correctly entered:
+
+        PWD: 
+        PWD: 
+
+      Re-enter the new password and press Return.  If the second 
+      (verification) password exactly matches the first (new) password, the 
+      new password is accepted.
+
+
+Enabling and disabling the password
+
+Action   Command/Method
+Enable   The password takes effect after the system is reset (by pushing the 
+         reset button on the back of the system unit or by powering up).  The 
+         console prompt becomes R.
+Disable  The privileged command passwd -c clears the existing password.  When 
+         the console password is cleared, console access is unrestricted and 
+         the console prompt becomes >> .
+
+
+DECstation console commands
+
+The following commands are for the DECstation 5000 model 200 computers.  Use 
+the help command to find commands available on your particular make and model.
+
+Unprivileged commands
+  R> passwd
+  R> boot
+
+Privileged commands
+  >> ? [command name]	“Help command”
+  >> boot [[-z #] [-n] #/path [arguments...]]
+  >> cat #/scriptname
+  >> cnfg [#]
+  >> d [-bhw] [-S #] RANGE value
+  >> e [-bhwcdoux] [-S #] RANGE
+  >> erl [-c]
+  >> go [address]
+  >> init [[#] -m] [arguments...]
+  >> ls [#]
+  >> passwd [-c] [-s]
+  >> printenv [EnvironmentVariableName]
+  >> restart
+  >> script name
+  >> setenv EnvironmentVariableName  value
+  >> sh [-belvS] [#/scriptname] [arguments...]
+  >> t [-l] #/testname [arguments...]
+  >> unsetenv EnvironmentVariableName
+  
+
+Conclusion
+----------
+
+We are living in an age where our society relies more and more on computers 
+and computerized information.  The insider threat is an ever-present danger.  
+Using the console password feature can help defend your computer system, its 
+programs, and its data from attack.
+
+
+Reader Comments
+---------------
+
+CIAC updates and enhances the documentation it produces.  If you find errors 
+in or have suggestions to improve this document, please fill out this form.  
+Mail it to CIAC, Lawrence Livermore National Laboratory, P.O. Box 808, Mail 
+Stop L-303, Livermore, CA, 94551-9900.  Thank you.
+List errors you find here.  Please include page numbers.
+
+
+
+
+
+
+
+
+
+List suggestions for improvement here.
+
+
+
+
+
+
+
+
+
+
+
+
+Optional:
+Name ______________________________________________  Phone ___________
+
+

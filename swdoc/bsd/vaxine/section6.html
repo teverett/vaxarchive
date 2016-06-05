@@ -1,0 +1,718 @@
+<TITLE>6. General VAX and hardware information</TITLE>
+
+<H1>6. General VAX and hardware information</H1>
+
+<hr>
+
+<A HREF="FAQ.html#toc6">Contents of this section</A>
+
+<hr>
+
+<H2>6.1 <A NAME="ss61"></A> Where can I find more information about VAXen?</H2>
+
+A: There's lots of Digital and VAX information on the 'net. Here are some pointers:<p>
+
+<ul>
+<li><a href="http://www.digital.com/index.html">Digital Equip. Corp. homepage</a>
+<li><a href="http://anacin.nsc.vcu.edu/~jim/mvax/mvax_faq.html">Edward 
+Austin's "MicroVAX/VAXstation Systems FAQ"</a> (Now maintained by 
+Jim Agnew)
+<li><a href="http://www.dcs.napier.ac.uk/~oose5002/750faq.html">James 
+Lothian's "VAX 11/750 hardware FAQ"</a>
+<li><a href="http://www.cs.uiowa.edu/~jones/pdp8/index.html">Douglas W. Jones' 
+"DEC PDP-8 index"</a>
+<li><a href="http://www.anglia.ac.uk/~systimk/History/Vaxes.Txt">Paul 
+Hardy's "VMS CPU Model Summary"</a>
+<li><a href="http://www.ccil.org/jargon/jargon_37.html#TAG1895">Required 
+reading: The Jargon File (on VAX and VAXen)</a>
+</ul>
+
+<H2>6.2 <A NAME="ss62"></A> What <b>are</b> those boards in my VAX?</H2>
+
+A: Good question and somewhat of a nightmare if you didn't get any 
+documentation with your system. The primary source of information about 
+modules/boards is <a href="http://www.neurotica.com/dec-info/index.html">Dave 
+McGuire's "DEC Module Database Search"</a>.<p>
+
+Also, here's one list made by Turo Heikkinen 
+&lt;tjheikki@niksula.hut.fi&gt; (from an email to me):<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Sun, 25 Feb 1996 22:20:26 +0200 (EET)
+From: Turo Heikkinen <tjheikki@niksula.hut.fi>
+To: Gunnar Helliesen <gunnar@bitcon.no>
+Subject: Re: VAXBSD
+
+> > What about some VAX hardware FAQ? Those boxes are full of strange boards
+> You are right, in fact I'm working on just that. If you have any info to 
+> contribute - please feel free to mail it to me! ;-)
+
+Dunno much but this is what I've found out about my hardware:
+
+M3104 - 8*serial
+M7164 - QDA Processor: processor for 7165
+M7165 - QDA SDI: 4*weird port ???
+M7168 - QDSS 4 plane: 4 plane graphics board, 2 of them makes 8 planes
+M7169 - controls 1-2 of 7168
+M7505 - DEQNA: DEc Q-bus etherNet Adaptor
+M7546 - TQK50(?): TK50 tape adaptor
+M7555 - RQDX3(?): ESDI hard disk controller
+M7606 - KA630: uVAX II processor board
+M7608 - 4M memory board, 144* 1*256k DIL
+M7651 - ????
+M9047 - Grant Continuity Card - ????
+TK50  - 95M tape
+RD53  - 71M Micropolis ESDI disk
+__________
+ /__//-/     Turo Heikkinen - http://www.hut.fi/~tjheikki for more info
+
+          Why stop now, just when I was hating it?    - Marvin
+
+------------------- End included message ---------------------------------
+</xmp>
+
+Yet another list made by Robert Smith 
+&lt;rmsmith@csc.com&gt; (from an email to me):<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Sat, 25 Jan 1997 17:47:19 -0500 (EST)
+From: Robert Smith <rmsmith@csc.com>
+To: Gunnar Helliesen <gunnar@bitcon.no>
+Subject: Re: Hardware section of FAQ (6.2?)
+
+Gunnar,
+Here is my list of hardware in the microvaxen I have seen:
+
+M3104 DHV 8 line async mux
+M3105 DHV 16 line async mux
+M3106 DZQ mux.
+M3107 ??? 8 line asynce mux
+M3108 ??? 2 Line sync mux
+M7146 TK50 controller  
+M7164 QDA Proc - part of QDA50 
+M7168 QDSS 4 Plane board 8
+M7169 QDSS base module  
+M7504 DEQNA ether interface
+M7516 DELQA ether interface  
+M7555 RQDX3  - MFM disk controller (RD53, 52, 51, and 50) and floppy (RX50/33)
+M7602 QVSS  video subsystem x
+M7606 KA630
+M7607 MS630 1MB
+M7608 MS630 2/4/8MB
+M7609 MS630 8MB
+M7769 KFSQA
+M8020 DPV synchronous interface 
+M8053 DMV
+M8377 KXT11 aux proc
+
+------------------- End included message ---------------------------------
+</xmp>
+
+You'll also find some useful information in 
+<a href="http://www.triumf.ca/dagroup/hardware/vax_hardware_inventory.txt">The 
+TRIUMF Data Acquisition Group:  VAX Hardware Inventory</a> page.<p>
+
+<H2>6.3 <A NAME="ss63"></A> Can I make my own VAXstation II/GPX monitor cable?</H2>
+
+A: Sure. Here's how (from a message to port-vax by Dave Clarke 
+&lt;Dave.Clarke@swindon.gpsemi.com&gt;):<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Thu, 7 Mar 1996 08:12:56 GMT
+From: Dave Clarke x8048 <Dave.Clarke@swindon.gpsemi.com>
+To: port-vax@NetBSD.ORG
+Subject: Re: GPX cable
+
+[edited]
+
+Here is some information on the connection required for the BC18Z cable, the 
+one that connects between a VaxStation II/GPX and VR290 monitor.
+
+Description      DEC BC-18 Cable, DB15
+Video Mouse &
+Keyboard
+Connections
+                                  Keyboard RJ-11
+Keyboard Transmit      Pin 15     Pin 1
+Keyboard Receive       Pin 7      Pin 2
+Keyboard Ground        Pin 14     Pin 3
+Keyboard Power         Pin 8      Pin 4
+
+                                  Mouse Mini din
+Mouse Transmit         Pin 5      Pin 2
+Mouse Receive          Pin 13     Pin 3
+Mouse Ground           Pin 6      Pin 1
+Mouse Power +5V        Pin 4      Pin 5
+Mouse Power -20V       Pin 12     Pin 4
+                                  Pins 6 & 7 No connection
+
+Red video              Pin 9      Red BNC Center
+Red ground             Pin 1      Red BNC shield
+Green video            Pin 10     Green BNC Center
+Green ground           Pin 2      Green BNC shield
+Blue video             Pin 1      Blue BNC Center
+Blue ground            Pin 3      Blue BNC shield
+
+
+Dave.
+
+------------------- End included message ---------------------------------
+</xmp>
+
+You should, however, note the following (from a message to port-vax by 
+Kevin P. Neal &lt;kpneal@eos.ncsu.edu&gt;):<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Sun, 24 Mar 1996 23:46:16 -0500 (EST)
+From: kpneal@eos.ncsu.edu
+To: port-vax@NetBSD.ORG
+Subject: Cabling fun
+
+Here is an interesting bit of info that might help somebody
+else sometime:
+
+The VAX -> (monitor | keyboard | mouse) cable (what is this thing
+called?) has one interesting nip.
+
+If you have a *color* cable and a *mono* framebuffer, then the
+mono+sync signal will come out of the *red* output, not the
+green as you might expect (well, sync on green, right?).
+
+This had me stumped for a while.
+
+[edited]
+
+(Give partial credit to Brian Reece (bpreece@eos.ncsu.edu), because this
+is what *he* discovered at my place with my uVAX and his scope.)
+
+XCOMM --------------------------------------------------------
+XCOMM Kevin P. Neal, Sophomore CSC/CPE     kpneal@eos.ncsu.edu 
+XCOMM North Carolina State University      kevinneal@bix.com
+XCOMM --------------------------------------------------------
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<H2>6.4 <A NAME="ss64"></A> How can I identify my old CDC/Imprimis disk?</H2>
+
+A: Thanks to Marc Malagelada i Duch &lt;marc@hades.udg.es&gt;, here's the 
+list:<p>
+
+<xmp>
+------------------- Begin included text ----------------------------------
+
+                          Old CDC/Imprimis
+                WREN and SWIFT MODEL NUMBERING SYSTEM
+                    (using 94155-85P as example)
+
+
+Model # digit           Description
+-------------           ----------------------------
+||               >>----> Facility Location
+94 155-85P              94 = OK City
+                        97 = Twin Cities
+
+   ||            >>----> Series and Form Factor
+94 15 5-85P             10 = RSD                20 = Sabre
+                        15 = FSD                20 = Wren II  HH
+                        15 = Wren I   FH        21 = Wren III HH
+                        15 = Wren II  FH        22 = Sabre-2HP
+                        16 = Wren III FH        22 = Wren V   HH
+                        17 = Wren IV  FH        24 = Wren VI  HH
+                        18 = Wren V   FH        35 = Swift    HH
+                        19 = Wren VI  FH        50 = Elite    FH
+                                                60 = Wren VII FH
+     |           >>----> Interface
+9415 5 -85P             0 = SMD                 5 = ST506/412
+                        1 = SCSI/SASI           6 = ESDI
+                        2 = LDI                 7 = ISI (Outside)
+                        3 = FDI                 8 = 80286
+                        3 = IPI-3               8 = SID
+                        4 = AT                  9 = IPI-2
+                        4 = ISI (Inside)
+
+       ||        >>----> Capacity
+94155- 85 P             Unformatted capacity in Megabytes (a few
+                        models had formatted capacity, here)
+
+         |       >>----> Special Designation
+94155-85 P              P = Precompensation
+                        M = MacWren
+                        H = High Performance
+                        D = Differential
+                        S = Synchronous Spindle Capability - Wren
+                        S = Synchronous SCSI - Swift
+                        G = Gigabyte
+
+
+    Conversion Chart:
+    Old CDC/Imprimis model # to new Seagate model #
+
+                CDC/Imprimis      Seagate
+                ===========================
+                94155-135     --- ST4135R
+                94155-85      --- ST4085
+                94155-86      --- ST4086
+                94155-96      --- ST4097
+                94161-182     --- ST4182N
+                94166-182     --- ST4182E
+                94171-350     --- ST4350N
+                94171-376     --- ST4376N
+                94181-385H    --- ST4385N
+                94181-702     --- ST4702N
+                94186-383     --- ST4383E
+                94186-383H    --- ST4384E
+                94186-442     --- ST4442E
+                94191-766     --- ST4766N
+                94196-766     --- ST4766E
+                94204-65      --- ST274A
+                94204-71      --- ST280A
+                94204-74      --- ST274A
+                94204-81      --- ST280A
+                94205-51      --- ST253
+                94205-77      --- ST279R
+                94211-106     --- ST2106N
+                94216-106     --- ST2106E
+                94221-125     --- ST2125N
+                94241-383     --- ST2383N
+                94241-502     --- ST2502N
+                94244-274     --- ST2274A
+                94244-383     --- ST2383A
+                94246-182     --- ST2182E
+                94246-383     --- ST2383E
+                94351-090     --- ST1090N
+                94351-111     --- ST1111N
+                94351-126     --- ST1126N
+                94351-133S    --- ST1133NS
+                94351-155     --- ST1156N
+                94351-155S    --- ST1156NS
+                94351-160     --- ST1162N
+                94351-186S    --- ST1186NS
+                94351-200     --- ST1201N
+                94351-200S    --- ST1201NS
+                94351-230S    --- ST1239NS
+                94354-090     --- ST1090A
+                94354-111     --- ST1111A
+                94354-126     --- ST1126A
+                94354-133     --- ST1133A
+                94354-155     --- ST1156A
+                94354-160     --- ST1162A
+                94354-186     --- ST1186A
+                94354-200     --- ST1201A
+                94354-239     --- ST1239A
+                94355-100     --- ST1100
+                94355-150     --- ST1150R
+                94356-111     --- ST1111E
+                94356-155     --- ST1156E
+                94356-200     --- ST1201E
+                94601-12G/M   --- ST41200N
+                94601-767H    --- ST4767N
+                97100-80      --- ST683J
+                97150-160     --- ST6165J
+                97150-300     --- ST6315J
+                97150-340     --- ST6344J
+                97150-500     --- ST6516J
+                97200-1130    --- ST81123J
+                97200-12G     --- ST81236J
+                97200-23G     --- ST82272K
+                97200-25G     --- ST82500J
+                97200-368     --- ST8368J
+                97200-500     --- ST8500J
+                97200-736     --- ST8741J
+                97200-850     --- ST8851J
+                97201-12G     --- ST81236N
+                97201-25G     --- ST82500N
+                97201-368     --- ST8368N
+                97201-500     --- ST8500N
+                97201-736     --- ST8741N
+                97201-850     --- ST8851N
+                97209-12G     --- ST81236K
+                97209-25G     --- ST82500K
+                97229-1150    --- ST81154K
+                97289-21G     --- ST82105K
+                97299-23G     --- ST82368K
+                97500-12G     --- ST41201J
+                97501-12G     --- ST41520N
+                97509-12G     --- ST41201K
+    Note:  Some Imprimis models have no Seagate model equivalent,
+           if so, see  OLD WREN 
+
+------------------- End included text ------------------------------------
+</xmp>
+
+<H2>6.5 <A NAME="ss65"></A> Can I convert my big VAX' 3-phase power-supply for home use?</H2>
+
+A: I was about to say "don't try this at home, kids" - but I guess you'll 
+have to ;-)<p>
+
+This message was posted to port-vax by Andre Skarzynski 
+&lt;andre@capes1.vector.co.za&gt;, but was originally written by Leon 
+Heinkelein &lt;HEINKELN@firga.sun.ac.za&gt;:<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Thu, 28 Mar 1996 08:06:20 -0200
+From: Andre Skarzynski <andre@capes1.vector.co.za>
+To: port-vax@NetBSD.ORG
+Subject: Re: Converting 3-pahse VAX Power.
+
+Here is a note from my friend about how he converted his VAX to run on single
+phase. I am sending it to the list, as a few people where intereseted and I am 
+sure others may be too.
+
+------------- Begin Forwarded Message -------------
+
+>From HEINKELN@firga.sun.ac.za Wed Mar 27 17:22:14 1996
+>From: "Leon Heinkelein" <HEINKELN@firga.sun.ac.za>
+To: andre@capes1.vector.co.za (Andre Skarzynski)
+Date: Wed, 27 Mar 1996 17:18:44 GMT+200
+Subject: Re: Converting 3-pahse VAX Power.
+
+> Hi Leon,
+> 
+> I hope I find you well. I had a great long weekend at the Buff'. Anyway,
+> the reason I called/wrote, is that I would like to please have the details
+> of converting a 3-phase VAX power to single like you did at home. BTW, what
+> model VAXen are you running? and what current are they drawing? 
+> 
+> Cheers,
+> 
+> Andre'
+
+
+Hello Andre
+
+Looking to upgrade , eh ? The machine I have at home is a VAX 6220. 2 
+cpu's , 96 MB of RAM. Used to need three phase power , as you 
+correctly observe.
+
+The power system architecture of the VAX is arranged so that each 
+power regulator needs a DC supply of 300V. There are various ways of 
+obtaining this. They use a single phase bridge on the smaller 
+machines (just like a PC PSU) , off 220V this gives about 311V. (220 
+* sqrt (2)) . However , on the larger machines , it gets a little 
+more involved. On the 6000 series they use a 3-phase controlled 
+bridge , so they can actually regulate the 300V line. It's laid out 
+like this (here goes nothing) :
+
+              
+              
+            ____________________    +300V
+            |    |    |
+            -__  -__  -__  thyristors
+            ^    ^    ^
+            |    |    |
+  L1  ------*    |    |
+  L2  -----------*    |
+  L3  ----------------*
+            |    |    |
+            -    -    -    diodes
+            ^    ^    ^
+            |    |    |
+            --------------------- Return
+
+
+ The three-phase controlled bridge ( as you can see ) uses the Phase 
+to Phase voltage ( NOT the phase to neutral voltage ). With a 3-phase 
+220V supply thats about 380V AC. Multiply that by sqrt(2) and you 
+have about 520V DC . KABOOM ! However , in america , on a 115V 3-
+phase system , phase to phase is 208V , multiply by sqrt(2) and you 
+get about 300V DC. All 6000 series machines for 380V therefore came 
+equipped with a 3-phase xformer which takes the 380 V phase/phase to 
+208V phase/phase. Which of course is very close to our neutral/phase 
+, which is 220V. The way to do it , then , is to bypass the xformer, 
+connect L1 in the drawing to LIVE , say , and connect L2 to NEUTRAL , 
+and leave L3 open. The circuit then works just like a single phase 
+controlled bridge rectifier , and works very well , giving about 305 
+V on the DC power bus.
+
+Total current is ( I'm guesstimating now) propably about 4A , 
+measured on the AC side , around 0.8-1.0 KVA.
+
+I you get a 6000 (or similar) machine let me know. I have worked out 
+a very elegant way to do the above mod which entails no soldering , 
+no disconnecting of joints etc , and can be put back to factory 
+standard in about 30 secs.
+
+Good luck
+
+Leon
+------------- End Forwarded Message -------------
+
+
+------------------- End included message ---------------------------------
+</xmp>
+
+Johnny Billquist &lt;qmwjyb@emw.ericsson.se&gt; had something to add 
+to this (in a message to port-vax):<p>
+
+<xmp>
+------------------- Begin included message -------------------------------
+
+Date: Thu, 28 Mar 96 11:12:37 +0100
+From: Johnny Billquist konsult <qmwjyb@emw.ericsson.se>
+To: port-vax@NetBSD.ORG, andre@capes1.vector.co.za
+Subject: Re: Converting 3-pahse VAX Power.
+
+> Here is a note from my friend about how he converted his VAX to run on single
+> phase. I am sending it to the list, as a few people where intereseted and I 
+am 
+> sure others may be too.
+
+And just to make sure you don't do a big mistake: *Never* do this
+with a VAX86x0.
+
+They really *do* need the 3-phase. The large fans are 3-phase motors,
+so unless you have all three phases, your fans ain't going to run.
+And the 86x0 is made with ECL, so you can guess what will happen
+pretty fast.
+
+For the same reason, never connect an 86x0 with the phases backwards,
+or you'll get your fans running backwards, which will lead to the
+same result (which I'm sure someone from LUDD can tell... ;-)
+
+        Johnny
+
+------------------- End included message ---------------------------------
+</xmp>
+
+<H2>6.6 <A NAME="ss66"></A> The lighter side of VAX.</H2>
+
+A couple of brilliant obervations from a fortune-cookie program (author 
+unknown):<p>
+
+<xmp>
+------------------- Begin included text ----------------------------------
+
+Well, my terminal's locked up, and I ain't got any Mail,
+        And I can't recall the last time that my program didn't fail;
+I've got stacks in my structs, I've got arrays in my queues,
+        I've got the : Segmentation violation -- Core dumped blues.
+
+If you think that it's nice that you get what you C,
+        Then go : illogical statement with your whole family,
+'Cause the Supreme Court ain't the only place with : Bus error views.
+        I've got the : Segmentation violation -- Core dumped blues.
+
+On a PDP-11, life should be a breeze,
+        But with VAXen in the house even magnetic tapes would freeze.
+Now you might think that unlike VAXen I'd know who I abuse,
+        I've got the : Segmentation violation -- Core dumped blues.
+                -- Core Dumped Blues
+
+
+Proposed Additions to the PDP-11 Instruction Set:
+
+PI      Punch Invalid
+POPI    Punch Operator Immediately
+PVLC    Punch Variable Length Card
+RASC    Read And Shred Card
+RPM     Read Programmers Mind
+RSSC    reduce speed, step carefully  (for improved accuracy)
+RTAB    Rewind tape and break
+RWDSK   rewind disk
+RWOC    Read Writing On Card
+SCRBL   scribble to disk  - faster than a write
+SLC     Search for Lost Chord
+SPSW    Scramble Program Status Word
+SRSD    Seek Record and Scar Disk
+STROM   Store in Read Only Memory
+TDB     Transfer and Drop Bit
+WBT     Water Binary Tree
+
+------------------- End included text ------------------------------------
+</xmp>
+
+I would like to add:<p>
+
+<xmp>
+HCF     Halt and Catch Fire
+</xmp>
+
+Some useful (if obscure) man-pages (again, author unknown):<p>
+
+<xmp>
+------------------- Begin included text ----------------------------------
+
+BABY(1)                  USER COMMANDS                    BABY(1)
+
+NAME
+     BABY - create new process from two parent processes
+
+SYNOPSIS
+
+     BABY [ -sex ] [ -name ]
+
+DESCRIPTION
+
+     BABY is initiated when one parent process polls another server
+process through a socket connection (BSD) or through pipes in the
+System V implementation. BABY runs at a low priority for approximately
+40 weeks then terminates with heavy system load. Most systems require
+constant monitoring when BABY reaches its final stages of execution.
+
+        Older implementations of BABY required that the initiating
+process not be present at the time of completion. In these versions
+the initiating process is awakened and notified of the results upon
+completion. Modern versions allow both parent processes to be active
+during the final stages of BABY.
+
+
+OPTIONS
+
+        -sex
+          option indicating type of process created.
+
+        -name
+          process identification to be attached to the new process.
+
+RESULT
+     Successful execution of the BABY(1) results in new process
+     being created and named. Parent processes then typically
+     broadcast messages to all other processes informing them of their
+     new status in the system.
+
+
+BUGS
+     The SLEEP command may not work on either parent processes for some
+     time afterward, as new BABY processes constantly send interrupts
+     which must be handled by one or more parent.
+
+     BABY processes upon being created may frequently dump
+     in /tmp requiring /tmp to be cleaned out frequently by one
+     of the parent processes.
+
+SEE ALSO
+        sleep(1) dump(8) cry(3)
+
+
+
+SEX(6)              EUNUCH Programmer's Manual               SEX(6)
+
+
+
+NAME
+     sex - have sex
+
+SYNOPSIS
+     sex [ options ] ...  [ username ] ...
+
+DESCRIPTION
+     sex allows the invoker to have sex with the user(s) speci-
+     fied in the command line.  If no users are specified, they
+     are taken from the LOVERS environment variable.  Options to
+     make things more interesting are as follows:
+
+     -1   masturbate
+
+     -a   external stimulus (aphrodisiac) option
+
+     -b   buggery
+
+     -B<animal>
+          bestiality with <animal>
+
+     -c   chocolate sauce option
+
+     -C   chaining option (cuffs included) (see also -m -s -W)
+
+     -d<file>
+          get a date with the features described in <file>
+
+     -e   exhibitionism (image sent to all machines on the net)
+
+     -f   foreplay option
+
+     -F   nasal sex with plants
+
+     -i   coitus interruptus (messy!)
+
+     -j   jacuzzi option (California sites only)
+
+     -l   leather option
+
+     -m   masochism (see -s)
+
+     -M   triple parallel (Menage a Trois) option
+
+     -n   necrophilia (if target process is not dead, program
+          kills it)
+
+     -o   oral option
+
+     -O   parallel access (orgy)
+
+     -p   debug option (proposition only)
+
+     -P   pedophilia (must specify a child process)
+
+
+
+Printed 2/15/87              2/15/87                            1
+
+
+
+
+
+
+SEX(6)              EUNUCH Programmer's Manual               SEX(6)
+
+
+
+     -q   quickie (wham, bam, thank you, ma'am)
+
+     -s   sadism (target must set -m)
+
+     -S   sundae option
+
+     -v   voyeurism (surveys the entire net)
+
+     -w   whipped cream option
+
+     -W   whips (see also -s, -C, and -m)
+
+ENVIRONMENT
+     LOVERS
+          is a list of default partners which will be used if
+          none are specified in the command line.  If any are
+          specified, the values in LOVERS is ignored.
+
+FILES
+     /usr/lib/sex/animals          animals for bestiality
+
+     /usr/lib/sex/blackbook        possible dates
+
+     /usr/lib/sex/sundaes          sundae recipes
+
+     /usr/lib/sex/s&m         sado-masochistic equipment
+
+
+
+BUGS
+     ^C (quit process) may leave the user very unsatisfied.
+
+     ^Z (stop process) is usually quite messy.
+
+MAN AUTHOR
+     Author prefers to be anonymous.
+
+HISTORY
+     Oldest program ever.
+
+------------------- End included text ------------------------------------
+</xmp>
+
+<HR><p>
+
+Table of contents of <A HREF="FAQ.html#toc6">this chapter</A>, 
+General <A HREF="FAQ.html#toc">table of contents</A>.<p>
+

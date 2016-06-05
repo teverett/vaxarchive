@@ -1,0 +1,57 @@
+<html>
+<head><title>Make your own BC18 cable</title></head>
+<body bgcolor="#FFFFFF">
+<h1>Make your own BC18 cable</h1>j
+<pre>
+	Just a heads-up to those who may have tried to make their own VAXStation
+II/GPX video/keyboard/mouse cable (the BC18 series), based on the
+information at:
+
+	http://www.bitcon.no/~gunnar/vaxbsd/section6.html#ss63
+
+	...as written by Dave Clark (yes, I CC'd him on this).
+
+	There are a couple of typos in the pinout cross-reference, as shown in the
+FAQ, which caused me to have to re-pin both ends of my cable (and might,
+under different conditions, have blown something out -- thank God that
+didn't happen!) The pertinent corrections are shown below.
+
+DB15:		KB RJ11:	Mouse:	Function:
+15		1 				KB Transmit
+6		2				KB Receive (Was shown as 7 on the DB15 side)
+14		3				KB Ground
+8		4				KB Power
+
+5				2		Mouse TX
+13				3		Mouse RX
+7				1		Mouse Ground (Was shown as 6 on the DB15 side)
+4				5		Mouse +5 VDC
+12				4		Mouse -20 VDC
+
+9						Red Video Hi
+1						Red Return
+10						Green/Sync Hi
+2						Green/Sync Return
+11						Blue Video Hi (Was shown as 1 on the DB15 side)
+3						Blue Return
+
+	In summary, the corrections I found necessary were: Pins 6 & 7 were
+transposed on the DB15 side, and pin 11 (Blue video high) was incorrectly
+labeled as pin 1. 
+
+	I have assembled a 'cheater' cable for my VAXStation II since, for some
+reason, my BC18 cable did not have a mouse connection, and have pinned it
+to bring out the mouse connections on a separate cable leading to a 7-pin
+Mini-DIN connector. So far, I've seen no indication that this does not work
+(meaning that the mouse or support circuitry has not gone up in smoke yet),
+but I have yet to install windowing software to test the mouse. I will post
+the results here as soon as I do so.
+
+	Caveat emptor!
+
+From: Bruce Lane kyrrin at wizards.net
+</pre>
+<hr>
+<a href="index.html">Back to VAXarchive hardware page</a>
+</body>
+</html>

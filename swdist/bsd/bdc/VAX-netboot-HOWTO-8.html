@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE>The VAX Network Booting HOWTO: APPENDIX A - Obtaining Your Hardware Ethernet Address</TITLE>
+</HEAD>
+<BODY>
+<A HREF="VAX-netboot-HOWTO-7.html">Previous</A>
+<A HREF="VAX-netboot-HOWTO-9.html">Next</A>
+<A HREF="VAX-netboot-HOWTO.html#toc8">Table of Contents</A>
+<HR>
+<H2><A NAME="appendix-a"></A> <A NAME="s8">8. APPENDIX A - Obtaining Your Hardware Ethernet Address</A>      </H2>
+
+<P>When at the console prompt on your VAX client, entering the following
+commands will output the ethernet address for the on board ethernet
+adapter. </P>
+<P><B>A.1 Obtaining The Ethernet Address of Your MicroVAX 2000 or 
+VAXstation 2000.</B></P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+&gt;&gt;&gt; test 50
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>This will print out quite a few lines of information.  The line
+starting with "ID" is the one that references the VAX's ethernet
+address.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ID 08-00-2B-16-59-BB
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P><B>A.2 Obtaining The Ethernet Address of Your MicroVAX 3100, 
+VAXstation 3100, or VAXserver 3100.</B></P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+&gt;&gt;&gt; show ether
+ID 08-00-2B-16-59-BB
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+
+<HR>
+<A HREF="VAX-netboot-HOWTO-7.html">Previous</A>
+<A HREF="VAX-netboot-HOWTO-9.html">Next</A>
+<A HREF="VAX-netboot-HOWTO.html#toc8">Table of Contents</A>
+</BODY>
+</HTML>

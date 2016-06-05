@@ -1,0 +1,311 @@
+<html>
+<head>
+<title>The VS2000 formatter: TEST 70</title>
+</head>
+<body bgcolor="#ffffff">
+<h1>Formatting a hard disk with a VS2000</h1>
+<pre>
+Formatting non-DEC disks in the MicroVAX/VAXstation-2000
+--------------------------------------------------------
+By Bob Armstrong <rla@rahul.net> with additions from Kees Stravers
+
+  Some of this information I figured out by reading STARLET and the
+example device drivers in the VMS _Device Support_ manuals.  Much of
+it was contributed to me by Terry Kennedy, Lennart Boerjeson, and
+others.
+
+  The standard DEC drives that are supported in the VS2000 and their
+industry equivalents are:
+
+	RD54 - Maxtor XT-2190
+	RD53 - Micropolis 1325 or 1335
+	RD31 - Seagate ST-225
+	RD32 - Seagate ST-251-1
+
+If you have any of these standard drives you can simply plug it into
+your 2000 and the ROM formatter will automatically recognize the drive
+types.  I've never seen this fail, even if the drive has never seen a
+DEC machine before, or even if the drive was previously formatted in
+a PC.
+
+  If the VS2000 ROM formatter program does not recognize one of these
+drive types, then it will enter a dialog asking you to enter the drive
+parameters described below.  Again, I've never seen this fail, even
+with very old ROM firmware versions (v1.2 is the oldest I've seen).
+If you get a "??" response rather than the dialog, you almost certainly
+have a hardware problem with your drive.
+
+  In theory you can use ANY MFM drive in the VS2000 by calculating
+the appropriate parameters.  I've done this with several non-DEC
+drives with good success now, and following is a description of what
+I've learned about the parameters.  If you can contribute to any
+of the "I don't know" parts, I'd like to hear about it!
+
+The formatting dialog for an unknown hard disk is as follows:
+
+------------------------------------------------------------------------
+
+>>> TEST 70
+VSfmt_QUE_unitno (0-2) ? 0    [Enter drive number]
+
+VSfmt_STS_Siz .......... ???? [Formatter does not recognize drive type]
+
+VSfmt_STS_EntUIB              [Formatter wants drive details]
+
+[this example is from the VS2000 technical manual]
+
+    xbnsiz :=54         [enter the number of transfer blocks]
+
+    dbnsiz :=48         [enter the number of diagnostic blocks]
+
+    lbnsiz :=83236      [enter the number of logical blocks]
+
+    rbnsiz :=200        [enter the number of replacement blocks]
+
+    surpun :=6          [enter the number of surfaces per unit]
+
+    cylpun :=820        [enter the number of cylinders per unit]
+
+    wrtprc :=820        [enter the write precompensation cylinder]
+
+    rctsiz :=4          [enter the size of the revectoring control table (RCT)]
+
+    rctnbr :=8          [enter the number of copies of the RCT]
+
+    secitl :=1          [enter the sector interleave]
+
+    stsskw :=2          [enter the surface to surface skew]
+
+    ctcskw :=9          [enter the cylinder to cylinder skew]
+
+    mediai :=627327008  [enter the MSCP media ID]
+
+*	Note this number is not dependant on disk geometry, but is the 
+*	magic number for VMS to report on the type of disk.
+
+At this point, the formatter exits the query mode.
+
+The next output to the screen is:
+
+     VSfmt_QUE_SerNbr (0-999999999)  [enter the serial number for
+                                      the drive]
+                                     [or enter a unique number
+                                      for each unit]
+
+     VSfmt_QUE_RUsure (DUAx 1/0) ?   [where x equals the unit number]
+                                     [enter 1 for YES, 0 for NO]
+
+The formatter is now running, and the output should look like:
+
+     VSfmt_STS_RdMbb.............OK  [manufacturer's bad block located]
+
+     VSfmt_STS_FMTing............OK  [disk formatted OK]
+
+     VSfmt_STS_ChkPss............OK  [check pass completed OK]
+
+     VSfmt_STS_BBRvec := x           [number of bad blocks revectored]
+
+     VSfmt_RES_Succ                  [disk is successfully formatted]
+
+     >>>
+
+At this point, the disk has been succesfully formatted, and the
+console command prompt is displayed.
+
+------------------------------------------------------------------------
+
+
+Explanation of drive specifics:
+
+
+XBNSIZ - number of transfer blocks.  All DEC's disks seem to use 54,
+	 regardless of the disk capacity.
+
+
+DBNSIZ - number of diagnostic blocks.  DEC seems to select this so that the
+	 DBNs and XBNs total up to 1 cylinder. Therefore:
+
+		DBNSIZ = (SURPUN*17) - XBNSIZ
+
+
+LBNSIZ - total number of user data blocks, not counting DBNs and XBNs.
+	 I believe that
+
+		LBNSIZ = CYLPUN * SURPUN * 17
+
+	 the numbers I have for DEC disks are close to this, but not
+	 exact.  There must be some ambiguity about what gets counted.
+
+
+RBNSIZ - replacement block count (for bad block revectoring).  About 0.1%
+	 to 1% of the disk capacity is reasonable, depending on the media
+	 quality.  DEC seems to always use 0.2%.  This is frequently
+	 rounded to an exact number of cylinders, but I'm not sure that's
+	 necessary.  WARNING - if you allocate fewer RBNs than your disk
+	 has bad sectors, the VS2000 formatter seems to hang in the media
+	 analysis phase!
+
+
+SURPUN - surfaces (aka heads) per drive.  Note that the RQDX? will ALWAYS
+	 assume 17 sectors per track, 512 bytes per sector!  The RQDX
+	 controllers can handle a maximum of 16 heads.
+
+
+CYLPUN - cylinders per drive.  Total number of cylinders on the drive.
+         I believe, but I'm not sure, that this does NOT include the
+	 cylinders used for DBNs, RBNs and XBNs.  Note that the RQDX
+	 family controllers can handle a maximum of 2048 cylinders
+	 (but I don't think there were ever any MFM drives made with
+	 even close to that number!).
+
+
+WRTPRC - cylinder to start write precompensation.  If your drive doesn't
+	 need write precomp (almost none do), then enter a value larger
+	 than the last cylinder.
+
+
+RCTSIZ - size of the Replacement (i.e. Bad Block Replacement) and Caching
+	 Table.  From the structure of the RCT, I believe this can be
+	 calculated as
+
+		RCTSIZ = (44 + 4*RBNSIZ) / 512
+
+	  but unfortunately this doesn't give the values DEC uses for
+	  their drives!  You could also just use the RCTSIZ from the
+	  closest sized DEC disk.
+
+
+RCTNBR - number of copies of the RCT.  I'm not sure of the significance
+	 of this, but DEC disks always use 8.
+
+
+SECITL - sector to sector interleave.  The RQDX is fast enough to support
+	 1 (i.e. no interleaving).  Anything larger will reduce thruput.
+	 SECITL is a function of the disk rotational speed, and is the same
+	 for all MFM drives regardless of capacity.
+
+
+STSSKW - delay for switching heads.  I don't know how to calculate this or
+	 even what units it's expressed in!  All drives seem to use 2.
+
+
+CTCSKW - delay for track-to-track seek.  I don't know how to calculate this
+	 or even what units it's expressed in!  All DEC drives use 8.
+
+
+MEDIAI - media identification code.  This is a 32 bit value which the ROM
+	 wants you to enter in DECIMAL, not hex!  Standard values are:
+
+		RD32 - 627327008
+                RD33 - 627327010
+		RD53 - 627327029
+		RD54 - 627327030
+
+	 The last section explains how the media id is calculated if you
+	 are interested.  If you use a non-DEC media id, be aware of two
+	 things: (1) the ROM disk diagnostic won't work, and (2) the VMS
+	 MSCP cluster server won't serve the disk.
+
+------------------------------------------------------------------------
+
+  Here are the parameter values for some DEC disks, and those that I've
+successfully used for a Seagate ST-4097 (an 80Mb drive).
+
+		  RD54		  RD53		ST4097
+		------		------		------
+XBNSIZ		    54		    54		    54
+DBNSIZ		   201		    82		    99
+LBNSIZ		311256		138672		156060
+RBNSIZ		   609		   280		   306
+SURPUN		    15		     8		     9
+CYLPUN		  1221		  1020		  1021
+WRTPRC		  1221		  1020		  1024
+RCTSIZ		     7		     5	             5
+RCTNBR		     8		     8		     8
+SECITL		     1		     1		     1
+STSSKW		     2		     2		     2
+CTCSKW		     8		     8		     8
+MEDAI	     627327030	     627327029	     627327029
+
+------------------------------------------------------------------------
+
+Media Identification Code
+
+  The media id is a longword (32 bit) value composed of five 5-bit
+alphabetic characters and one 7-bit binary value.  The five characters
+start from bit 31 (the MSB) of the longword and are encoded as 0=null,
+1='A', 2='B', etc.  Only letters (and a null) can be represented.
+
+  The first two characters represent the media type (e.g. "DU") and
+the next three are the name of the media currently mounted (e.g.
+"RD" or more accurately, "RD<null>").
+
+  The 7-bit binary value is the numeric part of the media name
+(e.g. 32, 53, 54, etc).
+
+  For example, for an RD54 we have
+
+
+	D	U	R	D	<nul>	54
+	00100	10101	10010	00100	00000	0110110
+
+Write this down as a 32 bit hex value and we have 0x25644036 or
+627327030 (decimal).
+
+Bob.
+
+</pre>
+<h1>Formatting a known hard disk with a VS2000</h1>
+<pre>
+Example of formatting an RD32 hard disk
+>>>> TEST 70
+
+VSfmt_QUE_unitno (0-2) ? 0      [enter the drive number of the hard disk]
+
+VSfmt_STS_Siz........... RD32   [formatter recognized DUA0 as a RD32]
+
+VSfmt_QUE_SerNbr (0-999999999)  [enter the serial number for the drive]
+                                [or enter a unique number for each unit]
+
+VSfmt_QUE_RUsure (DUAx 1/0) ?   [where x equals the unit number]
+                                [enter 1 for YES, 0 for NO]
+
+VSfmt_STS_RdMbb.............OK  [manufacturer's bad block located]
+
+VSfmt_STS_FMTing............OK  [disk formatted OK]
+
+VSfmt_STS_ChkPss............OK  [check pass completed OK]
+
+VSfmt_STS_BBRvec := x           [number of bad blocks revectored]
+
+VSfmt_RES_Succ                  [disk is successfully formatted]
+
+>>>>
+</pre>
+
+<h1>Formatting a floppy with a VS2000</h1>
+<pre>
+Example of formatting an RX33 floppy diskette
+>>>> TEST 70
+
+VSfmt_QUE_unitno (0-2) ? 2      [enter the drive number of the floppy drive]
+
+VSfmt_QUE_RXmedtyp
+( 1=RX33 ) ? 1                  [enter a 1 if RX33 diskette media]
+
+VSfmt_QUE_RUsure (DUA2 1/0) ? 1 [enter a 1 for yes, 0 for no]
+                                [DUA0 is the first hard disk, DUA1 the second,
+                                and DUA2 is the floppy drive]
+
+VSfmt_STS_FMTing .....OK        [diskette formatted OK]
+
+VSfmt_STS_CkRXfmt ....OK        [RX33 format checked OK]
+
+VSfmt_RES_Succ                  [diskette is formatted successfully]
+
+>>>>
+</pre>
+<hr>
+<p>Back to <a href="index.html">VS2000 page</a></p>
+</body>
+</html>

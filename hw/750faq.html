@@ -1,0 +1,1527 @@
+<html>
+<head> 
+<TITLE>Vax 11/750 Frequently Asked Questions By James Lothian
+</TITLE>
+</head>
+
+<body>
+<center><img src="../vax780.jpg" width="120" height="107" alt="VAX 11/780"><img src="../vaxarch.gif" alt="VAXARCHIVE" width="351" height="81"></center>
+<p>This is an updated version of the 11/750 FAQ by James Lothian
+that used to be online at castle.ed.ac.uk.</p>
+
+<H1>Vax-11/750 Frequently Asked Questions<br>
+By James Lothian</H1>
+
+<H2>Introduction</H2> 
+
+
+I haven't in fact actually seen many of these questions asked.
+However, they're the questions I've found myself asking over four years or so
+that I've owned my own 750, so I hope they'll be useful to
+others. This
+file may be archived if you feel like it and otherwise reproduced, as
+long as appropriate credit is given.
+
+<P> My own machine currently runs 4.3BSD, so I'm
+biased toward Unix. 
+<p>
+
+Feel free to <a href="mailto:simul8@simul8.demon.co.uk">mail me</a> with
+corrections and/or additions. <p>
+
+<H2>Acknowledgements</H2> 
+
+Paul Roberts at Stirling University gave me my machine. Thanks Paul!
+No, he hasn't got any more... Various people have helped me out with
+advice since I got it, including Terry Kennedy, Iain Lindsay at
+Edinburgh University's Electrical Engineering dept, and Jim Reid at
+Strathclyde. Martin Reilly gave me a TU80 for spares. I'd also like to
+thank Bruce Hassall, also of the Edinburgh EE dept, for lending me a
+spare PCS, a PCS print-set and a DELUA ethernet board. <P>
+
+Another big thank-you to the people who asked for copies of this document
+after they found out that it wasn't available online any more, and thereby
+encouraged me to update it a bit. 
+
+<h2>Contributors</h2>
+
+Anders Magnusson (ragge@ludd.luth.se): Info about cluster interconnect
+and time-of-year clock. <p>
+
+Mike Umbricht (CORMACK_PL@ids.net): 11/751, FPA.
+
+
+<h2>Other places to visit</h2>
+
+<a href="http://www.proximity.com.au/~brian/comp/vax750.html">
+The Freak's VAX 11/750</a>: pictures of his 750, and links to lots of other
+places. <p>
+
+<a href="http://onyx.tky.hut.fi/~tjheikki/The_VAX_Gallery.html">
+The VAX Gallery</a>: Lots of pictures of Vaxes. <p>
+
+<a href="http://www.bitcon.no/~gunnar/vaxbsd/FAQ.html">The NetBSD/VAX FAQ
+</a>: If you want an operating system, this is the place to look. <p>
+
+<a href="http://www.osfn.org/rcs/">The Retro-Computing
+Society of Rhode Island</a>: Preservation of old computers, lots of
+links to other interesting places. <p>
+
+
+<h2>Update Record</h2>
+
+28/6/96: Initial version. <br>
+1-4/7/96: Tidied up html, put in sections on console commands
+and console serial line receiver replacement, added EMC memory board
+info, expanded CI750 information, added brief description of buses, added 
+'Contents' section and stuff about other places to visit. Then had a very
+big cup of tea :-). <br>
+2-3/8/96: Added RDM details, minor changes to documents list. <br>
+9-10/8/96: Power bus description, option installation, expanded RDM 
+description, bit about bus grant jumpers. <br>
+11/3/99: Updated contact address, various other minor changes. 
+
+<h2>Contents</h2>
+
+<a href="#what750">What is the 11/750?</a><p>
+<a href="#what751">What is an 11/751?</a><p>
+<a href="#whatsystime">What is a Systime 750?</a><p>
+<a href="#howfast">How fast is it?</a><p>
+<a href="#whatoptions">What options are available for the 750?</a><p>
+<a href="#boards">What do the boards do?</a><p>
+<a href="#pcs">What is the patchable control store?</a><p>
+<a href="#whereboards">Where do the boards go?</a><p>
+<a href="#optinstall">How are the options installed?</a><p>
+<a href="#console">What are the console commands?</a><p>
+<a href="#rdm">RDM Details</a><p>
+<a href="#haltcodes">What do the CPU halt codes mean?</a><p>
+<a href="#errorcodes">What do the console command error codes mean?</a><p>
+<a href="#microverify">What do the microverify error ystime 750, but if they're 
+anything like the Systime PDP-11 kit I've seen, they're probably crap.
+The PSU is rumoured to be less reliable than the DEC ones.
+
+
+<H2><a name="howfast">How fast is it?</a></H2>
+
+Not very! The main processor clock runs at just over 6 MHz. 
+
+<H2><a name="whatoptions">What options are (were!) available for the 750?
+</a></H2>
+
+Floating point accelerator (FP750): the basic machine does floating
+point in microcode, but the FPA speeds up floating point operations
+considerably. It also gets alarmingly hot.<P>
+D & F floating point is done in microcode when the FPA isn't present,
+and G & H are emulated by the operating system (Mike Umbricht).<p>
+
+Massbus adapter (RH750): allows the 750 to use massbus disks and
+tapes. Massbus was a fast(-ish) bus used on PDP11s and the early vaxes
+for disks and tapes.  <P>
+
+Second Unibus adapter (DW750): allows the machine to use a second
+unibus, useful if your unibus bandwidth is topped out. <P>
+
+Remote Diagnosis module (KC750): useful diagnostic tool. Allowed DEC
+to phone your machine and ask it to open wide and say 'Aaaah' when it
+was sick. Rarer than hens' teeth, as all were owned by DEC, and were
+supposed to be returned to them when the machine was decomissioned. I
+once caught a glimpse of one. <P>
+
+Battery (H7112): a big (3 lead-acid accumulators) battery that kept
+the memory ticking over during brief power outages. Supported by VMS,
+but not by Unix, as far as I know. <P>
+
+Writable control store (KU750): a long and complex story! See under
+'What is the Patchable Control Store?' below.
+
+<H2><a name="boards">What do the boards do?</a></H2>
+Some of this taken from a posting by Mike Umbricht (CORMACK_PL@ids.net) to 
+the NetBSD port-vax list. <P>
+
+Very roughly, the functionality of the machine is divided among the
+boards as follows: <P>
+
+L0001 (FPA): Floating point accelerator. <P>
+
+L0002 (DPM): Data path module. Contains general registers, super
+rotator, main ALU, condition codes chip, microsequencer, microstack,
+instruction decoding roms, instruction decode chip, interval timer.
+<P>
+
+L0003 (MIC): Memory Interconnect. Cache, Translation Buffer, Prefetch
+Buffer, CMI (CPU Memory Interconnect bus -- the main backplane bus)
+control. <P>
+
+L0003-YA: described as a 'cost reduced' version of the L0003. Anybody know 
+anything about this? <P>
+
+L0004 (UBI): Unibus Interconnect. All the unibus stuff including the
+unibus map, plus the following ragbag of miscellaneous
+non-unibus-related bits: time of year (TOY) clock, TOY battery charge
+circuit, UARTS for console line and TU58, interrupt control chip. <P>
+
+L0005 (CCS): CPU Control Store. You should never see a 750 with one of
+these, as they were field-upgraded to the L0008 PCS (see below). <P>
+
+L0006 (RDM): Remote Diagnosis Module. Has its own microprocessor (an Intel 
+8085), 64 words of diagnostic control store, 14k (I think) of memory
+for the 8085, four roms, four serial line chips, and a huge wodge of TTL. 
+If anybody has the print-set for this, I'd be very interested in knowing
+what the print-set number is (MPxxxxxx on the first page). I'd also be
+very interested in getting hold of a photocopy of the print-set. <P>
+
+L0007 (MBA): Massbus adapter. <P>
+
+L0008 (PCS): Patchable Control Store. A major kludge. See description
+below. <P>
+
+L0009 (CCI): Cluster Interconnect. Supported by VMS and Ultrix.
+(Info taken from Autumn 85 'Systems &
+Options Catalogue'.) Consists of CI750 module that installs
+in CMI add-on slot in CPU backplane, and a free-standing cabinet
+that contains a box containing three more modules in their own backplane.
+Requires PCS microcode rev 97 or higher, cpu rev 5, and if you've got a
+uda50, it has to be rev 7 with rev 5 microcode. So now you know. <p>
+
+L0010 (DW750): Second Unibus Adapter. Never seen one. Presumably has
+all the bits the L0004 has, without the ragbag. <P>
+
+L0011: Memory controller. All the bits for DRAM refresh, memory
+configuration and error-correcting code computation. Supports up to a
+maximum of 8 * 256k arrays. Never seen one. I guess most machines with
+one of these were upgraded to the L0016. <P>
+
+L0014 (DR750?): CMI parallel interface. Never seen one. <P>
+
+L0016: Memory controller. As L0011, but supports up to 8 * 1meg
+arrays. Quite common. <P>
+
+L0022: Memory controller. Supports up to 2 * 4meg arrays + 6 * 1meg
+arrays. I'd love to borrow a set of circuit diagrams for this board.
+
+<H2><a name="pcs">What is the patchable control store?</a></H2>
+
+This is based partly on information supplied by Terry Kennedy 
+(terry@spcvxb.spc.edu). <P>
+
+This gets complicated... <P>
+
+Unlike the 780, the 750 was designed to have a purely rom-based
+control store. The basic control store consists of 6k * 80 bit words
+of rom. However, various minor modifications to the instruction set
+specification and bug-fixes to the microcode entailed microcode
+upgrades. This was a pain, because the microcode on the original L0005
+CCS module came in the form of 120 piffling little 18-pin proms in
+sockets, all of which presumably had to be swapped. Apparently, DEC
+got fed up with this, and produced the L0008. This board contains 30
+24-pin proms, and a bank of 1k * 80 bits fast static rams (implemented
+using 2148s). In addition, there is an 8k * 1 bit static ram (the
+'flag' memory, implemented using 2147s). When the machine is fetching
+the next control word, it checks the flag memory; if the bit
+corresponding to the word about to be fetched is set, the word is
+fetched from the rom. If the bit is clear, it is fetched from the
+corresponding word of the ram. Thus modifications to the microcode can
+be installed when the machine boots. On BSD, these modifications are
+contained in a file called pcs750.bin which lives in the root
+directory and is loaded into the PCS by the boot program. 
+<p>
+
+The L0005 had connectors for an optional UCS (User Control Store)
+daughter-board, which had 1k * 80 bits of genuine writable control
+store (as opposed to the patchable control store). With the PCS, this
+functionality is supported by having several variants of the module,
+rather than by an optional add-on board. The variants of the PCS are
+as follows: <P>
+
+L0008-YA: bog-standard PCS, no writable control store. This is the
+usual variant. <P>
+
+L0008-YB: PCS with 1k * 80 bits of writable control store. Equivalent
+to L0005 + UCS daughter-board. <P>
+
+L0008-YC: PCS with 2k * 80 bits of writable control store. <P>
+
+Among other things, the patches loaded into the control store are
+supposed to cure a bug caused by a marginal timing error in the design
+of the L0003 MIC module, which occasionally causes the machine to take
+a spurious translation buffer parity error. It's interesting to note
+that the machine check handler code in the 4.3BSD kernel specifically
+checks to see if the CPU is a 750 when it gets this error, and ignores
+it if it is, rather than panicking. <P>
+
+I got hold of a few spare L0008-YAs a while ago, and cannibalised
+them to build an L0008-YC. Let me know if you want the gory details.<P>
+
+<h2><a name="whereboards">Where do the boards go?</a></h2>
+
+Working from the right-hand side of the CPU backplane: L0001, L0002,
+L0003, L0004, L0005 or L0008, L0006. The next three slots are for
+massbus adapters, second unibus adapter, cluster interconnect or other
+CMI add-ons. The last CPU slot is for the memory controller, L0011,
+L0016 or L0022. The next eight slots are the memory slots, which
+should be populated starting from the right. If you've got an L0022,
+then the two four meg boards should be in the first two slots. The
+last slot, which is obscured by the two metal rods running from top to
+bottom of the card-cage, <strong>appears</strong> to be wired as a
+unibus SPC (small peripheral controller) slot, though there's no
+mention of this in any of the manuals. Can anybody confirm this?
+
+
+<h2><a name="optinstall">How are the options installed?</a></h2>
+
+This is taken from the 750 installation manual, which isn't exactly
+a model of clarity! If something here doesn't make sense to you,
+it probably didn't make sense to me, either...
+
+<h3>L0001 FPA</h3>
+Bung the board in slot 1 of the CPU backplane. Power up
+and check that the green light on the front edge of the FPA board
+comes on. <p>
+
+<h3>L0007 RH750 Massbus adapter</h3>
+Choose a CMI slot (backplane slots 7, 8, 9).
+(For first MBA, slot 9 is recommended.) <p>
+
+Note: There are three edge connectors on each L-series module. They are
+named A, B and C, starting from the top. On each connector, pin 1 is
+the topmost pin on the component side, pin 2 is the topmost pin on
+the solder side, and so on. <p>
+
+Several jumpers need to be fitted
+to the backplane to configure the MBA. For first MBA, jumper A53 to A51
+and A54 to A52. For second MBA, jumper A53 to A51. For third MBA, jumper
+A54 to A52. These jumpers determine where in the CMI address space
+the MBA appears. 
+Additionally, CMI arbitration levels need to be set.
+Conventionally,
+first MBA gets arbitration level 3, second gets 2, and third gets 1.
+For arb level 3, jumper A64 to A62. For arb level 2, jumper A64 to A63
+and A62 to A60. For arb level 3, jumper A64 to A66, A63 to A61 and A62 to
+A60.
+As if that weren't enough, the following jumpers need to be
+removed from the slot: A77 to A78, A73 to A74, A69 to A70, A67 to A68.
+A jumper between A45 and A43 is normally fitted, but may optionally
+be removed to reduce
+the rate at which the MBA initiates DMA transfers on the CMI. <p>
+
+The massbus connector should be installed in place of one of
+the I/O bulkhead blanking plates. Three ribbon cables connect the
+backplane connector housings to the I/O panel connector. It seems
+that the topmost housing is connected to the leftmost (viewed
+from the rear of the rack) header on the massbus connector. <p>
+
+Inspect the massbus terminator on the massbus drive. If the terminator
+contains three resistor cards, check that W2 (massbus fail H) on
+the cable C terminator card has been removed. Connect the terminator
+to the massbus connector on the drive. 
+
+<h3>L0010 DW750 Second Unibus adapter</h3>
+
+Remove the four grant jumpers from the slot in which you intend
+to put the board (A77 to A78, A73 to A74, A69 to A70, A67 to A68).
+Insert the board in the slot. Connect the three ribbon cables to the
+three backplane connector housings. The housings are labelled
+A, B and C. The cables are routed out of the CPU box into the expander,
+onto the M9014 adapter board. Note that nothing is said about which
+cable goes where (thanks, DEC). The M9014 goes into the Unibus
+In slot in the DD11 backplane. The expansion box should also contain
+an M7855 unibus exerciser module, which should be configured thus:
+Address (E125), switches 1 to 8: all on; Vector (E88), switches
+1 to 8: on, on, on, on, off, off, on, off. The slot the M7855 is in
+should be configured with the NPG jumper removed. <p>
+
+Unibus adapter CMI arbitration level: the L0010 has a fixed arb level
+of 3. Massbus adapters are normally configured starting at this
+level, so you'll probably have to shift your MBAs down one level
+if you add an L0010.
+
+<h3>L0006 KC750 RDM</h3>
+
+Install L0006 in slot 6 of CPU backplane. Move TU58 signal
+cable at bottom of section B of the L0006 backplane slot
+from left to right side of the slot. Move console terminal
+connector at top of section C of the slot from left to
+right side. Attach RDM modem port cable to bottom right
+of section C of the L0006 backplane slot. The connector is
+labelled to indicate the 'up' end; if the label has dropped
+off, the two-pin gap in the wires is at the top. The RDM modem
+port baud rate is programmable; on old models, this is done
+by W4 to W7, a couple of inches back from the edge connectors
+at the bottom edge of the board. W4 is the bottom-most jumper,
+and the others just count upwards. On newer machines, there is
+a four-position dip switch at the same location. Switch
+1 corresponds to W4, switch 2 to W5 and so forth. The rates
+available are 19200, 9600, 7200, 4800, 3600, 2400, 1200, 600,
+400, 300. For 19200, W7..W4 are 0001 (0 is out, 1 is in).
+The other rates count upwards in binary. <p>
+
+For RDMs installed in Europe, W3 (a jumper near the top edge
+of the board, I guess about three inches back from the
+edge connectors) should be removed. It doesn't say why.
+
+<h3>H7112 Backup battery</h3>
+
+The battery has two cables coming out of it: one has a three-pin mains
+connector, and should be connected to one of the three-pin sockets on
+the power-controller. The other is a nine-way connector that connects
+to a socket mounted on a bracket on the inner left-hand cabinet
+upright, next to the battery mounting points.
+Lastly, the three-way plug that floats around the bottom of the rack
+should be connected to one of the three-way sockets on the back of
+the battery. Then the battery should be mounted to the mounting
+brackets on the rack. For older 750s, the battery mounts horizontally,
+on a pair of brackets in the bottom of the rack; on newer machines,
+it is attached vertically to a couple of brackets at the front
+of the rack. 
+
+<h2><a name="console">What are the console commands?</a></h2>
+
+Taken from hardware handbook and installation manual: <p>
+
+control-P: Halt processor, enter console mode. Issues '>>>' prompt. <br>
+
+control-D: (If RDM present) Enter RDM console mode, with 'RDM>' prompt.
+<br>
+
+I: Processor initialisation. Invalidates translation buffer and cache,
+issues processor init and unibus init. <br>
+
+H: Halt. Redundant, since processor must be halted for console
+operation anyway, but provided for compatibility with 780. <br>
+
+T: Test. Runs microverify, which is described as a basic sanity test
+of the DPM and MIC boards. <br>
+
+S nnnn: Start. Initialises CPU, stores specified address in program
+counter, and starts execution there. <br>
+
+S: Start. Initialises CPU, and starts execution at current program counter.
+<br>
+
+C: Continue. Starts program at current program counter, without
+initialising. Useful if you've accidentally bombed into console mode
+by pressing control-P in emacs, tcsh &c. :-) <br>
+
+N: Next. Single-steps the program (i.e. executes the next instruction,
+then returns to console mode). <br>
+
+B: Boot. Boots from boot rom selected by front-panel device switch. <br>
+
+B [QUALS]<sp>[DDCU]<cr>: Boot. Boots from device specified by DDCU, using 
+qualifiers QUALS. DD: device; C: adapter; U: unit number. QUALS: /X inhibits 
+microverify, /hexnumber passes boot-flag hexnumber in R5. <br>
+
+X: Binary load/unload. Unlikely to be useful -- used for automated test. <br>
+
+E [QUAL]<sp>[ADDRESS]<cr>: Examine. Examines memory, registers &c. <br>
+
+D [QUAL]<sp>[ADDRESS]<sp>[DATA]<cr>: Deposit. Modifies memory,
+registers &c. <br>
+
+QUAL:
+<pre>
+		/B Set size to byte
+		/W set size to word
+		/L Set size to longword
+		/P Physical address space
+		/V Virtual address space
+		/I Internal processor register
+		/G General register
+</pre>
+ADDRESS:
+<pre>
+		nnnn Hex address
+		* last address
+		+ next address
+		P processor status longword
+</pre>
+
+<h2><a name="rdm">RDM Details</a></h2>
+
+This section is taken from the KC750 Microdiagnostics and
+Technical Manual, EK-KC750-TM.002. <p>
+
+The RDM consists of an 8085 microprocessor, some ROM, some RAM,
+a bank of fast SRAM used for storing diagnostic microcode
+sequences (the diagnostic control store), a mechanism for
+generating a scope signal and/or stopping the CPU when a
+particular control-store
+address is accessed, UARTs for the console
+serial line, the diagnostic modem line, the front-panel
+TU58, and another one marked 'CPU' which relays whatever
+is typed on the console terminal to the CPU when the RDM is inactive.
+When the RDM is not being used under Micmon, the diagnostic
+control store is used to store a trace of the 64 most recently
+accessed microaddresses. <p>
+
+The RDM has a number of commands built in. Additionally,
+a monitor program, Micmon, can be loaded from TU58 tape. When
+loaded, Micmon takes over the RDM and provides its own set
+of commands. Throughout this description, DRDC stands for 'Digital
+Remote Diagnosis Centre'. <p>
+
+<h3>Console States</h3>
+
+The console can be in one of a number of states, and knowing what
+they are will make the description of the RDM commands a bit
+easier to understand. I hope. <p>
+
+<ul><li>Program I/O: CPU is under macro program control and has control
+of the console port. </li>
+<li>Vax console: Console port is under control of Vax CPU
+console microcode. Prompt is '>>>'. </li>
+<li>RDM Console State/Control mode: Same as program I/O state
+if CPU running, except that control-D switches to RDM console state/
+command mode. If CPU halted, same as Vax console state with '>>>'
+prompt. </li>
+<li>RDM Console State/Command Mode: System recognises RDM
+commands only. Prompt is 'RDM>'. Output from the CPU to the console
+is disabled. This is the state/mode that you get into by doing control-D
+from the Vax console state. </li>
+<li>Talk State: Allows communication between operator at local
+terminal and operator on RDM modem port.</li>
+<li>Microdiagnostic state: Console port is under control of
+Micmon, with Micmon prompt 'MIC>'. </li>
+</ul>
+
+
+<h3>The Built-in Commands</h3>
+
+<h4>Clear</h4>
+Purpose: Clear stop-on-micromatch function. <p>
+Syntax: CL <p>
+Disables stop-on-micromatch but does not change contents of match
+register. Match pulses will still occur, but the CPU will not
+be stopped.
+
+<h4>Copy</h4>
+Purpose: Enable local copy function. <p>
+Syntax: COP <p>
+Allows local terminal to get a copy of the dialogue between the RDM
+and the DRDC. Only DRDC can execute this command.
+
+<h4>Copy disable</h4>
+Purpose: disable local copy. <p>
+Syntax: COP/D <p>
+Stops local terminal from printing DRDC dialogue.
+
+<h4>Deposit</h4>
+Purpose: Modify contents of vax memory location. <p>
+Syntax: D [/modifier] &lt;addr&gt; &lt;data&gt; <p>
+Writes specified data to memory location. Address and data are in hex.
+Modifiers are W (word), L (long word), B (byte), N (don't specify address,
+address used is next one, data type is same as last one). Addr field
+can be replaced with * (use addr specified in last examine or deposit)
+or + (increment address by default data type). 
+
+<h4>Examine</h4>
+Purpose: examine vax memory. <p>
+Syntax: D [/modifier] [address] <p>
+Modifiers W, L, B work as for deposit. If address is not specified,
+previous address incremented by default or specified data type is
+used. Address can be specified as *, in which case address used for
+last examine or deposit is used.
+
+<h4>Examine Console</h4>
+Purpose: examine RDM internal memory. <p>
+Syntax: E/C [address] <p>
+If address not specified, current default address is incremented
+and examined. Only addresses 8000 to FFFF are valid. <p>
+RDM status register at F820 is mentioned; it encodes the
+processor state as follows: <br>
+bits 1,0: Boot device switch. A = 11, B = 10, C = 01, D = 00. <br>
+bits 3,2: Power on action. res/boot = 00, res/halt = 01, boot = 10, halt = 11. <br>
+bit 4: Con Halt H <br>
+bit 5: CS parity err <br>
+bits 7,6: Key switch. remote = 00, rem/secure = 01, local = 10, secure = 11. <br>
+
+<h4>Initialise</h4>
+Purpose: initialise CPU. <p>
+Syntax: INI <p>
+Simulates a power-fail sequence to initialise the CPU.
+
+<h4>Link</h4>
+Purpose: Record a list of commands to be executed. <p>
+Syntax: LIN <p>
+Builds a clist of commands in RDM memory to be executed later
+with the Perform command. Each command is prompted for with
+the LNK> prompt. Control-C terminates the list. If the last instruction
+in the list is a Perform command, the list will loop automatically
+when it is run until Control-C is typed. 
+
+<h4>Load</h4>
+Purpose: Loads a file from TU58 tape into vax main memory. <p>
+Syntax: LO &lt;filename.extension&gt; [address] <p>
+The RDM locates the file on tape and loads it into sequential
+addresses in Vax memory. If start address is not specified, it
+defaults to zero. Filename must have exactly six chars, extension
+must have exactly three. (I think it really means 'six or less'
+and 'three or less'). 
+
+
+<h4>Local</h4>
+Purpose: Provides local/remote control of RDM. <p>
+Syntax: CTL <p>
+Causes the RDM to accept commands from both the console terminal
+and the modem line.
+Can only be entered from DRDC. Do not enter stuff from both terminals
+at the same time.
+
+<h4> Local Disable</h4>
+Purpose: Disable Local command function. <p>
+Syntax: CTL/D <p>
+Cancels effect of Local command. Can only be entered from DRDC.
+
+<h4>Microaddress</h4>
+Purpose: Latches contents of selected microaddress into CPU control store
+latches. <p>
+Syntax: UA &lt;address&gt; <p>
+Halts the CPU, loads a new control store address on the CS address
+bus. When the CPU restarts, microcode at the new address takes
+control. Cancels any stop-on-micromatch previously set. <p>
+Note: microinstruction at 17FD has incorrect control store parity
+bits, to test parity checking logic.
+
+<h4>Microaddress/C</h4>
+Purpose: Temporarily loads a specific microaddress on the CS address bus. <p>
+Syntax: UA/C &lt;address&gt;<p>
+Places selected address on CS address lines until the next master clock
+tick. At that point, CPU latches data on the CS bus prior to the command.
+So this command does not change the flow of control in the CPU. Cancels
+any stop-on-micromatch previously set. <p>
+Used for isolation of failures in CS bus, control store, CS latch, CS
+control signals.
+
+<h4>Parity</h4>
+Purpose: Checks vax control store parity. <p>
+Syntax: PAR &lt;address&gt;<p>
+Runs a parity check of the CPU control store, starting at the selected
+address and ending at the first parity error. If no error is found, stops
+at the preset error address 17FD. Displays location of any error found.
+CPU clock must be stopped before using this command. <p>
+
+WCS may be included in the parity check by specifying addresses 2000
+through 23FF.
+
+<h4>Perform</h4>
+Purpose: Executes a link program. <p>
+Syntax: PER <p>
+Executes the program in the link memory until the program stops or
+control-C is typed.
+
+<h4>Repeat Last Command</h4>
+Purpose: Repeats execution o last RDM command. <p>
+Syntax: REP <p>
+Continuously executes the preceding command until control-C is typed.
+Used for generating scope signals off continuous execution of a command.
+Type control-O to stop terminal output.
+
+<h4>Repeat Next Command</h4>
+Purpose: Repeats execution of specified RDM command. <p>
+Syntax: R &lt;command&gt; <p>
+Continuously executes the given command until control-C is typed.
+Type control-O to stop terminal output.
+
+<h4>Return</h4>
+Purpose: Return system to program I/O state. <p>
+Syntax: RET <p>
+Switches the system from RDM console state to program I/O state. Disables
+any stop-on-micromatch previously set. 
+
+<h4>Return/D</h4>
+Purpose: Return to control mode of RDM console state. <p>
+Syntax: RET/D <p>
+Switches the system from command mode to control mode of RDM console
+state. In control mode, terminal communicates with CPU as normal.
+Unlike program I/O mode, a control-D returns to RDM command mode,
+and previously set stop-on-micromatch remains enabled.
+
+<h4>Set</h4>
+Purpose: Enable stop-on-micromatch. <p>
+Syntax: SE [address] <p>
+Causes the CPU clock to be stopped when the contents of the CS address
+bus equals the contents of the RDM match register. If the address isn't
+specified, it defaults to one specified previously. When CPU stops,
+RDM displays addresses of last instruction executed and next instruction
+to execute (microinstructions, I guess). Remains set in control mode of
+RDM console state.
+
+<h4>Show</h4>
+Purpose: Displays current CPU state. <p>
+Syntax: SH <p>
+Displays current state of CPU: running (executing code), halted
+(not executing code, but clock running), stopped (cpu clock stopped).
+Also displays addresses of last and next 
+instructions.
+
+<h4>Show Version</h4>
+Purpose: Display version of RDM firmware. <p>
+Syntax: SH/V <p>
+Displays current revision number and date of firmware on RDM.
+
+<h4>Step</h4>
+Purpose: Steps CPU through single microinstruction. <p>
+Syntax: STE <p>
+Causes the CPU to execute a single microinstruction and stop. It then
+displays the address of the current microinstruction latched in the
+CPU, and the address of next microinstruction to latch.
+
+<h4>Step Tick</h4>
+Purpose: Advances the CPU in base clock increments. <p>
+Syntax: STE/T <p>
+There are two base clock cycles for each M clock cycle. During the
+first half of the M clock cycle, the CS address lines are high-impedance.
+After stepping the B clock to the second half of the microinstruction,
+the next CSAD value is visible. By stepping B clock again, the CPU shuld
+latch the microinstruction at the next CS address. Step tick shows this
+latching sequence, and identifies microinstructions that take longer
+than two B clock cycles to execute.
+
+<h4>Stop</h4>
+Purpose: Stops CPU clock. <p>
+Syntax: STO <p>
+Stops the CPU clock, and displays the addresses of the last instruction
+executed and the next.
+
+<h4>Talk</h4>
+Purpose: Changes from RDM console state to talk state. <p>
+Syntax: TA <p>
+Allows communication between local and remote terminals. Entered
+from currently controlling terminal. Displays characters typed
+on either terminal on both terminals. Type control-C to return
+to RDM console state.
+
+<h4>Test</h4>
+Purpose: Loads and runs microdiagnostics. <p>
+Syntax: TE <p>
+Loads the microdiagnostic monitor (Micmon), and then runs a series
+of microdiagnostics. The software resides on TU58 tape. To interrupt
+diagnostics, type control-C; this takes you to the MIC> prompt.
+To get out of Micmon to the RDM prompt, type RE to the MIC> prompt.
+
+<h4>Test/C</h4>
+Purpose: Load microdiagnostic monitor, without running diagnostics. <p>
+Syntax: TE/C <p>
+Loads the microdiagnostic monitor into RDM memory, and gives it control.
+Does not run any diagnostics.
+
+<h4>Test File</h4>
+Purpose: Load user program into RDM & run it. <p>
+Syntax: TE &lt;filename.extension&gt; <p>
+Loads a program other than the microdiagnostic monitor and executes it.
+
+<h4>Trace</h4>
+Purpose: Displays 65 most current control store addresses. <p>
+Syntax: TR <p>
+Displays in reverse order the CS addresses stored in the diagnostic
+control store. Except in microdiagnostic state, RDM stores the addresses
+of the 64 most recently executed VAX CS instructions in the DCS. The
+address of the next instruction to execute is stored in a register
+and is also displayed. Type control-C or control-D to stop the listing.
+The CPU clock must be stopped before the Trace command can be used.
+
+<h3>Micmon Commands</h3>
+To be continued... 
+
+
+<h3>Error Messages</h3>
+This is a list of the RDM error codes. <p>
+<pre>
+TAP:14		Tape: read length error, not all records fit
+TAP:13		Tape: flag received, not command or data 
+TAP:12		Tape: directory error 
+RDM:11		Invalid operation code in macro 
+RDM:10		Operation already in progress 
+TRM:0E		Terminal: remote line CRC error 
+TRM:0D		Terminal: length of input longer than buffer
+TRM:0B		Terminal: command input buffer overloaded
+TAP:09		Tape: file not found
+TAP:08		Tape: invalid packet received
+TAP:07		Tape: no end packet, invalid operation code received
+TAP:06		Tape: tape count byte received exceeds maximum
+TAP:05		Tape: tape check sum error received
+TAP:04		Tape UART overflow received
+TAP:03		Tape UART data set ready dropped
+TAP:02		Tape UART error received from UART
+TAP:01		Tape UART device timed out
+CPU:04		CPU UART overflow received
+CPU:03		CPU UART data set ready dropped
+CPU:02		CPU UART error received from UART
+CPU:01		CPU UART device timed out
+TRM:04		Terminal UART overflow received
+TRM:03		Terminal UART data set ready dropped
+TRM:02		Terminal UART error received from UART
+TRM:01		Terminal UART device timed out
+REM:04		Remote UART overflow received
+REM:03		Remote UART data set ready dropped
+REM:02		Remote UART error received from UART
+REM:01		Remote UART device timed out
+TAP:FF		Tape: diagnostic failure
+TAP:EE		Tape: partial operation (end of medium)
+TAP:F8		Tape: bad unit number
+TAP:F7		Tape: no cartridge
+TAP:F5		Tape: write protocol
+TAP:EF		Tape: data check error
+TAP:E0		Tape: see error (block not found)
+TAP:DF		Tape: motor stopped
+TAP:D0		Tape: bad operation code
+TAP:C9		Tape: bad record number
+SYNTAX ERROR:	error entering console commands
+INVALID COMMAND: RDM does not recognise command
+CMI:nn		Error in Vax main memory (nn is error code -- results from
+Examine command if area addressed has error)
+CMI:00		Non-existent memory
+CMI:01		Corrected read data
+CMI:02		Read data substitute
+ROM		ROM failed RDM power-up self-test
+RAM		RAM failed RDM power-up self-test
+</pre>
+
+
+
+<h2><a name="haltcodes">What do the CPU halt codes mean?</a></h2>
+
+This section, and the next couple, are taken verbatim from the 750
+installation guide, EK-SI75F-IN-PRE, with bits also from the hardware
+handbook. <p>
+
+When the processor halts, it prints a code that tells you why it halted. <p>
+
+00: (hardware handbook only) Halt or single-step from console <br>
+
+01: Test command executed successfully <br>
+
+02: control-P or executed single instruction with N command (installation 
+manual only) <br>
+
+04: interrupt stack not valid <br>
+
+05: double bus write error halt <br>
+
+06: processor halt instruction executed <br>
+
+07: SCB Vector <1:0> = 3, halt at vector <br>
+
+08: SCB Vector <1:0> = 2, WCS disabled or not present <br>
+
+0A: Change mode instruction executed on interrupt stack <br>
+
+0B: Change mode instruction executed, SCB vector <1:0> not = 0 <br>
+
+11: Power-up, cannot find RPB, front panel switch at restart/halt <br>
+
+12: Power-up, warm start flag false, front panel switch at restart/halt 
+<br>
+
+13: Power-up, can't find good 64kB of memory <br>
+
+14: Power-up, bad or nonexistent boot rom <br>
+
+15: Power-up, cold start flag set during boot subroutine <br>
+
+16: Power-up halt, front panel switch at halt <br>
+
+FF: Microverify test failure
+
+
+<h2><a name="errorcodes">What do the console command error codes mean?
+</a></h2>
+
+The table in the installation manual prefixes each of these with '7'.
+I think that's a typo, because the one in the hardware handbook
+doesn't. Also, each has some codes that aren't in the other. <p>
+
+10: Illegal GPR register number. <br>
+
+11: Error in accessing IPR or PSL. <br>
+
+19: Reference to next location was preceded by an examine or deposit to an 
+ipr or psl. <br>
+
+20: Memory examine or deposit failed; access violation, translation not 
+valid, machine check, bus error, TB parity error, CS parity error. <br>
+
+30: Checksum error on APT load or unload. <br>
+
+33: Attempt to boot from unrecognised device. <br>
+
+34: Controller not A, B, C or D in Boot command.
+
+<h2><a name="microverify">What do the microverify error codes mean?
+</a></h2>
+
+The CPU prints a '%' character when it starts microverify. When it
+completes successfully, a second '%' is printed. If an error occurs, a
+different character is printed in place of the second '%', and a halt
+code program counter is printed. The character printed in place of the
+'%' can be used with the PC to find the cause of the problem using the
+following table: 
+
+<pre>
+Code	PC+2		Test name/Error message
+@			RBus, WBus test
+	000		Bad bit in DReg or SUPROT
+	001		Bad bit in Rbus or Wbus
+C			Mbus test
+	031		Bad bit in Qreg
+	032		Bad bit in Mbus
+E			Scratch pad bit test
+	051		Error clearing RTemp
+	052		Error filling RTemp with ones
+	054		Error clearing GPR
+	057		Error filling GPR with ones
+	058		Error clearing IPR
+	05B		Error filling IPR with ones
+	05D		Error clearing MTemp
+	05E		Error filling MTemp with ones
+F			MTemp explicit addressing test
+	061		Error addressing MTemp 0
+	062		Error addressing MTemp 1
+	064		Error addressing MTemp 2
+	067		Error addressing MTemp 4
+	068		Error addressing MTemp 8
+I			RTemp explicit addressing test
+	091		Error addressing RTemp 0
+	092		Error addressing RTemp 1
+	094		Error addressing RTemp 2
+	097		Error addressing RTemp 4
+	098		Error addressing RTemp 8
+J			IPR explicit address test
+	0A1		Error addressing IPR 0
+	0A2		Error addressing IPR 1
+	0A4		Error addressing IPR 2
+	0A7		Error addressing IPR 4
+	0A8		Error addressing IPR 8
+L			GPR explicit address test
+	0C1		Error addressing R0
+	0C2		Error addressing R1
+	0C4		Error addressing R2
+	0C7		Error addressing R4
+	0C8		Error addressing R8
+	0CE		Error addressing dual port
+O			XB/IR/OSR bit test
+	0F1		Error in XB<31:0>
+	0F2		Error in XB<63:32>
+	0F4		Error in IR
+	0F7		Error in OSR
+Q			Source XB PC increment test
+	111		Error sourcing one byte from XB
+	112		Error sourcing 2 bytes from XB or incrementing PC by 1
+	114		Error sourcing an unaligned longword or incrementing PC
+			by 1
+	117		Error incrementing PC by 4
+R			RNUM/DSIZE test
+	121		Error reading dsize rom operand 1
+	122		Error loading/reading rnum
+	124		Error reading dsize rom operand 2
+	127		Error loading/reading rnum
+	128		Error reading dsize rom operand 3
+	12B		Error loading/reading rnum
+	12D		Error reading dsize rom operand 4
+	12E		Error loading/reading rnum
+T			Rnum/dsize test continued
+	141		Error reading dsize rom operand 5
+	142		Error loading/reading rnum
+	144		Error reading dsize rom operand 6
+X			Cache parity error test
+	181		Failed to get cache parity error
+	182		Bad machine check error summary register
+	184		Bad cache error register
+[			TB parity error test
+	1B1		Failed to get group 0 TB parity error
+	1B2		Bad TB group parity error register
+	1B4		Bad machine check error summary register
+	1B7		Failed to get group 1 TB parity error
+	1B8		Bad TB group parity error register
+	1BB		Bad machine check error summary register
+]			Control store parity error test
+	1D1		Failed to get control store parity error
+	1B2		(?1D2? possible misprint) Error in control store 
+			parity error 
+^			Cache test
+	1E1		Error filling cache with ones. Location not initially 
+			zero.
+	1E2		Error filling cache with ones. Unable to write ones.
+</pre>
+
+<h2><a name="dudbattery">What can be done about a dud TOY clock battery?
+</a></h2>
+
+The time-of-year clock battery on my machine was totally defunct when I got it.
+(The TOY battery is mounted on the right-hand rear cabinet frame
+upright, viewed from the rear).  The original battery pack consists of
+4 sub-C size nicads attached to a thin metal mounting plate. I used 4
+C size nicads and a 4*C holder from Maplin, and a couple of nuts &
+countersunk bolts to attach it to the original mounting plate (after
+trimming off the lip along the long edges of the plate with a pair of
+tin snips). Connect the cable that goes to the connector on the
+backplane to the terminals on the battery holder (red is positive --
+be sure to get it right way round!). The TOY clock battery is rated to
+last 100 hours, but I find that if the machine has been getting a
+reasonable amount of use, the batteries will last about a week. 
+<p>
+
+If the batteries die completely, the clock won't count at all. In
+this case, a stop-gap solution is to disconnect the battery pack
+from the backplane connector, though you'll have to reset the
+time every time the machine is powered up. (Anders Magnusson)
+
+<h2><a name="frontpanel">What do the front-panel controls do?</a></h2>
+
+Taken from hardware handbook. <p>
+
+Indicators: <p>
+
+'Power': indicates that DC power is OK. <br>
+
+'Run': the CPU is running. If this is on, the console terminal is in
+program I/O mode (in which it functions as a normal terminal). If off,
+the CPU is halted and the console terminal is in console I/O mode (in
+which you use console commands to control the CPU). <br>
+
+'Error': The Big Red Light. If lit, indicates that the CPU has
+encountered a control-store parity error. This (probably) means you've
+got a problem with your L0008 module, and is Bad News. Reset by
+pressing the 'Reset' button, and pray it goes away... <p>
+
+Back-lit Remote Diagnosis indicators:<p>
+
+'Remote D': illuminated by remote diagnosis software. <br>
+
+'RD Carrier': indicates Carrier Detect on RDM modem port. <br>
+
+'RD Test': remote diagnosis tests are in progress. <br>
+
+'RD Fault': fault detected in RDM self-test. Also briefly illuminated
+while the self-test is running, at power-up. <p>
+
+Switches: <p>
+
+'Reset': simulates a power-off followed by power-on. State after reset
+depends on settings of other front-panel switches. <p>
+
+'Power On Action': Determines what the CPU does when it is powered up.
+Halt: CPU powers up into console mode; Boot: CPU boots whatever device
+is selected by the boot switch on power up; Halt/restart: tries to do
+a restart after power outage, halts if it can't; Boot/restart: tries
+to do a restart, reboots if it can't. (Latter two only make sense if
+you've got a memory backup battery.) <p>
+
+'Boot Device': selects boot rom to boot from. These roms are in
+sockets on the memory controller (L0011, L0016 or L0022). <p>
+
+Keyswitch: Controls power and stuff: <p>
+
+Off: All power is off except for TOY clock battery. In any other
+position, the backup battery (if fitted) will power the memory if the
+mains supply is cut off. So if you've got a battery fitted, don't
+power your machine down by just opening the back-panel circuit-
+breaker, as this will leave the memory still running off the battery. <br>
+
+Local: power on, RDM disabled, CPU can be put in console mode by
+hitting control-p at the console (do not leave in this position if you
+use emacs, tcsh &c!). <br>
+
+Secure: power on, RDM disabled, reset button disabled, can't switch to
+console mode with control-P. This is the normal operating mode. <br>
+
+Remote: power on, console functions can be used from RDM port. <br>
+
+Remote/Secure: RDM port replaces console port. Reset button disabled.
+RDM can't be used for diagnosis in this position. <p>
+
+<h2><a name="bigpsu">Wow, what a BIG power system!</a></h2>
+
+The PSU consists of three main lumps: <p>
+
+875 power controller (glorified on/off switch containing a huge mains
+filter and a whopping relay that switches the mains to the rest of the
+power system, controlled by the front-panel keyswitch); <br>
+
+H7104C +2.5V PSU rated 85 Amp (the gate array chips in the CPU require +2.5V);
+<br>
+
+H7104D +5V PSU rated 135 Amp (just about everything uses this).
+<br>
+
+Other voltages are produced by plug-in regulators contained in the 2.5
+and 5V supplies: <p>
+
++/-5VB and +12VB (supplies for the memory system, backed up by the battery if 
+fitted) are in the +2.5V PSU; <br>
+
++/-15V supplies are in the +5V PSU. <p>
+
+Various of the regulators require specific minimum loads before they'll run.
+<p>
+
+Remove your watch & any rings when working on a live machine! The PSUs are 
+capable of delivering huge currents, and shorting them could present a
+burn hazard.
+
+<h2><a name="psucontrols">What do the controls on the PSU do?</a></h2>
+
+Indicators: <p>
+
+Red neon power indicator: the power controller is connected to the mains. <br>
+
+Overtemp: indicates overtemperature condition in the 2.5V or 5V PSU. <br>
+
+Overvoltage: overvoltage condition in 2.5V or 5V supply. 
+<br>
+
+Overcurrent: overcurrent condition on 2.5 or 5 supply. 
+<br>
+
++5 fail: fault in +5v PSU. <br>
+
++2.5 fail: fault in 2.5 v supply. <br>
+
+Power OK: all's well. <br>
+
+Reg fail: failure of plug-in regulator (+/-5VB or +12VB regulators in
+the +2.5V supply, or +/-15V regulator in the +5V supply). <p>
+
+Controls: 
+<p>
+
+Circuit breaker: Provides over-current protection and switches power
+to the rest of the power system (though you're not <strong>really</strong>
+supposed
+to use it as a switch). With the machine switched off from the front
+panel keyswitch, the power controller still draws a small current.
+Opening the breaker will prevent this. <p>
+
+Remote/Off/Local rotary switch: Determines how the machine responds to inputs on 
+the DEC Power Bus connectors. 
+<br>
+
+Remote: enables remote power up from the CPU control panel keyswitch. <br>
+
+Local: unconditionally powers the machine up, regardless of the
+position of the keyswitch. <br>
+
+Off: unconditionally doesn't power the machine up.  <p>
+
+Each of the PSUs has a 'margin' switch (small three-position toggle
+switch) on top.  LEAVE THIS IN THE CENTRE POSITION! The +/-5%
+positions are for testing purposes only. The use of these switches is
+not described in the CPU or PSU technical manuals. <p>
+
+
+<h2><a name="powerbus">What are the DEC Power Bus connectors for?</a>
+</h2>
+
+On the back of the power controller, there are two three-pin
+DEC Power Bus connectors, one labelled 'Normal' and the other labelled
+'Delayed'. These are used to allow the front-panel keyswitch on the
+processor rack to control the mains supply to the other racks in the system.
+Pin 3 on each of the connectors is grounded. Pin 2 is an emergency
+shutdown: when grounded, it
+shuts the power system down. This is normally caused by a temperature
+sensor in either the processor rack or one of the other racks, or
+by the airflow sensor in the blower plenum signalling that the blower
+has failed.
+Pin 1 on each connector is a power-up request signal; when grounded
+by the front-panel keyswitch, it causes the power-controller relay
+to close, supplying mains power to the PSU. On the 'Delayed' connector,
+the power-up request output is delayed by about half a second; switching
+the other racks in your system from this output can prevent those
+embarrassing mains surges that trip the breaker on the mains ring and
+plunge the house into darkness... <p>
+
+Normally, the power controllers in all the racks of an installation
+are daisy-chained together, so that the front-panel keyswitch
+controls power to the whole system.
+
+
+<h2><a name="powerconsumption">What's the power consumption 
+like?
+</a></h2>
+
+Not as bad as you might think. I currently run my 750 system (CPU, CDC
+sabre disk, BA11-K expansion box, RA81 disk, TU80 tape drive, RX02
+8-inch floppies) off one 13 Amp outlet, on a 13 Amp fuse (UK 240 Volt
+mains).  The plug runs a little warm, but no problems otherwise. I
+guess the overall consumption is about a couple of kilowatts.
+
+<h2><a name="buses">What are the buses?</a></h2>
+
+There are various buses within the processor, but the main external ones
+are as follows: <p>
+
+CMI (CPU-Memory Interconnect): This is the main bus on the CPU backplane.
+The memory system, massbus adapters, unibus adapter and any other boards
+plugged into the CPU I/O adapter slots are attached to this bus. It is 32 bits
+wide and synchronous. The byte address-space is 24 bits wide, so that CMI has
+a 16Mb address range. The unibus and massbus are interfaced to CMI via 
+adapters.
+<p>
+
+Unibus: This bus was originally used as the system bus on PDP11 computers. 
+Several early vaxes, including the 750, support it as a bus for attaching peripherals. 
+There are sixteen data bits and eighteen address bits, giving Unibus a 
+256K address space. The unibus map hardware is used to enable devices on 
+Unibus to access the full address space of the machine for DMA. Unibus is
+asynchronous, with each transfer being accompanied by a handshaking sequence.
+<p>
+
+Massbus: A bus for attaching disks and tapes. The bus is 18 bits wide, and 
+transfers are clocked by the peripheral device. The control section is similar to 
+Unibus.
+
+<h2><a name="grant">What's a bus grant jumper?</a></h2>
+
+Several Unibus signals, called <strong>bus grants</strong>, are daisychained
+through each slot. If a slot is empty, the signals have to be jumpered
+across the empty slot. This is done using a small, square handle-less 
+board called a <strong>bus grant continuity card</strong>. (Later
+versions of the card are apparently full-length and have a handle,
+but I've never seen this type.) The standard bus grant card
+is G727A. <p>
+
+The card has no components on it. There are four tracks on the
+solder side of the board. The board fits into the fourth edge
+connector of the Unibus slot. Make sure that the side with the
+four tracks on it faces in the same direction as the solder
+sides of the other boards. <p>
+
+Unfortunately, it gets worse. There is an additional grant line,
+the <strong>non-processor grant</strong> (NPG), which is used only
+by DMA devices. This signal is normally jumpered by a wire-wrap
+jumper on the backplane, between the topmost two pins on the
+component side of the third edge connector of the slot. When
+a DMA option is installed, the backplane jumper is removed. If the
+DMA option is subsequently removed, or the slot is re-used for a non-DMA
+option, the jumper must be refitted. <p>
+
+Alternatively, it is possible to get hold of double-height grant
+cards, which fit into the third and fourth edge connectors, and jumper
+both the normal grant signals and the NPG signal. Some non-DMA devices
+jumper the NPG signal themselves (look for a PCB track linking the
+topmost two pins on the component side of the third edge connector
+for a hex-height module, or the top connector for a quad module).
+
+
+<h2><a name="helpubi">Help! I disconnected the UBI from my machine, and it won't boot! </a></h2>
+
+If (1) you are attempting to boot using the uda driver, and (2) your
+uda controller is actually an Emulex UD33, then this
+<strong>may</strong> be the solution. <p>
+
+The TOY clock is on the UBI module. When you unplug the UBI, the TOY
+clock loses power. When the clock is reconnected, it will read as
+zero. The microcode takes this as a sign that the clock has lost power
+(which it has), and doesn't allow the clock to increment until you
+write a non-zero value into it. When the UDA driver is probing for a
+uda (or compatible), it pokes the appropriate values into the
+controller's registers and waits a specific amount of time for it to
+interrupt. The time-out is done by taking the current value of the TOY
+clock (say V) and waiting in a busy loop until the TOY clock is V +
+some value. The UD33, for some reason, almost never initialises on the
+first attempt. So, the uda driver waits until either (a) the
+controller interrupts (which it doesn't) or (b) the TOY value becomes
+V + some value (which it doesn't, because it's not incrementing). Thus
+the machine hangs in a busy loop. The solution is to stick a non-zero
+value in the TOY clock after you've had the UBI disconnected. You can
+do this by saying this to the console:
+<p>
+
+D/I 1B 1
+<p>
+
+(Deposit 1 in internal processor register 1B, which is the TOY).
+Repeated examination of the register (E/I 1B) should show the clock
+incrementing normally, and the machine should boot as normal.
+
+<h2><a name="memoryboards">What are the memory boards?</a></h2>
+The DEC ones were: <p>
+M8728: 256k byte memory array;<br>
+M8750: 1M byte memory array;<br>
+M7199: 4M byte memory array.<p>
+
+The M8728 and M8750 are in fact the same board, with different drams (16k or 64k) 
+and different jumper configurations. 
+<p>
+
+Third Party memory boards: <p>
+EMC Corporation EMC VX-1MB-750 (from "VX 730/750 Series Installation Service 
+Guide"): 1M memory board for 750 and 730. Compatible with M8750. Board has
+an 'on-line/off-line' switch, which should be in the 'up' position for
+normal operation. <p>
+
+Mike Umbricht reports that he has a couple of EMC 1Mb boards, which
+have 210 030 600 etched on the board, and a sticker saying 
+'P/N 240-010-900'. <p>
+
+National Semiconductor Memory Systems: 1Mb memory boards. These boards
+have <br>
+PWB 551109464-002 B <br>
+PWA 980109464-001 D <br>
+etched on them. They have a push-button
+switch for disabling the board, and a spare memory chip in a socket
+on the board. Board has green and yellow LEDS, which should normally
+both be on. Disabling the board causes the yellow LED to go out,
+and the red LED on the L0016 to come on, indicating bad memory
+configuration. (info from Mike Umbricht)<p> 
+ 
+Information about other third-party memory boards is welcome. <p>
+The memory backplane should be filled starting from the right-hand
+side. If you've got an L0022, the 4M arrays should be in the rightmost
+two slots.
+
+<h2><a name="badpcs">Help! My machine crashes with the 'error' light on when booting BSD! </a>
+</h2>
+
+Note that it is normal for the error light to glow softly; only if
+it's on bright do you have a problem. If you're not sure whether it's
+lit or just 'glowing', the lamp test button on the bottom edge of the
+control panel board (accessible with the door open) lights it full
+brightness. <p>
+
+Symptoms: the console prints some blurb, ending with 'Updating 11/750
+microcode:' and the machine then hangs with the control panel error
+light lit. <p>
+
+Your PCS is clobbered. This happened to me in the early stages of
+getting BSD installed on my machine. The BSD boot program is loading
+and enabling the PCS patches, and a fault in your PCS is then causing
+the machine to fall over with a control-store parity error. <p>
+
+Possible cures: <p>
+
+(1) fix your PCS; (2) get a spare board; (3) apply the following
+horrible modification to the PCS to disable the patch mechanism: <p>
+
+a) Locate and remove your PCS (L0008). <br>
+
+b) Hold PCS component-side up, with edge connectors down RHS. <br>
+
+c) The control store roms are the array of 24-pin chips at the top
+left of the board.  Running down the board just to the right of the
+centre is the column of patch memory chips, which are 2148s. Locate two
+2147 memory chips (srams), one above the other, at the bottom centre
+of the board. These are the flag memory chips. The mod you are about
+to make will cause the machine to read the flag memory as always 1,
+causing it always to read microcode from the rom. <br>
+
+d) Locate the only via (through-board hole) between the two srams.
+Locate the 74S74 directly to the right of the two srams. Leading from
+the via is a track which goes under the 74S74 (it goes to pin 2, in
+fact). Cut this track. There is another track directly above it and
+very close, so take care. This disconnects the output of the flag
+memory. <br>
+
+e) Locate the 74S74 from the solder side of the board. Add a pull-up
+resistor between pins 2 and 14 of the chip. I used a value of 10k,
+which may be a bit big, but did the job. This makes the hardware think
+the flag is always 1, so that it always reads the rom, not the ram. <p>
+
+There are probably more elegant ways of achieving the same effect, but
+this mod works and is obvious enough that I was able to figure it out
+before I got hold of the circuit diagrams for the board. <p>
+
+You should now be back in business. You could rename pcs750.bin to
+something else or move it out of the root directory, and then undo the
+foregoing mod -- BSD will just boot up without installing patches if
+it doesn't find the file. My machine ran perfectly happily without its
+control store patches for the year or so I had this mod installed. To
+repair the board properly, you will probably need the print-set for
+the board -- I recently got hold of a copy, and may be able to help
+out if you drop me a line. In my case, the problem turned out to be
+<strong>four</strong> failed 2148 srams -- very odd!
+
+<h2><a name="badconsole">Help! My machine isn't listening to the console!
+</a></h2>
+
+Symptoms: machine starts up normally and prints the successful
+microverify double percent and the console prompt, but ignores console
+input. <p>
+
+This may be because the RS232 line receiver on the console port has
+given up the ghost. I've had to replace the one on mine twice. Note
+that it isn't a good idea to leave the console terminal switched on if
+the machine is switched off -- the line receiver chip doesn't like
+this and tends to fail eventually. <p>
+
+To replace the line receiver: <p>
+
+a) Locate and remove the L0004 UBI module. <br>
+
+b) Hold the UBI component-side up with the edge connectors down the RHS. <br>
+
+c) Locate E53, a 1489, at the right-hand side of the board, near the top
+of the second edge connector. This is the only 1489 on the board. <br>
+
+d) Replace E53. I strongly recommend using a socket for the replacement.
+
+<h2><a name="eccerror">Help! I've got a soft ECC error!</a></h2>
+
+The 750 has error-correcting code (ECC) on its memory system. Each
+longword is stored as 32 bits of data, plus 7 check bits. Each check
+bit is formed by a parity computation on a different subset of the
+data bits. When the 750 reads a longword from memory, it recomputes
+the check bits. If a bit fails, the ECC logic can tell which data bit
+it was by looking at the check bits that come out with the wrong
+values.  Knowing that the bit is wrong, it can then correct it simply
+by inverting it. It then generates an interrupt to report the error.
+This is called a 'soft' ECC error. If more than one bit is in error,
+the error cannot be corrected and is described as 'hard'. The check
+bits seem to be computed such that (1) a single wrong-valued check bit
+indicates that the check bit itself is in error, (2) any other odd
+number of wrong-valued check bits indicates that a single data bit is
+in error, and (3) an even number of wrong-valued check bits indicates
+that more than one bit is in error. This last case indicates a hard
+error. <p>
+
+On a soft error, BSD reports the physical page base address of the
+page which contained the error, and the error 'syndrome', which can be
+used to identify which bit has failed. (The syndrome appears to be the
+xor of the check bits read from memory and the computed check bits --
+in other words, it indicates which check bits have the wrong values.)
+Unfortunately, the translation from syndrome to failed bit is not
+obvious. None of the print-sets and manuals I currently have access to
+describes the syndrome to failed bit mapping on the 750. However, the
+pdp-11/44 ECC mos memory boards use a similar system, and the mapping
+is described in the 11/44 print-set. I've used that mapping to fix my
+750 when it had a soft error, and reproduce it here. Bear in mind that
+it's not guaranteed to be completely correct for the 750: <p>
+
+<pre>
+Syndrome	Failed bit
+1		CB (check bit) 0
+2		CB 1
+4		CB 2
+8		CB 3
+16		CB 4
+32		CB 5
+64		CB 6
+88		DB (data bit) 0
+25		DB 1
+26		DB 2
+91		3
+28		4
+93		5
+94		6
+31		7
+104		8
+41		9
+42		10
+107		11
+44		12
+109		13
+110		14
+47		15
+112		16
+49		17
+50		18
+115		19
+52		20
+117		21
+118		22
+55		23
+56		24
+121		25
+122		26
+59		27
+124		28
+61		29
+62		30
+127		DB 31
+</pre>
+<p>
+
+I've written the syndromes in decimal and BSD reports them in hex --
+sorry! To isolate the failed chip, you will probably need the
+print-set for the memory board concerned -- if your board is an M8750,
+you can probably get by with the one for the M8728, which is identical
+except for the drams and the jumper configuration.
+
+<h2><a name="docs">What sort of hardware documentation can I get for the 
+machine?</a></h2>
+
+Quite a lot, in fact, though it's not cheap. As far as I can tell, the
+750 print-set is still available from DEC, though the last time I
+asked, the price was upwards of 700 pounds. I don't know whether this
+includes print-sets for the optional add-on boards, or whether it's
+just the basic machine (and neither did the bloke I spoke to at DEC).
+I'm currently looking for print-sets for the RDM, the L0022 memory
+controller and the M7199 memory board.
+
+Manuals: <p>
+
+(Note that I haven't verified the availability of all of these -- I've
+only got copies of the ones I've listed prices for.) <p>
+
+VAX-11/750 Central Processor Unit Technical Description: EK-KA750-TD <br>
+
+About 90 pounds. Describes most of the non-optional bits of the
+processor. Does not describe the memory controllers, PCS or FPA. Very
+detailed in some areas, maddeningly vague in others. Makes extensive
+reference to a microcode listing which isn't included, and which I
+don't think you can get from DEC (certainly no part-number is given).
+The hardware handbook mentions (but gives no part number for) an
+'Introduction to the Vax-11/750 Microarchitecture' (hardware handbook
+P. 213). <p>
+
+VAX-11/750 Unibus Interface TD: EK-UI750-TD <br>
+About 30 pounds. Describes UBI in detail. Much of this is described in
+less detail in the CPU manual above.  <p>
+
+VAX-11/750 Power System TD: EK-PS750-TD <br>
+About 30 pounds. Describes the power system in detail.  <p>
+
+FP750 Floating point accelerator TD: EK-FP750-TD <br>
+Apparently no longer available -- needless to say, I'd love to
+get hold of a copy.<p>
+
+RH750 Massbus Adapter TD: EK-RH750-TD <br>
+About 30 pounds. Describes massbus adapter in detail.<p>
+
+MS750 memory system TD: EK-MS750-TD <br>
+About 30 pounds. Describes L0011 memory controller, but not L0016 and 
+L0022.<p>
+
+VAX-11 Diagnostic System User's Guide: EK-VX11D-UG <p>
+
+VAX-11/750 Diagnostic System Overview: EK-VXD75-UG <br>
+(Another manual lists this as EK-VXC750-UG)<p>
+
+VAX-11/750 Microdiagnostic Mini Reference guide: EK-KC750-RM <br>
+About 30 pounds. Brief reference to RDM commands, Micmon commands,
+750 console commands, various error codes, internal processor
+registers &c. <p>
+
+KC750 Microdiagnostics and Technical Manual: EK-KC750-TM <br>
+Describes use of RDM. About 30 pounds. <p>
+
+VAX-11/750 Gate Array Chip Reference Manual: EK-GA750-RM <p>
+
+Installation/Acceptance Manual: EK-SI750-IN <br>
+(but my 'Vax 11/750 Installation Guide (preliminary)' is EK-SI75F-IN-PRE) <p>
+VAX Hardware Handbook 1980-1981 <br>
+This book is very useful. I very much doubt that it's still available! <p>
+VAX Architecture Handbook 1981 <br>
+Describes the instruction set in detail, addressing modes and memory
+management. <p>
+VAX Software Handbook 1980-1981 <br>
+Describes VMS. <p>
+
+<h2><a name="contactingdec">How do I get in touch with DEC?</a></h2>
+
+To order spare parts and so forth, you need to get in touch with DEC. 
+In the UK, the first port of call is probably the Digital (Dis-)Service
+Store, which can be contacted on 01734-201366. They can quote prices and
+so forth, and can (if they're in a good mood) find part-numbers for you.
+<p>
+Outside the UK, see <a href="http://www.dec.com/info/DAS-Catalog/DAS002HM.HTM#country">
+the contact number listing</a> on the Digital Assisted Services 
+web-page for local phone numbers. 
+<hr>
+<p>End of Vax 11/750 Frequently Asked Questions By James Lothian.</p>
+<p>Back to <a href="index.html">VAXarchive hardware page</a></p>
+
+</body>
+</html>
+
+

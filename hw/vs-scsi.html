@@ -1,0 +1,140 @@
+<html><head><title>VS3100 and VS2000 SCSI news</title></head>
+<body bgcolor=#FFFFFF">
+<p>Date: Fri, 11 Jun 1999 22:00:02 +0200<br>
+From: &quot;GWDVMS::MOELLER&quot; moeller at gwdvms.dnet.gwdg.de <br>
+Subject: Vs3100 &amp; Vs2000 news</p>
+
+<p>
+Dear all,</p>
+
+<p>I found the e-mail addresses to whom I'm sending this mail
+on some web pages dealing with VAX models, or the Vs2000 
+in particular. </p>
+
+<p>I see that none of the web pages yet seem to have learned 
+of the news about the SCSI on the VAXstation/uVAX 2000, 
+formerly known as &quot;tape controller&quot; (TPC) - I've been practicing 
+it since 1997, triggered by B.Barth's &quot;discovery&quot; of it working 
+just fine with NetBSD. </p>
+
+<p>In particular, it's time for doing away with the &quot;almost SCSI&quot;
+urban legends perpetuated at some web sites ... it's all the
+same hardware as the Vs3100, only equipped with a somewhat
+scarce &quot;DMA buffer&quot; of 16 kB (Vs3100 has 128 kB) which _may_ mean 
+that in general, you can't do real large SCSI &quot;DMA&quot; transfers
+(the last word isn't out on this, so far my VMS driver assumes this 
+restriction to be valid, but there is a chance that I learn of a 
+work-around when I get one original DEC developer to remember 
+well enough how come he put some obscure, possibly never exercised, 
+code into the original VMS 'tape' driver, that at least _pretends_ 
+being able to do 'segmented' DMA transfers, without the tape 
+disconnecting/reconnecting every 12kB, as that old TK50Z
+apparently did). This DMA limit doesn't even come into play 
+with the BOOT stuff mentioned below, as it's conservatively 
+using &quot;programmed SCSI I/O&quot; throughout (sure that's slooow!).</p>
+
+<p>I lately updated the VMS &quot;PK2K&quot; driver &amp; supporting patches 
+to accomodate several different VMS releases, and a settable
+SCSI host id, and added BOOT images plus a BOOT ROM upgrade
+that might even be useful with operating systems other than VMS -
+'boot block' boot support would be identical to what the Vs2000
+can do with 'old' ST506 disks, and for that matter, the Vs3100
+(which - down to the ROMs - is just the Vs2000's big brother).</p>
+
+<p>The posting of mine that I'll include below, mainly deals with
+my 'updates' to the Vs3100 and Vs2000 ROMs, but further below
+proceeds to mention the &quot;PK2K&quot; URL as well (all of the &quot;ftp://&quot; 
+URLs also ought to work with an &quot;http://&quot; prefix).</p>
+
+<p>I may still be the only one to have tried out all of this
+and while I'm pretty sure (and I'm not _that_ clueless :-) 
+about it all working just fine &amp; dandy, could use some more 
+'early adopters'. Since on the other hand, I don't like writing
+(web pages, in particular) - maybe some of you could help me out
+a bit, or at least spread the word ...</p>
+
+<p>I'm mainly a 'VMS person', so &quot;patches&quot;, where mentioned below,
+are ASCII files that can be input to the VAX/VMS PATCH utility,
+which allows for &quot;editing&quot; binaries at the level of (symbolic!) 
+machine-instructions. If there's interest in non-VMS circles, 
+let me know what tool would be best for doing these things 
+without VMS - while I'm not particularly eager to run some UNIX 
+on these 'small VAXen' _myself_ (and I don't), seriously I'd 
+be happy to help those who prefer doing so.</p>
+
+<p>Best regards,<br>
+Wolfgang J. Moeller, Tel. +49 551 2011516 or -510, moeller at gwdvms.dnet.gwdg.de<br>
+GWDG, D-37077 Goettingen, F.R.Germany   |       Disclaimer: No claim intended!<br>
+moeller at decus.decus.de - moeller at gwdg.de - w.moeller at ieee.org</p>
+
+<p>On INFO-VAX (comp.os.vms), I posted on 21-MAY-1999 ...</p>
+
+<p>The Vs3100 boot EPROMs (all models, also found in early uVAX 3100
+models) have the infamous 1GB limitation for the (SCSI) system disk 
+(i.e. the boot/dump device). </p>
+
+<p>I have patches for some popular boot EPROM versions (plus VMS tools 
+which read the existing EPROMs &amp; create &quot;binary&quot; files suitable for 
+EPROM writers) in</p>
+
+<p>	ftp://ftp.gwdg.de/pub/vms/ka420/README.txt
+	ftp://ftp.gwdg.de/pub/vms/ka420/ka420-rom-patch_010.zip</p>
+
+<p>The EPROMs (2 chips, 64k x 16) are standard parts, and are easy 
+to come by (they cost a few $). All you need besides VMS and the 
+chips is someone with an EPROM writer (no soldering involved!) ...</p>
+
+<p>All `standard disclaimers' for free software apply, however my 
+home Vs3100 works real fine with patched boot ROMs, and 2GB 
+Seagate &amp; IBM disks (4 GB IBM DDRS also tried once, there is 
+no reason to expect surprises). If your ROM version is not 
+among the ones listed in the README, please let me know.</p>
+
+<p>-----</p>
+
+<p>Lately I also patched my Vs3100's &quot;storage controller&quot; EPROM
+(the one that sits on the disk controller board with a Vs3100/*
+and on the main board with a uVAX 3100/10) to eliminate the _bug_
+that would indicate a bogus self-test error (000000D4) with some
+newer SCSI disks, and thus inhibit automatic boot at power up.</p>
+
+<p>I know that there are at least 3 versions of this ROM in the field.
+Version numbers are displayed by the &quot;&gt;&gt;&gt; T 50&quot; console command,
+under the &quot;SCSI-A&quot;, &quot;SCSI-B&quot;, or &quot;STRG-1&quot; (i.e. ST506) headings.
+ROMs also differ among the dual SCSI vs. SCSI+ST506 controller 
+boards. The one I'm using is &quot;V1.30&quot; of the SCSI-A/STRG-1 variety...</p>
+
+<p>Depending on interest, I guess I'd see fit to adapt this patch
+(quite simple) to the other ROM versions - please let me know
+(too lazy to put the 1st one up for FTP, as long as no-one asks
+for it, or even complains about the bug :-).</p>
+
+<p>-----</p>
+
+<p>A huge patch that converts the &quot;V2.3&quot; Vs2000 ROMs (4 of 64k x 8)
+into ones that can boot from SCSI disks (*instead* of from TK50) 
+is part of my &quot;PK2K&quot; kit (this SCSI port driver for VMS is 
+obviously required to be present on the media to be booted).</p>
+
+<p>	ftp://ftp.gwdg.de/pub/vms/pk2k/preview/</p>
+
+<p>I know that it works fine for all of my Vs2000s, and for all 
+SCSI disks (up to 4GB) and the two CD-ROM drives that I happen
+to have around, but _really_ ought to be more widely tested ...
+(no danger of either a 1GB limitation, or the &quot;000000D4&quot; bug!).</p>
+
+<p>Again, I'd know how to also patch the older ROM versions, 
+if someone really cared for them ...</p>
+
+<p>----</p>
+
+<p>OBTW, EPROM 'burning' is rather fast, compared to CD-R 'burning'.
+Writers cost somewhat more, and tend to require a PC's parallel 
+port to drive (plus proprietary software) ...</p>
+
+<p>Wolfgang J. Moeller, Tel. +49 551 2011516 or -510, moeller at gwdvms.dnet.gwdg.de
+GWDG, D-37077 Goettingen, F.R.Germany   |       Disclaimer: No claim intended!
+<moeller at decus.decus.de>  ----- <moeller at gwdg.de>  -----  <w.moeller at ieee.org>
+<hr>
+</body>
+</html>

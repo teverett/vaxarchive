@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+<TITLE>The VAX Network Booting HOWTO: Something Went Wrong</TITLE>
+</HEAD>
+<BODY>
+<A HREF="VAX-netboot-HOWTO-6.html">Previous</A>
+<A HREF="VAX-netboot-HOWTO-8.html">Next</A>
+<A HREF="VAX-netboot-HOWTO.html#toc7">Table of Contents</A>
+<HR>
+<H2><A NAME="some-wrong"></A> <A NAME="s7">7. Something Went Wrong</A></H2>
+
+<P>I've only got a few failing scenarios to offer up at this point.  The
+whole netboot procedure has been rather kind to me.  Of course the
+advice I'd received throughout the entire process may have had a good
+deal to do with the success I've had.</P>
+
+
+<H2><A NAME="ss7.1">7.1 Bootloader Fails to Load The Kernel</A></H2>
+
+<P>In my experience.  The bootparamd responses to `whoami' requests don't
+always take hold.  The bootloader makes four attempts to grab a
+response, but occasionally that's not enough and the boot attempt
+fails.</P>
+<P>From the bootparamd server:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+whoami got question for 10.3.250.5
+This is host vaxclient.test.net
+Returning vaxclient   (none)    127.0.0.1
+whoami got question for 10.3.250.5
+This is host vaxclient.test.net
+Returning vaxclient   (none)    127.0.0.1
+whoami got question for 10.3.250.5
+This is host vaxclient.test.net
+Returning vaxclient   (none)    127.0.0.1
+whoami got question for 10.3.250.5
+This is host vaxclient.test.net
+Returning vaxclient   (none)    127.0.0.1
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>From the VAX client console:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+-ESA0
+&gt;&gt; NetBSD/vax boot [980110 22:29] &lt;&lt;
+: /netbsd
+boot: client IP address: 10.3.250.5
+bootparamd: 'whoami' call failed
+Unknown error: code 60
+: /netbsd
+netboot: no interfaces left untried
+rtt
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Sending a `break' will drop you back to the console prompt ">>>" from
+which you can start the boot process over.</P>
+<P>This was a problem under Linux bootservers and was related to the
+difficulties with Linux's support of RARP.  The workaround was to load
+the ARP cache with values prior to loading the RARP table.</P>
+
+
+<H2><A NAME="out-buff-busy"></A> <A NAME="ss7.2">7.2 Boot Hangs - output buffer busy</A></H2>
+
+<P>If your attempts to netboot your VAX are met with the message <CODE>le0:
+output buffer busy</CODE>, then this section is for you.</P>
+<P>From the VAX client console:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+-ESA0
+&gt;&gt; NetBSD/vax boot [980110 22:29] &lt;&lt;
+: /netbsd
+le0: transmit timeout, stat=0x13
+le0: output buffer busy
+le0: output buffer busy
+le0: output buffer busy
+le0: output buffer busy
+...
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>The problem occurs on the netboot supported VAX systems which are
+configured with more than 16Megs of memory. The reason for this is
+that the memory areas critical to the operation of the lance ethernet
+device get mapped in such a way that memory configurations of more
+than 16Megs confuse NetBSD's interaction with the lance device. The
+problem should be fixed in the future.</P>
+<P>There's a very simple workaround for this in the meantime. It is to
+pull out enough memory boards to place your system's main memory at or
+below the 16Meg mark.</P>
+
+
+
+<H2><A NAME="disp-cons"></A> <A NAME="ss7.3">7.3 Boot Hangs - kernel stops, but I can ping client</A></H2>
+
+<P>Didn't I tell you that you had to use a serial console?  This is what
+happens when you try to boot NetBSD/vax without a serial console.  As
+soon as the kernel starts running, you lose output to the display
+console.  The kernel continues along on its merry way.  You just can't
+see the messages it's giving you and you can't send any input to the
+system from the VAX client keyboard.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+-ESA0
+&gt;&gt; NetBSD/vax boot [980110 22:29] &lt;&lt;
+: /netbsd
+boot: client IP address: 10.3.250.5
+boot: client name: vaxclient
+root addr=10.3.250.2 path=/export/vaxclient/root
+700416+38912+75784 start 0x9c078
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>You can in fact actually use a system without a serial console as long
+as you've got it to a state where it boots right up into multi-user
+mode.  Then if the networking is set up properly on the machine, you
+can telnet into the VAX from another system on your network.  If at
+all possible, I would still recommend having access to a serial
+console.  It's a bit more straightforward to deal with if something
+goes wrong with your VAX.</P>
+
+
+<HR>
+<A HREF="VAX-netboot-HOWTO-6.html">Previous</A>
+<A HREF="VAX-netboot-HOWTO-8.html">Next</A>
+<A HREF="VAX-netboot-HOWTO.html#toc7">Table of Contents</A>
+</BODY>
+</HTML>

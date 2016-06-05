@@ -1,0 +1,85 @@
+<html><head><title>The DEC round mouse VSXXX-AA</title></head>
+<body bgcolor="#ffffff">
+<h1>The DEC mouse VSXXX-AA</h1>
+<pre>
+Newsgroups: comp.sys.dec
+Subject: Re: Ode to the DEC Round Mouse
+Date: Mon, 12 Oct 1998 16:38:06 -0400
+Organization: OpenVMS Engineering
+Message-Id: <3622306E.6B4F7244@star.enet.dec_nospam.com>
+
+[The mouse pin-out is...]
+
+ 1 GND
+ 2 TXD
+ 3 RXD
+ 4 -12v
+ 5 +5v
+ 6 Not Used
+ 7 Device Present (shorted to pin 1)
+ Shell - protective ground
+
+ Power: +5v +/- 5% at < 150 mA
+        -8v to -13v at < 20 mA
+ Signals: RS-232 voltage-level-compatable
+
+ 4800 baud, 1 stop bit.  odd parity.  parity ignored on incomming
+ data (it also ignores bit 7).
+
+
+  7-pin mico-DIN (male).  Pin out (+ == connector key):
+
+                        +
+                     5  6  7
+
+                    3        4
+
+                     +1   2+
+
+
+  Commands:
+
+  R		Select incremental stream mode
+  D		Select prompt mode
+  P		Request mouse position (also enters prompt mode)
+  T		Self test, & identify
+  Z xx		Reserved (test functions)
+
+  Data format:
+
+   7    6    5    4    3    2    1    0
+   -------------------------------------
+   1    0    0    sx   sy   L    M    R   Byte 1
+   0    x6   x5   x4   x3   x2   x1   x0  Byte 2
+   0    y6   y5   y4   y3   y2   y1   y0  Byte 3
+
+  Bit 7, byte 1 - Phasing.  Bit 7 always clear for byte 2 & 3
+  Byte DATA bits 5 & 6 always 0
+  sx, sy sign bits.  1= positive, 0 = negative
+  L, M, R  - button bits, 1 = depressed
+  X6-X0 - X displacement
+  Y6-Y0 - Y displacement
+
+  Self test, and power up:
+
+  7    6    5    4    3    2    1    0
+  -------------------------------------
+  1    0    1    0    r3   r2   r1   r0  Byte 1
+  0    m2   m1   m0   0    0    1    0   Byte 2
+  0    e6   e5   e4   e3   e2   e1   e0  Byte 3
+  0    0    0    0    0    L    M    R   Byte 4
+
+  Byte 1, bit 7 always set.
+  Byte 1 bit 6 always clear, bit 5 always set -- MOUSE connected.
+  R3-R0 - revision
+  M2-M0 - Maufacturer location code
+  E6-E0 - Error code
+  L, M, R - If byte 3 is "=" (0x3d) - button error, mask determines
+  which button), if byte 3 is > 0x20 other error, if byte 3 < 0x20
+  no error, LMR are current button state.
+</pre>
+<p>Thanks to Fred Kleinsorge <kleinsorge@star.enet.dec_nospam.com></p>
+<hr>
+<p><a href="index.html">back to index</a></p>
+</body>
+</html>

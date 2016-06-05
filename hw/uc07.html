@@ -1,0 +1,129 @@
+<html><head><title>Emulex UC07/UC08 Q-bus SCSI controllers</title></head>
+<body bgcolor="#FFFFFF">
+<h1>Emulex UC07/UC08 Q-bus SCSI controllers</h1>
+<p>The Emulex UC07 Q-bus SCSI controller is supported by NetBSD.
+It talks MSCP to the VAX, so that's no problem.
+The UC07 can be configured to use either disks or tapes, but _not_
+at the same time. (the UC08 has 2 SCSI controllers for that purpose..)</p>
+
+<p>The UC07/8 
+adapters do their own low-level format of the disk and map geometries and
+stuff, and you have to go into its firmware to confgure a new disk with 
+it. its not a very complicated process, the UC07 actually has a simple 
+little menu system in firmware that makes it pretty easy. It will take
+a while if you have a large disk though! 
+Even if you remove a disk, the UC07 still reports it present (but offline) 
+to any software. </p>
+
+<h2>Setup program</h2>
+<p>To access the on-board diag/setup program you enter these commands
+at the chevron prompt:</p>
+<pre>
+>>> I
+>>> D/P/W 20001F40 20
+>>> D/P/L 20088000 80000000
+>>> D/P/L 20088004 80000001
+>>> D/P/W 2000XXXX 1
+>>> D/P/W 2000YYYY 3003
+>>> D/P/W 2000YYYY 4401
+>>> S 80
+</pre>
+<p>XXXX and YYYY are offsets depending on the address of the controller.</p>
+<pre>
+Address          XXXX       YYYY
+17772150         1468       146A
+17772154         146C       146E
+17760334         00DC       00DE
+17760340         00E0       00E2
+17760344         00E4       00E6
+17760350         00E8       00EA
+17760354         00EC       00EE
+17760360         00F0       00F2
+17760364         00F4       00F6
+17760370         00F8       00FA
+17760374         00FC       00FE
+17760400         0100       0102
+17760404         0104       0106
+17760410         0108       010A
+17760414         010C       010E
+17760420         0110       0112
+</pre>
+<p>Please forgive me if there are any typo's.</p>
+
+<p>I have an UC07 in my 3600 and it works great. I just had a 
+small problem with an IBM DORS SCSI drive. It would be detected
+OK and I could set it up with the diagnostics, but the VAX wouldn't
+boot from it. It seemed like some initialisation problem of the UC07 
+and the IBM drive. I swapped it with a HP drive and this works fine.</p>
+<p>From: Arno Griffioen, arno at usn.nl</p>
+
+<h2>Jumper settings</h2>
+<pre>
+SW3 and/or 4:
+
+CSR	SW3/4 1 2 3 4
+72150	0 0 0 0 
+72154	1 0 0 0
+60334	0 1 0 0
+60340	1 1 0 0
+60344	0 0 1 0
+60350	1 0 1 0
+ and so on down to 
+60420	1 1 1 1
+
+SW1/2
+1	off- run 	on- reset/halt
+2	off- enable  	on- disable
+3 	reserved
+4	off-normal 	on-loop self test
+
+SW3/4
+5	off-TMSCP 	on-MSCP
+6	(mscp only) 	off-disable autoboot on-enable autoboot
+
+interrupt request level (default is 4 and the manual highly recommends it)
+quad wide uco7/8        4       5
+scsi bus 1 - jumper PR	in	out
+                    RS	out	in
+
+bus 2-		    LM 
+		    MN same as above
+
+on a dual-wide UC07, same story, but they're jumpers TU and UV
+
+
+on a microVAX, heres how to start the firmware for disks. 
+
+first, a handy table
+
+csr	XXXX	YYYY
+72150	1468	146a
+72154	146c	146e
+60334	00dc	00de
+60340	00e0	00e2
+60344	00e4	00e6
+
+and so on down to
+60420	0110	0112
+
+
+now at the chevron, enter
+i
+d/p/w 20001f40 20
+d/p/l 20088000 80000000
+d/p/l 20088004 80000001
+d/p/w 2000XXXX 1
+d/p/w 2000YYYY 3003
+d/p/w 2000YYYY 4401
+pause a second
+then
+s 80
+If that fails, wait a second or two, then try s 80 again.
+The firmware is menu driven and conversational, very easy to use. 
+If anyone still wants a xerox of the manual after this info, let me know.
+</pre>
+<p>From: Lord Isildur, mrfusion at crue.jdwarren.com
+<hr>
+<a href="index.html">Back to hardware index</a>
+</body>
+</html>

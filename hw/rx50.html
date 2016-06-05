@@ -1,0 +1,145 @@
+<html>
+<head><title>The RX50 FAQ</title></head>
+<body bgcolor="#ffffff">
+<h1>The RX50 FAQ</h1>
+<center><img src="rx50.jpg" width="307" height="286" alt="The RX50 disk drive"></center>
+<p>The RX50 disk drive and its disks are shrouded in a great deal of confusion
+and mystery. Every few months messages show up in the DEC related news groups 
+concerning this drive that kick off the same discussion again and again. This is
+because DEC found a very unusual solution for cramming as much data on 5.25 inch 
+disks as cheaply as was possible at the time, so it takes a unusual position in the
+range of floppy types one is familiar with. The confusion already begins when
+you mention the word 'floppy' and one listener thinks you mean the disk and
+another one thinks you mean the drive. I'll try to keep things clear.</p>
+
+<p>This RX50 FAQ answers the following questions:</p><ul>
+ <li>Which disk should I use?
+ <li>How do I write RX50 disks on a PC?
+</ul>
+<p>More questions and answers will follow.</p>
+
+<h2>Which disk should I use?</h2>
+<p>Let's start with comparing the RX50 with other well known 5.25i disk types.</p>
+
+<p>The format used on a RX50 disk is:</p>
+<ul>
+ <li>single sided
+ <li>80 tracks
+ <li>10 sectors per track
+ <li>96 tpi (tracks per inch)
+ <li>300 rpm (revolutions per minute)
+ <li>250 KHz data rate
+</ul>
+
+<p>This translates to 400K SSQD, Single Sided Quad Density. In contrast, 
+a standard low density 5.25i PC disk has the format:</p>
+<ul>
+ <li>double sided
+ <li>40 tracks on each side
+ <li>9 sectors per track
+ <li>48 tpi
+ <li>300 rpm
+ <li>250 KHz data rate
+</ul>
+
+<p>This translates to 360K DSDD, Double Sided Double Density. To round things 
+off, the format of a standard high density 5.25i PC disk is:</P>
+<ul>
+ <li>double sided
+ <li>80 tracks on each side
+ <li>15 sectors per track
+ <li>96 tpi
+ <li>360 rpm
+ <li>500 KHz data rate
+</ul>
+
+<p>which translates to 1.2MB DSHD, Double Sided High Density. Now you can see
+the source of the confusion:</p>
+<ul>
+ <li>The RX50 and the PC 360K disk have the same data rate 
+     but a different number of tracks
+ <li>The RX50 and the PC 1.2MB disk have the same number of tracks
+     but a different data rate
+</ul>
+
+<p>This means that the disks that the RX50 uses are very much alike PC 360K
+disks, but very different from PC 1.2MB disks. The magnetic material needed
+for 48tpi 250KHz (PC 360K) and for 96 tpi 250KHz (RX50) is almost the same, 
+but is very much different from the material needed for 96 tpi 500KHz
+(PC 1.2MB), because in the latter case in the same amount of time almost 
+twice as much data per track is written per revolution of the disk to be 
+able to cram the almost double amount of sectors in a track.</p>
+
+<p>This also means that while in theory you should use 96 tpi QD disks in a
+RX50 drive, to allow for the narrower tracks that the RX50 drive writes,
+the standard PC 360K DD 48 tpi disks will work just fine in a RX50 drive. 
+The quality of a well known brand is good enough to be able to cope with the
+narrower tracks. Do not use the cheap no-name white label disks.
+I have used the regular 3M 360K disks in RX50 drives for years, and not
+a single one has failed yet. You should <em>never</em> use 1.2MB HD disks. 
+The magnetic material used in these disks is of a <em>totally different 
+composition</em> to allow for the greater number of sectors per track, and it 
+won't work in a RX50 drive, just as it won't work in a PC 360K drive.</p>
+
+<h2>How do I write RX50 disks on a PC?</h2>
+<p>Use a PC with an 1.2MB drive and one of these software packages that
+can use this drive to write to and read from RX50 disks.</p>
+<p>Ah-ha! you say. That won't work! You just told me 1.2MB drives have a 
+different data rate than RX50 drives! Well that is true, and that is not
+true. I told you things were confusing :) Let me explain.</p>
+
+<p>The PC 1.2MB 5.25i drive is a very interesting critter. When IBM developed
+the PC AT in 1986, they wanted it to have a disk drive that was able to
+put much more data on a disk than was possible before, because the customers
+were complaining a lot about the enormous stack of 360K disks needed to
+back up their gigantic 20MB hard disks. But IBM also wanted that when a
+customer bought the PC AT and sold the PC or PC XT he/she was using before, 
+the customer would still be able to read all the disks he/she wrote with 
+the PC XT. So the 1.2MB drive needed to be able to read 360K disks.
+This was a big mistake and lead to a great amount of confusion, trouble
+and unreadable disks, but this same mistake makes it possible for us to
+use the drive with RX50 disks.</p>
+
+<p>You see, IBM designed the 80 track 1.2MB 5.25i drive in such a way 
+that it could switch between two modes. It could do:</p><ul>
+ <li>360 rpm / 500 KHz
+ <li>300 rpm / 250 KHz
+</ul>
+<p>The 1.2MB disk is written and read with 360 rpm / 500 KHz, and the 360K disk
+was supposed to be only read with the 300 rpm / 250 KHz mode. To read the 40
+track 360K disks in the 80 track 1.2MB drive, the operating systems stepped the
+heads two tracks at a time to get the heads to the middle of the next 360K 
+track. The trouble started when the customers started to write to 360K disks 
+with the 1.2MB drives.</p>
+<p>The 1.2MB drive is capable of writing 80 tracks in the same space that the
+360KB drive can write only 40, and can do this because the head has almost
+half the width than the head of a 360K drive. This of course also means the 
+written tracks have half the width. </p>
+<p>Reading the wide 360K tracks with the narrow 1.2MB head is not a problem, 
+but writing a 360K track with a 1.2MB head guarantees that the wider head of 
+a real 360K drive will not pick up enough signal to read the data reliable. 
+Worse trouble occurs when a disk that was already written to with a 360K 
+drive gets new data written on it with a 1.2MB drive in 360K mode: a narrow 
+new track is written in the middle of the wide old track and while the disk 
+is perfectly readable in a 1.2MB drive, a 360K drive will get the old and 
+the new signals at the same time and won't be able to decode the mess.</p>
+<p>But for us the 300 rpm / 250KHz mode of a 1.2MB drive is very fortunate
+because we need the full 80 tracks of this drive to read and write the
+RX50 disks, which are 300 rpm / 250KHz and 80 tracks. handy, isn't it?</p>
+<p>This also explains why we need special software to use the drive in this
+mode, because 80 tracks / 300 rpm / 250 KHz / single sided is not a format
+that is used in a standard PC, although the hardware is capable of it.
+The only format that comes close is the 720K 3.5i drive, that uses
+80 tracks / 300 rpm / 250 KHz / double sided / 9 sectors per track.</p>
+
+<p>Programs to use RX50 disks in a PC</p><ul>
+ <li><a href="http://www.dbit.com/pub/putr/">John Wilson's PUTR</a>
+ <li><a href="ftp://ftp.update.uu.se:/pub/rainbow/msdos/latrobe/r/raind111.zip">RainDOS</a>
+ <li><a href="ftp://www.simtel.net:/pub/simtelnet/msdos/diskutil/rx50.zip">rx50drvr.sys</a>
+ <li><a href="http://www.sydex.com/">Sydex 22disk</a>
+</ul>
+
+<hr>
+<a href="../index.html">Back to hardware page</a>
+</body>
+</html>
