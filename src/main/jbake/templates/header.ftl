@@ -78,11 +78,7 @@ body {
 	<div class="container-narrow">
 
 		<div class="masthead">
-			<ul class="nav nav-pills pull-right">
-				<li><a href="/">Home</a></li>
-				<li><a href="/about.html">About</a></li>
-			</ul>
-			<h3 class="muted">VaxArchive</h3>
+			<h3 class="muted"><img src="vaxarch.gif"/></h3>
 		</div>
 
 		<hr>
