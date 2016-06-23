@@ -6,7 +6,8 @@
 		<h3>Welcome to VaxArchive</h3>
 		</div>
 	</div>
-	<a href="hardware/hardware.html">Hardware</a>
+	<a href="hardware/index.html">Hardware</a>
+	<a href="pdp11/index.html">PDP11</a>
 	<hr>
 
     <div class="footer">
