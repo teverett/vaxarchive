@@ -7,7 +7,6 @@
 		</div>
 	</div>
 	<a href="hardware/index.html">Hardware</a>
-	<a href="pdp11/index.html">PDP11</a>
 	<hr>
 
     <div class="footer">
