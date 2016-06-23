@@ -78,7 +78,7 @@ body {
 	<div class="container-narrow">
 
 		<div class="masthead">
-			<h3 class="muted"><img src="vaxarch.gif"/></h3>
+			<h3 class="muted"><img src="${content.rootpath}/vaxarch.gif"/></h3>
 		</div>
 
 		<hr>
