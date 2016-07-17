@@ -1,5 +1,4 @@
 <#include "header.ftl">
-
 	<div class="row-fluid marketing">
 		<div class="span12">
 		<h3>Welcome to VaxArchive</h3>
