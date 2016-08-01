@@ -1,6 +1,6 @@
 # vaxarchive
 
-JBake project to generate the site http://www.vaxarchive.org
+[JBake](http://jbake.org/) project to generate the site [http://www.vaxarchive.org](http://www.vaxarchive.org)
 
 Build Status
 ----------
