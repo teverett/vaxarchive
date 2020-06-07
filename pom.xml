@@ -5,7 +5,7 @@
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<properties>
-		<freemarker.version>2.3.28</freemarker.version>
+		<freemarker.version>2.3.30</freemarker.version>
 	</properties>
 	<dependencies>
 		<!-- for freemarker templates (.ftl) -->
@@ -18,8 +18,9 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>br.com.ingenieux</groupId>
+				<groupId>org.jbake</groupId>
 				<artifactId>jbake-maven-plugin</artifactId>
+				 <version>0.3.2</version>
 				<executions>
 					<execution>
 						<id>default-generate</id>
