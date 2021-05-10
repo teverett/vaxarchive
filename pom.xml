@@ -20,7 +20,7 @@
 			<plugin>
 				<groupId>org.jbake</groupId>
 				<artifactId>jbake-maven-plugin</artifactId>
-				 <version>0.3.2</version>
+				 <version>0.3.4</version>
 				<executions>
 					<execution>
 						<id>default-generate</id>
