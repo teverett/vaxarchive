@@ -5,7 +5,7 @@
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<properties>
-		<freemarker.version>2.3.31</freemarker.version>
+		<freemarker.version>2.3.32</freemarker.version>
 	</properties>
 	<dependencies>
 		<!-- for freemarker templates (.ftl) -->
