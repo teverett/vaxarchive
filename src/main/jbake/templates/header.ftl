@@ -77,7 +77,8 @@ body {
 	<div class="container-narrow">
 		<div class="masthead">
 			<h3 class="muted"><img src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>vaxarch.gif"/></h3>
-			<a href="https://github.com/teverett/vaxarchive"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+			<a href="https://github.com/teverett/vaxarchive"><img decoding="async" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_green_007200.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" loading="lazy" 
 		</div>
 
-		<hr>
+		<hr/>
+		
