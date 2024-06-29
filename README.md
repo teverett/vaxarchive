@@ -5,4 +5,4 @@
 Build Status
 ----------
 
-<a href="https://travis-ci.org/"><img src="https://api.travis-ci.org/teverett/vaxarchive.png"></a>
+[![CI](https://github.com/teverett/vaxarchive/actions/workflows/main.yml/badge.svg)](https://github.com/teverett/vaxarchive/actions/workflows/main.yml)
